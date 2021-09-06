@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
+  passwordVisible = false;
+  password?: string;
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {

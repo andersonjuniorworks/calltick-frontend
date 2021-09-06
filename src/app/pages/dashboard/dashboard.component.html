@@ -2,11 +2,11 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
         <div class="logo"></div>
         <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
-            <li nz-menu-item>
+            <li nz-menu-item routerLink="home">
                 <i nz-icon nzType="home"></i>
                 <span>Ínicio</span>
             </li>
-            <li nz-menu-item>
+            <li nz-menu-item routerLink="client">
                 <i nz-icon nzType="team"></i>
                 <span>Clientes</span>
             </li>
@@ -38,7 +38,6 @@
         </nz-header>
         <nz-content>
             <div class="inner-content">
-                <h2>Bem vindo ao Calltick</h2>
                 <router-outlet></router-outlet>
             </div>
         </nz-content>
