@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="panel" id="panelLogin">
+        <div class="panel-content">
+            <div class="panel-header">
+                <h2>Entrar</h2>
+            </div>
+            <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Preencha o campo de email">
+                        <nz-input-group>
+                            <input type="email" nz-input formControlName="userName" placeholder="Digite o email" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Preencha o campo de senha">
+                        <nz-input-group>
+                            <input type="password" nz-input formControlName="password" placeholder="Digite a senha" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <div nz-row class="login-form-margin">
+                    <div nz-col [nzSpan]="12">
+                        <label nz-checkbox formControlName="remember">
+							<span>Mantenha-me conectado</span>
+						</label>
+                    </div>
+                    <div nz-col [nzSpan]="12">
+                        <a class="login-form-forgot">Esqueci minha senha</a>
+                    </div>
+                </div>
+                <button nz-button class="login-form-button login-form-margin" [nzSize]="'large'" [nzType]="'primary'">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>

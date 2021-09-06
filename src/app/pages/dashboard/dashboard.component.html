@@ -1,0 +1,46 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+        <div class="logo"></div>
+        <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
+            <li nz-menu-item>
+                <i nz-icon nzType="home"></i>
+                <span>Ínicio</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="team"></i>
+                <span>Clientes</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="bars"></i>
+                <span>Categorias</span>
+            </li>
+            <li nz-submenu nzTitle="Chamados" nzIcon="file-text">
+                <ul>
+                    <li nz-menu-item>Todos os Chamados</li>
+                    <li nz-menu-item>Meus Chamados</li>
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="Financeiro" nzIcon="dollar-circle">
+                <ul>
+                    <li nz-menu-item>Em Dias</li>
+                    <li nz-menu-item>Em Atraso</li>
+                </ul>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="user"></i>
+                <span>Usuários</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+        </nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <h2>Bem vindo ao Calltick</h2>
+            </div>
+        </nz-content>
+        <nz-footer>Todos os direitos reservados ©2021 - Anderson Júnior</nz-footer>
+    </nz-layout>
+</nz-layout>
