@@ -1,0 +1,34 @@
+.row-content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  width: calc(25% - 40px);
+  min-width: 300px;
+  min-height: 140px;
+  margin: 0 20px 10px 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark);
+  color: #fff;
+}
+
+.card .card-body {
+  padding: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.card .card-body h2 {
+  font-weight: 700;
+  font-size: 30px;
+  color: #fff;
+}
+
