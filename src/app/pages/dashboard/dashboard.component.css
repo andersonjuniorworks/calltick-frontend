@@ -37,7 +37,7 @@ nz-breadcrumb {
 .inner-content {
     height: 100%;
     padding: 24px;
-    background: #fff;
+    background: none;
     min-height: 360px;
 }
 

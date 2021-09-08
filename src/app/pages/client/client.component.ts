@@ -1,13 +1,9 @@
+import { ClientService } from './../../services/client.service';
+import { Client } from './../../models/client.model';
 import { Component, OnInit } from '@angular/core';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
-interface DataItem {
-  cpfOrCnpj: string;
-  fullname: string;
-  nickname: string;
-  contact: string;
-}
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-client',
@@ -16,10 +12,12 @@ interface DataItem {
 })
 export class ClientComponent implements OnInit {
 
-  constructor(private modal: NzModalService) { }
+  clients: Client[];
 
-  ngOnInit() {
-  }
+  page: number = 0;
+  sizePage: number = 5;
+
+  listOfDisplayData: Client[];
 
   size: NzButtonSize = 'large';
 
@@ -28,34 +26,15 @@ export class ClientComponent implements OnInit {
   visibleDoc = false;
   visibleName = false;
 
-  listOfData: DataItem[] = [
-    {
-      cpfOrCnpj: '071.156.213-06',
-      fullname: 'Antonio Anderson Vieira do Nascimento Júnior',
-      nickname: 'Anderson Júnior',
-      contact: '(88) 9 9435-4507'
-    },
-    {
-      cpfOrCnpj: '071.156.213-06',
-      fullname: 'Antonio Anderson Vieira do Nascimento Júnior',
-      nickname: 'Anderson Júnior',
-      contact: '(88) 9 9435-4507'
-    },
-    {
-      cpfOrCnpj: '071.156.213-06',
-      fullname: 'Antonio Anderson Vieira do Nascimento Júnior',
-      nickname: 'Anderson Júnior',
-      contact: '(88) 9 9435-4507'
-    },
-    {
-      cpfOrCnpj: '071.156.213-06',
-      fullname: 'Antonio Anderson Vieira do Nascimento Júnior',
-      nickname: 'Anderson Júnior',
-      contact: '(88) 9 9435-4507'
-    },
-  ];
+  constructor(
+    private modal: NzModalService,
+    private clientService: ClientService,
+    private notification: NzNotificationService
+    ) { }
 
-  listOfDisplayData = [...this.listOfData];
+  ngOnInit() {
+    this.onList();
+  }
 
   reset(): void {
     this.searchValue = '';
@@ -64,35 +43,52 @@ export class ClientComponent implements OnInit {
   }
 
   onList():void {
-    this.listOfDisplayData = this.listOfData;
+    this.clientService.findAll(`${this.page}`, `${this.sizePage}`).subscribe(response => {
+      this.clients = response.body;
+      this.listOfDisplayData = this.clients;
+    })
+  }
+
+  onDelete(value) {
+    let client: Client = value;
+    this.clientService.delete(client.id).subscribe(
+      (success) => {
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `Cliente excluido com sucesso`
+        );
+        this.onList();
+      },
+      (error) => {
+        let err = error;
+        this.notification.create(
+          'error',
+          `ERRO ${err.error.status}`,
+          `${err.error.message}`
+        );
+      }
+    );
   }
 
   searchByDoc(): void {
     this.visibleDoc = false;
-    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.cpfOrCnpj.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.clients.filter((item: Client) => item.cpfOrCnpj.indexOf(this.searchValue) !== -1);
   }
 
   searchByName(): void {
     this.visibleName = false;
-    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.fullname.indexOf(this.searchValueFullname) !== -1);
-  }
-
-  showConfirm(): void {
-    this.modal.confirm({
-      nzTitle: '<i>Do you Want to delete these items?</i>',
-      nzContent: '<b>Some descriptions</b>',
-      nzOnOk: () => console.log('OK')
-    });
+    this.listOfDisplayData = this.clients.filter((item: Client) => item.fullname.indexOf(this.searchValueFullname) !== -1);
   }
 
   showDeleteConfirm(value): void {
     this.modal.confirm({
       nzTitle: 'Deseja realmente excluir este cliente?',
-      nzContent: `<b style="color: red;">${value}</b>`,
+      nzContent: `<b style="color: red;">${value.fullname}</b>`,
       nzOkText: 'Sim',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.onDelete(value) ,
       nzCancelText: 'Não',
       nzOnCancel: () => console.log('Cancel')
     });
