@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from './../../services/client.service';
 import { Client } from './../../models/client.model';
 import { Component, OnInit } from '@angular/core';
@@ -29,7 +30,9 @@ export class ClientComponent implements OnInit {
   constructor(
     private modal: NzModalService,
     private clientService: ClientService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private router: Router,
+    private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {
@@ -47,6 +50,10 @@ export class ClientComponent implements OnInit {
       this.clients = response.body;
       this.listOfDisplayData = this.clients;
     })
+  }
+
+  onEdit(id) {
+    this.router.navigate(["edit", id], { relativeTo: this.route });
   }
 
   onDelete(value) {
@@ -92,6 +99,10 @@ export class ClientComponent implements OnInit {
       nzCancelText: 'Não',
       nzOnCancel: () => console.log('Cancel')
     });
+  }
+
+  teste() {
+    alert('Deu certo!!!');
   }
 
 }

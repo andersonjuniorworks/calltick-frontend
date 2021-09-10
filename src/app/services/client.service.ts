@@ -33,6 +33,26 @@ export class ClientService {
       );
   }
 
+  findById(id) {
+    return this.http.get<Client>(`${this.API}/${id}`).pipe(take(1));
+  }
+
+  private insert(client) {
+    return this.http.post(this.API, client).pipe(take(1));
+  }
+
+  private update(client) {
+    return this.http.put(`${this.API}/${client.id}`, client).pipe(take(1));
+  }
+
+  save(client) {
+    if (client.id) {
+      return this.update(client);
+    } else {
+      return this.insert(client);
+    }
+  }
+
   delete(id) {
     return this.http.delete(`${this.API}/${id}`, id).pipe(take(1));
   }

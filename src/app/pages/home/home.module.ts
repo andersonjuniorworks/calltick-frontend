@@ -1,3 +1,4 @@
+import { CardDashboardComponent } from './../../components/card-dashboard/card-dashboard.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { HomeRoutingModule } from './home-routing.module';
@@ -31,6 +32,6 @@ const icons: IconDefinition[] = [
     NzGridModule,
     NzIconModule.forChild(icons),
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent, CardDashboardComponent]
 })
 export class HomeModule { }

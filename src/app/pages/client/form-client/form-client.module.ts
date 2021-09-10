@@ -1,4 +1,6 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { SelectCustomComponent } from './../../../components/select-custom/select-custom.component';
+import { FieldCustomComponent } from './../../../components/field-custom/field-custom.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -16,6 +18,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   imports: [
     CommonModule,
     FormClientRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     NzCardModule,
     NzGridModule,
@@ -25,6 +28,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzSelectModule,
     NzDividerModule
   ],
-  declarations: [FormClientComponent]
+  declarations: [FormClientComponent, FieldCustomComponent, SelectCustomComponent]
 })
 export class FormClientModule { }

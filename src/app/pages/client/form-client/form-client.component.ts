@@ -1,6 +1,10 @@
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ClientService } from './../../../services/client.service';
+import { Client } from './../../../models/client.model';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-client',
@@ -13,6 +17,13 @@ export class FormClientComponent implements OnInit {
 
   formClient: FormGroup;
 
+  client: Client;
+
+  options: any[] = [
+    {id: '1', text: 'Pessoa Física'},
+    {id: '2', text: 'Pessoa Jurídica'}
+  ];
+
   labelDoc = 'CPF';
   labelFullname = 'Nome Completo';
   labelNickname = 'Apelido';
@@ -20,28 +31,33 @@ export class FormClientComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
+    private route: ActivatedRoute,
+    private clientService: ClientService,
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit() {
+    this.client = this.route.snapshot.data["client"];
     this.onCreateForm();
   }
 
   onCreateForm() {
     this.formClient = this.formBuilder.group({
-      id: null,
-      type: [null, [Validators.required]],
-      cpfOrCnpj: null,
-      fullname: null,
-      nickname: null,
-      zipcode: null,
-      address: null,
-      homeNumber: null,
-      complement: null,
-      state: null,
-      city: null,
-      phoneNumberOne: null,
-      phoneNumberTwo: null,
-      email: null,
+      id: this.client.id,
+      type: [this.client.type, [Validators.required]],
+      cpfOrCnpj: this.client.cpfOrCnpj,
+      fullname: this.client.fullname,
+      nickname: this.client.nickname,
+      zipcode: this.client.zipcode,
+      address: this.client.address,
+      homeNumber: this.client.homeNumber,
+      complement: this.client.complement,
+      state: this.client.state,
+      city: this.client.city,
+      phoneNumberOne: this.client.phoneNumberOne,
+      phoneNumberTwo: this.client.phoneNumberTwo,
+      email: this.client.email,
+      registrationDate: new Date()
     })
   }
 
@@ -59,6 +75,38 @@ export class FormClientComponent implements OnInit {
 
   onBackToLocation() {
     this.location.back();
+  }
+
+  onSubmit() {
+
+    if (this.formClient.valid) {
+
+      let msgSuccess = "Cliente cadastrado com sucesso!!!";
+
+      if (this.formClient.value.id) {
+        msgSuccess = "Cliente atualizado com sucesso!!!";
+      }
+
+      this.clientService.save(this.formClient.value).subscribe(
+        (success) => {
+          this.notification.create(
+            'success',
+            'SUCESSO!',
+            `${msgSuccess}`
+          );
+          this.onCreateForm();
+        },
+        (error) => {
+          let err = error;
+          this.notification.create(
+            'error',
+            `ERRO ${err.error.status}`,
+            `${err.error.message}`
+          );
+        }
+      );
+
+    }
   }
 
 }

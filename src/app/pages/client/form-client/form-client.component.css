@@ -1,26 +1,19 @@
-nz-form-item {
-  display: flex;
-  flex-direction: column;
-}
-
-nz-form-label {
-  display: flex;
-  justify-content: flex-start;
-}
-
-nz-card {
-  max-width: 50%;
-}
-
-[nz-button] {
-  min-width: 120px;
-  margin-right: 8px;
-  margin-bottom: 12px;
-}
-
 .action-form {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+}
+
+.client-form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
