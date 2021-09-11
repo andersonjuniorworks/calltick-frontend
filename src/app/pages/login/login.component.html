@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-login" style="background-image: url('../../../assets/img/background_login.jpg');">
     <div class="panel" id="panelLogin">
         <div class="panel-content">
             <div class="panel-header">
@@ -20,17 +20,18 @@
                     </nz-form-control>
                 </nz-form-item>
                 <div nz-row class="login-form-margin">
-                    <div nz-col [nzSpan]="12">
+                    <div nz-col [nzSpan]="24">
                         <label nz-checkbox formControlName="remember">
 							<span>Mantenha-me conectado</span>
 						</label>
                     </div>
-                    <div nz-col [nzSpan]="12">
-                        <a class="login-form-forgot">Esqueci minha senha</a>
-                    </div>
                 </div>
                 <button nz-button class="login-form-button login-form-margin" [nzSize]="'large'" [nzType]="'primary'">Entrar</button>
+                <div nz-col [nzSpan]="24">
+                  <a class="login-form-forgot">Esqueci minha senha</a>
+              </div>
             </form>
         </div>
     </div>
 </div>
+

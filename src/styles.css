@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
 :root {
-    --dark-violet: #6730EC;
-    --light-violet: #7984EE;
-    --gradient-violet: linear-gradient(180deg, #7984EE 0%, #6730EC 100%);
+    --primary: #1890FF;
+    --secondary: #69B7FF;
+    --dark: #001529;
 }
 
 .container {
@@ -11,4 +17,13 @@
     padding: 0;
     display: flex;
     flex-direction: row;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
 }

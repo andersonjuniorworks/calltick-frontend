@@ -14,12 +14,13 @@ import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 
+import { NzGridModule } from 'ng-zorro-antd/grid';
+
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
-
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzFormModule,
     NzInputModule,
     NzButtonModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzGridModule
   ],
   declarations: [LoginComponent],
   providers: [{ provide: NZ_I18N, useValue: pt_BR }, { provide: NZ_ICONS, useValue: icons }],
