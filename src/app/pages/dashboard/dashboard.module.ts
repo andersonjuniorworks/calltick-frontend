@@ -9,9 +9,6 @@ import { NgZorroAntdModule } from '../../shared/nz-zorro.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {
-  StepBackwardOutline,
-  CaretLeftOutline,
-  SettingOutline,
   UserOutline,
   HomeOutline,
   TeamOutline,
