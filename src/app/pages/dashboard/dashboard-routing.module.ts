@@ -24,6 +24,10 @@ const routes: Routes = [
         path: 'client/addClient',
         loadChildren: () => import('../../pages/client/form-client/form-client.module').then( m => m.FormClientModule)
       },
+      {
+        path: 'client/edit/:id',
+        loadChildren: () => import('../../pages/client/form-client/form-client.module').then( m => m.FormClientModule)
+      },
     ]
   },
 

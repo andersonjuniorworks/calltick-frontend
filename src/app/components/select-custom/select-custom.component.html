@@ -1,10 +1,8 @@
 <div class="form-group">
-  <label for="clientType">{{labelText}}</label>
-  <select name="clientType" id="clientType">
-    <option [value]="data.id" *ngFor="let data of options">
+    <label for="clientType">{{labelText}}</label>
+    <select name="clientType" id="clientType" class="select-default" formControlName="controlName">
+    <option [value]="data.id" *ngFor="let data of options" id="teste">
       {{data.text}}
     </option>
   </select>
 </div>
-
-

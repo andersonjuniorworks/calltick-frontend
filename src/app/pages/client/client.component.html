@@ -1,34 +1,34 @@
 <div class="table-manager-header">
-  <button class="btn btn-primary" routerLink="addClient">Adicionar</button>
+    <button class="btn btn-primary" routerLink="addClient">Adicionar</button>
 </div>
 
 <table class="table-manager">
-  <thead>
-    <tr>
-      <th>Documento</th>
-      <th>Nome / Razão</th>
-      <th>Apelido / Fantasia</th>
-      <th>Contato</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of clients">
-      <td>{{data.cpfOrCnpj}}</td>
-      <td>{{data.fullname}}</td>
-      <td>{{data.nickname}}</td>
-      <td>{{data.phoneNumberOne}}</td>
-      <td>
-        <button class="btn-action primary">
+    <thead>
+        <tr>
+            <th>Documento</th>
+            <th>Nome / Razão</th>
+            <th>Apelido / Fantasia</th>
+            <th>Contato</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of clients">
+            <td>{{data.cpfOrCnpj}}</td>
+            <td>{{data.fullname}}</td>
+            <td>{{data.nickname}}</td>
+            <td>{{data.phoneNumberOne}}</td>
+            <td>
+                <button class="btn-action primary">
           <img src="../../../assets/icon/eye.svg" alt="icone de olho">
         </button>
-        <button class="btn-action warning">
+                <button class="btn-action warning" (click)="onEdit(data.id)">
           <img src="../../../assets/icon/edit.svg" alt="icone de edição">
         </button>
-        <button class="btn-action danger">
+                <button class="btn-action danger">
           <img src="../../../assets/icon/delete.svg" alt="icone de deletar">
         </button>
-      </td>
-    </tr>
-  </tbody>
+            </td>
+        </tr>
+    </tbody>
 </table>

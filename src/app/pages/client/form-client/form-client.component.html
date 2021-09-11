@@ -1,13 +1,20 @@
 <div class="content">
-  <form class="client-form">
-    <div class="col-3">
-      <app-select-custom [options]="options" labelText="Tipo de Cliente"></app-select-custom>
-    </div>
-    <div class="col-3">
-      <app-field-custom type="text" id="document" name="document" placeholder="Digite o documento do cliente" labelText="CPF ou CNPJ" class="input-default"></app-field-custom>
-    </div>
-    <div class="col-12">
-      <app-field-custom type="text" id="fullname" name="fullname" placeholder="Digite o nome do cliente" labelText="Nome Completo" class="input-default"></app-field-custom>
-    </div>
-  </form>
+    <form [formGroup]="formClient" (ngSubmit)="onSubmit()" class="client-form">
+        <div class="row">
+            <div class="col-3">
+                <select-custom formControlName="type" [options]="options" labelText="Tipo de Cliente" (changeValue)="onChangeClientType($event)"></select-custom>
+            </div>
+            <div class="col-3">
+                <app-field-custom type="text" id="document" name="document" placeholder="Ex: CPF ou CNPJ" labelText="Documento" class="input-default" formControlName="cpfOrCnpj"></app-field-custom>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <app-field-custom type="text" id="fullname" name="fullname" placeholder="Digite o nome ou a razão social" labelText="Nome Completo / Razão Social" class="input-default" formControlName="fullname"></app-field-custom>
+            </div>
+            <div class="col-6">
+                <app-field-custom type="text" id="nickname" name="nickname" placeholder="Digite o apelido ou nome fantasia" labelText="Apelido / Fantasia" class="input-default" formControlName="nickname"></app-field-custom>
+            </div>
+        </div>
+    </form>
 </div>
