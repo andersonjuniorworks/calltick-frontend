@@ -1,0 +1,10 @@
+<div class="form-group">
+  <label for="clientType">{{labelText}}</label>
+  <select name="clientType" id="clientType">
+    <option [value]="data.id" *ngFor="let data of options">
+      {{data.text}}
+    </option>
+  </select>
+</div>
+
+

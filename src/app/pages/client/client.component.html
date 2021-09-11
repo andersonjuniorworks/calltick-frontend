@@ -1,59 +1,34 @@
-<button nz-button nzType="primary" [nzSize]="size">
-  <i nz-icon nzType="plus"></i>
-  Adicionar
-</button>
+<div class="table-manager-header">
+  <button class="btn btn-primary" routerLink="addClient">Adicionar</button>
+</div>
 
-<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+<table class="table-manager">
   <thead>
     <tr>
-      <th nzCustomFilter>
-        CPF / CNPJ
-        <nz-filter-trigger [(nzVisible)]="visibleDoc" [nzDropdownMenu]="menuDocument">
-          <i nz-icon nzType="search"></i>
-        </nz-filter-trigger>
-      </th>
-      <th nzCustomFilter>
-        Nome / Razão Social
-        <nz-filter-trigger [(nzVisible)]="visibleName" [nzActive]="searchValueFullname.length > 0" [nzDropdownMenu]="menuFullname">
-          <i nz-icon nzType="search"></i>
-        </nz-filter-trigger>
-      </th>
+      <th>Documento</th>
+      <th>Nome / Razão</th>
       <th>Apelido / Fantasia</th>
       <th>Contato</th>
-      <th nzRight>Ações</th>
+      <th>Ações</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of nzTable.data">
-      <td>{{ data.cpfOrCnpj }}</td>
-      <td>{{ data.fullname }}</td>
-      <td>{{ data.nickname }}</td>
-      <td>{{ data.contact }}</td>
+    <tr *ngFor="let data of clients">
+      <td>{{data.cpfOrCnpj}}</td>
+      <td>{{data.fullname}}</td>
+      <td>{{data.nickname}}</td>
+      <td>{{data.phoneNumberOne}}</td>
       <td>
-        <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="file-search"></i></button>
-        <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-        <button nz-button nzType="primary" nzShape="circle" nzDanger (click)="showDeleteConfirm(data.fullname)"><i nz-icon nzType="delete"></i></button>
+        <button class="btn-action primary">
+          <img src="../../../assets/icon/eye.svg" alt="icone de olho">
+        </button>
+        <button class="btn-action warning">
+          <img src="../../../assets/icon/edit.svg" alt="icone de edição">
+        </button>
+        <button class="btn-action danger">
+          <img src="../../../assets/icon/delete.svg" alt="icone de deletar">
+        </button>
       </td>
     </tr>
   </tbody>
-</nz-table>
-
-<nz-dropdown-menu #menuDocument="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Digite o CPF ou CNPJ" [(ngModel)]="searchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchByDoc()" class="search-button">Buscar</button>
-      <button nz-button nzSize="small" (click)="reset()">Limpar</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
-
-<nz-dropdown-menu #menuFullname="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Digite o nome/razão social" [(ngModel)]="searchValueFullname" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchByName()" class="search-button">Buscar</button>
-      <button nz-button nzSize="small" (click)="reset()">Limpar</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
+</table>
