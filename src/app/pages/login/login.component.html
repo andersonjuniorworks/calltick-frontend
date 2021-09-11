@@ -7,15 +7,15 @@
             <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Preencha o campo de email">
-                        <nz-input-group>
+                        <nz-input-group [nzPrefix]="prefixMail" nzSize="large">
                             <input type="email" nz-input formControlName="userName" placeholder="Digite o email" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Preencha o campo de senha">
-                        <nz-input-group>
-                            <input type="password" nz-input formControlName="password" placeholder="Digite a senha" />
+                        <nz-input-group [nzPrefix]="prefixPass" [nzSuffix]="hiddenPass" nzSize="large">
+                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input [(ngModel)]="password" placeholder="Digite a senha" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
@@ -34,4 +34,16 @@
         </div>
     </div>
 </div>
+
+<ng-template #prefixMail>
+  <i nz-icon nzType="mail"></i>
+</ng-template>
+
+<ng-template #prefixPass>
+  <i nz-icon nzType="lock"></i>
+</ng-template>
+
+<ng-template #hiddenPass>
+  <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+</ng-template>
 

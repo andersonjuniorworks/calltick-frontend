@@ -40,8 +40,12 @@
     font-size: 25px;
 }
 
+nz-input-group {
+  height: 50px;
+}
+
 input {
-    height: 45px;
+  padding: 0 0 0 50px;
 }
 
 #panelLogin {
