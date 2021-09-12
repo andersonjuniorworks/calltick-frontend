@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-field-custom',
+  selector: 'field-custom',
   templateUrl: './field-custom.component.html',
   styleUrls: ['./field-custom.component.css']
 })

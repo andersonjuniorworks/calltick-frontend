@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -13,6 +13,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DashboardRoutingModule,
     FormsModule,
   ],
-  declarations: [DashboardComponent]
+  declarations: [DashboardComponent],
 })
 export class DashboardModule { }

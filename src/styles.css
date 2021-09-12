@@ -28,6 +28,8 @@ body {
 .row {
     width: 100%;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -52,10 +54,27 @@ body {
     color: #fff;
 }
 
+.btn.btn-primary-outline {
+    border-radius: 5px;
+    background: #fff;
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    transition: .25s ease-in;
+}
+
+.btn.btn-primary-outline:hover {
+    cursor: pointer;
+    background: var(--secondary);
+    color: #fff;
+}
+
 .btn-action {
     width: 40px;
     height: 40px;
     margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     border: none;
     transition: .2s ease-in-out;
@@ -113,7 +132,7 @@ body {
 }
 
 .table-manager-header {
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
     height: 70px;
     margin: 20px;
     padding: 0 20px;
@@ -121,6 +140,37 @@ body {
     align-items: center;
     border-radius: 10px;
     background: var(--gradient-violet);
+}
+
+#actionColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-title {
+    width: 100%;
+    margin: 0 0 40px 0;
+    line-height: 0;
+}
+
+.form-group {
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-action {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form-action button {
+    margin: 0 5px;
 }
 
 .col-1 {

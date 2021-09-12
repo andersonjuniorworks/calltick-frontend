@@ -13,14 +13,9 @@ export class ClientComponent implements OnInit {
   clients: Client[];
 
   page: number = 0;
-  sizePage: number = 5;
+  size: number = 5;
 
   listOfDisplayData: Client[];
-
-  searchValue = '';
-  searchValueFullname = '';
-  visibleDoc = false;
-  visibleName = false;
 
   constructor(
     private clientService: ClientService,
@@ -33,13 +28,11 @@ export class ClientComponent implements OnInit {
   }
 
   reset(): void {
-    this.searchValue = '';
-    this.searchValueFullname = '';
     this.onList();
   }
 
   onList():void {
-    this.clientService.findAll(`${this.page}`, `${this.sizePage}`).subscribe(response => {
+    this.clientService.findAll(`${this.page}`, `${this.size}`).subscribe(response => {
       this.clients = response.body;
       this.listOfDisplayData = this.clients;
     })
@@ -59,21 +52,6 @@ export class ClientComponent implements OnInit {
 
       }
     );
-  }
-
-  searchByDoc(): void {
-    this.visibleDoc = false;
-    this.listOfDisplayData = this.clients.filter((item: Client) => item.cpfOrCnpj.indexOf(this.searchValue) !== -1);
-  }
-
-  searchByName(): void {
-    this.visibleName = false;
-    this.listOfDisplayData = this.clients.filter((item: Client) => item.fullname.indexOf(this.searchValueFullname) !== -1);
-  }
-
-
-  teste() {
-    alert('Deu certo!!!');
   }
 
 }

@@ -34,7 +34,12 @@ export class ClientService {
   }
 
   findById(id) {
-    return this.http.get<Client>(`${this.API}/${id}`).pipe(take(1));
+    return this.http.get<Client>(`${this.API}/${id}`).pipe(
+      tap((response) =>
+        console.log(response)
+      ),
+      take(1)
+    );
   }
 
   private insert(client) {

@@ -1,20 +1,125 @@
 <div class="content">
     <form [formGroup]="formClient" (ngSubmit)="onSubmit()" class="client-form">
+        <div class="form-title">
+            <h2>Cadastro de Cliente</h2>
+        </div>
         <div class="row">
             <div class="col-3">
-                <select-custom formControlName="type" [options]="options" labelText="Tipo de Cliente" (changeValue)="onChangeClientType($event)"></select-custom>
+                <div class="form-group">
+                    <label for="type">Tipo de Cliente</label>
+                    <select id="type" name="type" class="select-default" formControlName="type">
+                        <option [value]="option.id" *ngFor="let option of options">
+                            {{option.text}}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="col-3">
-                <app-field-custom type="text" id="document" name="document" placeholder="Ex: CPF ou CNPJ" labelText="Documento" class="input-default" formControlName="cpfOrCnpj"></app-field-custom>
+                <div class="form-group">
+                    <label for="document">Documento</label>
+                    <input type="text" id="document" name="document" placeholder="Ex: CPF ou CNPJ" class="input-default" formControlName="cpfOrCnpj">
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-6">
-                <app-field-custom type="text" id="fullname" name="fullname" placeholder="Digite o nome ou a razão social" labelText="Nome Completo / Razão Social" class="input-default" formControlName="fullname"></app-field-custom>
+                <div class="form-group">
+                    <label for="fullname">Nome Completo</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Digite o nome ou a razão social" class="input-default" formControlName="fullname">
+                </div>
             </div>
             <div class="col-6">
-                <app-field-custom type="text" id="nickname" name="nickname" placeholder="Digite o apelido ou nome fantasia" labelText="Apelido / Fantasia" class="input-default" formControlName="nickname"></app-field-custom>
+                <div class="form-group">
+                    <label for="nickname">Apelido</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="Digite o apelido" class="input-default" formControlName="nickname">
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="zipcode">CEP</label>
+                    <input type="text" id="zipcode" name="zipcode" placeholder="Ex: 00000-000" class="input-default" formControlName="zipcode">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="address">Endereço</label>
+                    <input type="text" id="address" name="address" placeholder="Ex: Rua das laranjeiras" class="input-default" formControlName="address">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="homeNumber">Nº</label>
+                    <input type="text" id="homeNumber" name="homeNumber" placeholder="Ex: 123" class="input-default" formControlName="homeNumber">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="neighborhood">Bairro</label>
+                    <input type="text" id="neighborhood" name="neighborhood" placeholder="Ex: Centro" class="input-default" formControlName="neighborhood">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="complement">Complemento</label>
+                    <input type="text" id="complement" name="complement" placeholder="Ex: Apartamento" class="input-default" formControlName="complement">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="state">Estado</label>
+                    <input type="text" id="state" name="state" placeholder="Ex: Ceará" class="input-default" formControlName="state">
+                </div>
+                <!--           <div class="form-group">
+                    <label for="state">Estado</label>
+                    <select id="state" name="state" class="select-default" formControlName="state">
+                    <option [value]="option.nome" *ngFor="let option of states" (change)="onReadCities(option.index)">
+                        {{option.nome}}
+                    </option>
+                </select>
+                </div> -->
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="city">Cidade</label>
+                    <input type="text" id="city" name="city" placeholder="Ex: Fortaleza" class="input-default" formControlName="city">
+                </div>
+                <!--        <div class="form-group">
+                    <label for="city">Cidade</label>
+                    <select id="city" name="city" class="select-default" formControlName="city">
+                    <option [value]="option.nome" *ngFor="let option of cities">
+                        {{option.cidades}}
+                    </option>
+                </select>
+                </div> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="phoneNumberOne">Contato</label>
+                    <input type="text" id="phoneNumberOne" name="phoneNumberOne" placeholder="Ex: Somente números" class="input-default" formControlName="phoneNumberOne">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="phoneNumberTwo">Contato</label>
+                    <input type="text" id="phoneNumberTwo" name="phoneNumberTwo" placeholder="Ex: Somente números" class="input-default" formControlName="phoneNumberTwo">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Ex: mercantilbompreco@gmail.com" class="input-default" formControlName="email">
+                </div>
+            </div>
+        </div>
+        <div class="form-action">
+            <button class="btn btn-primary-outline" (click)="onBackToLocation()">Voltar</button>
+            <button class="btn btn-primary" (click)="onSubmit()">Salvar</button>
         </div>
     </form>
 </div>

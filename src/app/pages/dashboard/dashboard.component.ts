@@ -7,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  isCollapsed = false;
-  theme = true;
+  constructor(
 
-  constructor() { }
+  ) { }
 
   ngOnInit() {
   }
