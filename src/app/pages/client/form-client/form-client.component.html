@@ -1,14 +1,14 @@
 <div class="content">
-  <form class="client-form" [formGroup]="formClient">
+  <form class="client-form" [formGroup]="formClient" nz-form>
     <div class="row">
       <div class="form-title">
-        <h2>{{titleForm}}</h2>
+        <h2>{{ titleForm }}</h2>
       </div>
     </div>
     <div class="row">
       <div class="col-3">
-        <nz-input-group nzCompact>
-          <nz-form-label nzFor="clientType">Tipo de Cliente</nz-form-label>
+        <nz-form-label nzFor="clientType">Tipo de Cliente</nz-form-label>
+        <nz-form-control nzCompact>
           <nz-select
             formControlName="type"
             id="clientType"
@@ -18,194 +18,269 @@
             <nz-option nzValue="1" nzLabel="Pessoa Física"></nz-option>
             <nz-option nzValue="2" nzLabel="Pessoa Juridica"></nz-option>
           </nz-select>
-        </nz-input-group>
+        </nz-form-control>
       </div>
       <div class="col-3">
-        <nz-input-group nzCompact>
-          <nz-form-label nzFor="cpfOrCnpj">{{ labelDoc }}</nz-form-label>
-          <input
-            type="text"
-            formControlName="cpfOrCnpj"
-            nz-input
-            id="cpfOrCnpj"
-            placeholder="Digite o {{ labelDoc }}"
-          />
-        </nz-input-group>
+        <nz-form-item>
+          <nz-form-label nzFor="cpfOrCnpj">{{ labelDoc }}*</nz-form-label>
+          <nz-form-control nzCompact nzHasFeedback [nzErrorTip]="docValidation">
+            <input
+              type="text"
+              formControlName="cpfOrCnpj"
+              nz-input
+              id="cpfOrCnpj"
+              placeholder="Digite o {{ labelDoc }}"
+              minlength="14"
+              maxlength="18"
+              required
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="row">
       <div class="col-6">
-        <nz-input-group nzCompact>
-          <nz-form-label nzFor="fullname">{{ labelFullname }}</nz-form-label>
-          <input
-            type="text"
-            formControlName="fullname"
-            nz-input
-            id="fullname"
-            placeholder="Digite o {{ labelFullname }}"
-          />
-        </nz-input-group>
+        <nz-form-item>
+          <nz-form-label nzFor="fullname">{{ labelFullname }}*</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="fullnameValidation">
+            <input
+              nz-input
+              formControlName="fullname"
+              id="fullname"
+              placeholder="Digite o {{ labelFullname }}"
+              minlength="5"
+              maxlength="255"
+              required
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-6">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="nickname">{{ labelNickname }}</nz-form-label>
-          <input
-            type="text"
-            formControlName="nickname"
-            nz-input
-            id="nickname"
-            placeholder="Digite o {{ labelNickname }}"
-          />
-        </nz-input-group>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="nickname"
+              nz-input
+              id="nickname"
+              placeholder="Digite o {{ labelNickname }}"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="row">
       <div class="col-2">
-        <nz-form-label nzFor="zipcode">CEP</nz-form-label>
-        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-          <input
-            type="text"
-            formControlName="zipcode"
-            id="zipcode"
-            nz-input
-            placeholder="Ex: 00000-000"
-          />
-        </nz-input-group>
-        <ng-template #suffixIconButton>
-          <button nz-button nzType="primary" nzSearch>
-            <i nz-icon nzType="search"></i>
-          </button>
-        </ng-template>
+        <nz-form-item>
+          <nz-form-label nzFor="zipcode">CEP</nz-form-label>
+          <nz-form-control nzSearch>
+            <input
+              type="text"
+              formControlName="zipcode"
+              id="zipcode"
+              nz-input
+              placeholder="Ex: 00000-000"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-4">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="address">Endereço</nz-form-label>
-          <input
-            type="text"
-            formControlName="address"
-            nz-input
-            id="address"
-            placeholder="Digite o nome da rua"
-          />
-        </nz-input-group>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="address"
+              nz-input
+              id="address"
+              placeholder="Digite o nome da rua"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-2">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="homeNumber">Nº</nz-form-label>
-          <input
-            type="text"
-            formControlName="homeNumber"
-            nz-input
-            id="homeNumber"
-            placeholder="Ex: 123"
-          />
-        </nz-input-group>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="homeNumber"
+              nz-input
+              id="homeNumber"
+              placeholder="Ex: 123"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-4">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="complement">Complemento</nz-form-label>
-          <input
-            type="text"
-            formControlName="complement"
-            nz-input
-            id="complement"
-            placeholder="Ex: Apartamento"
-          />
-        </nz-input-group>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="complement"
+              nz-input
+              id="complement"
+              placeholder="Ex: Apartamento"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="row">
       <div class="col-6">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="neighborhood">Bairro</nz-form-label>
-          <input
-            type="text"
-            formControlName="neighborhood"
-            nz-input
-            id="neighborhood"
-            placeholder="Ex: Centro"
-          />
-        </nz-input-group>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="neighborhood"
+              nz-input
+              id="neighborhood"
+              placeholder="Ex: Centro"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-3">
-        <nz-form-label nzFor="state">Estado</nz-form-label>
-        <nz-select
-          nzShowSearch
-          nzAllowClear
-          nzPlaceHolder="Selecione"
-          formControlName="state"
-          id="state"
-        >
-          <nz-option nzLabel="Ceará" nzValue="CE"></nz-option>
-        </nz-select>
+        <nz-form-item>
+          <nz-form-label nzFor="state">Estado*</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'Estado é obrigatório'">
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              nzPlaceHolder="Selecione"
+              formControlName="state"
+              id="state"
+              required
+            >
+              <nz-option nzLabel="Ceará" nzValue="CE"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-3">
-        <nz-form-label nzFor="state">Cidade</nz-form-label>
-        <nz-select
-          nzShowSearch
-          nzAllowClear
-          nzPlaceHolder="Selecione"
-          formControlName="city"
-          id="city"
-        >
-          <nz-option nzLabel="Ararendá" nzValue="Ararendá"></nz-option>
-          <nz-option nzLabel="Crateús" nzValue="Crateús"></nz-option>
-          <nz-option
-            nzLabel="Independência"
-            nzValue="Independência"
-          ></nz-option>
-          <nz-option nzLabel="Ipaporanga" nzValue="Ipaporanga"></nz-option>
-          <nz-option nzLabel="Novo Oriente" nzValue="Novo Oriente"></nz-option>
-          <nz-option nzLabel="Poranga" nzValue="Poranga"></nz-option>
-          <nz-option
-            nzLabel="Quiterianópolis"
-            nzValue="Quiterianópolis"
-          ></nz-option>
-          <nz-option nzLabel="Tamboril" nzValue="Tamboril"></nz-option>
-        </nz-select>
+        <nz-form-item>
+          <nz-form-label nzFor="state">Cidade*</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'Cidade é obrigatória'">
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              nzPlaceHolder="Selecione"
+              formControlName="city"
+              id="city"
+              required
+            >
+              <nz-option nzLabel="Ararendá" nzValue="Ararendá"></nz-option>
+              <nz-option nzLabel="Crateús" nzValue="Crateús"></nz-option>
+              <nz-option
+                nzLabel="Independência"
+                nzValue="Independência"
+              ></nz-option>
+              <nz-option nzLabel="Ipaporanga" nzValue="Ipaporanga"></nz-option>
+              <nz-option
+                nzLabel="Novo Oriente"
+                nzValue="Novo Oriente"
+              ></nz-option>
+              <nz-option nzLabel="Poranga" nzValue="Poranga"></nz-option>
+              <nz-option
+                nzLabel="Quiterianópolis"
+                nzValue="Quiterianópolis"
+              ></nz-option>
+              <nz-option nzLabel="Tamboril" nzValue="Tamboril"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="row">
       <div class="col-3">
-        <nz-input-group nzCompact>
-          <nz-form-label nzFor="phoneNumberOne">Contato</nz-form-label>
-          <input
-            type="text"
-            formControlName="phoneNumberOne"
-            nz-input
-            id="phoneNumberOne"
-            placeholder="Ex.: Telefone ou Celular"
-          />
-        </nz-input-group>
+        <nz-form-item>
+          <nz-form-label nzFor="phoneNumberOne">Contato*</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'Contato é obrigatório'">
+            <input
+              type="text"
+              formControlName="phoneNumberOne"
+              nz-input
+              id="phoneNumberOne"
+              placeholder="Ex.: Telefone ou Celular"
+              required
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-3">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="phoneNumberTwo">Contato</nz-form-label>
-          <input
-            type="text"
-            formControlName="phoneNumberTwo"
-            nz-input
-            id="phoneNumberTwo"
-            placeholder="Ex.: Telefone ou Celular"
-          />
-        </nz-input-group>
+          <nz-form-control>
+            <input
+              type="text"
+              formControlName="phoneNumberTwo"
+              nz-input
+              id="phoneNumberTwo"
+              placeholder="Ex.: Telefone ou Celular"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col-6">
-        <nz-input-group nzCompact>
+        <nz-form-item>
           <nz-form-label nzFor="email">Email</nz-form-label>
-          <input
-            type="email"
-            formControlName="email"
-            nz-input
-            id="email"
-            placeholder="Digite o email"
-          />
-        </nz-input-group>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'Email incorreto'">
+            <input
+              type="email"
+              formControlName="email"
+              nz-input
+              id="email"
+              placeholder="Digite o email"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="action-form">
-      <button nz-button nzType="default" (click)="onBackToLocation()">Voltar</button>
-      <button nz-button nzType="primary" (click)="onSubmit()">Salvar</button>
+      <button nz-button nzType="default" (click)="onBackToLocation()">
+        Voltar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="onSubmit()"
+        [disabled]="!formClient.valid"
+      >
+        Salvar
+      </button>
     </div>
   </form>
 </div>
+
+<ng-template #fullnameValidation let-control>
+  <ng-container *ngIf="formClient.get('fullname').hasError('maxlength')"
+    ><span class="valid-text"
+      >Tamanho máximo de 255 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="formClient.get('fullname').hasError('minlength')"
+    ><span class="valid-text"
+      >Tamanho minimo de 5 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="formClient.get('fullname').hasError('required')"
+    ><span class="valid-text"
+      >{{ labelFullname }} obrigatório</span
+    ></ng-container
+  >
+</ng-template>
+
+<ng-template #docValidation let-control>
+  <ng-container *ngIf="formClient.get('cpfOrCnpj').hasError('maxlength')"
+    ><span class="valid-text">Máximo de 18 caracteres</span></ng-container
+  >
+  <ng-container *ngIf="formClient.get('cpfOrCnpj').hasError('minlength')"
+    ><span class="valid-text">Minimo de 14 caracteres</span></ng-container
+  >
+  <ng-container *ngIf="formClient.get('cpfOrCnpj').hasError('required')"
+    ><span class="valid-text">{{ labelDoc }} obrigatório</span></ng-container
+  >
+</ng-template>
