@@ -26,6 +26,13 @@ body {
   transition: .35s linear;
 }
 
+.row {
+  width: 100%;
+  min-height: 75px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .btn {
   width: 100%;
   max-width: 150px;
@@ -38,13 +45,37 @@ body {
 
 .btn.btn-primary {
   border-radius: 5px;
-  background: var(--secondary);
+  background: var(--primary);
   color: #fff;
 }
 
 .btn.btn-primary:hover {
   cursor: pointer;
+  background: var(--secondary);
+  color: #fff;
+}
+
+.btn.btn-secondary {
+  border-radius: 5px;
+  background: var(--secondary);
+  color: #fff;
+}
+
+.btn.btn-secondary:hover {
+  cursor: pointer;
   background: var(--terciary);
+  color: #fff;
+}
+
+.btn.btn-terciary {
+  border-radius: 5px;
+  background: var(--terciary);
+  color: #fff;
+}
+
+.btn.btn-terciary:hover {
+  cursor: pointer;
+  background: var(--quaternary);
   color: #fff;
 }
 
@@ -79,44 +110,11 @@ body {
   background: var(--danger);
 }
 
-.table-manager {
-  width: calc(100% - 40px);
-  margin: 20px;
-  background: #fff;
-}
-
-.table-manager thead {
-  border: 1px solid #f3f3f3;
-}
-
-.table-manager th {
-  height: 50px;
-  padding: 0 15px;
-  background: #f1f1f1;
-}
-
-.table-manager td {
-  height: 50px;
-  padding: 0 15px;
-}
-
-.table-manager tbody tr {
-  transition: .3s linear;
-}
-
-.table-manager tbody tr:hover {
-  background: #fafafa;
-}
-
-.table-manager-header {
-  width: calc(100% - 40px);
-  height: 70px;
-  margin: 20px;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  background: var(--gradient-violet);
+.table-header {
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 15px;
+  background: var(--primary);
 }
 
 .col-1 {
@@ -163,7 +161,6 @@ body {
   width: calc(100% - 10px);
   margin: 0px 5px 0px 5px;
 }
-
 
 @media (max-width: 1024px) {
   .container {

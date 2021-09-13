@@ -1,3 +1,4 @@
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SelectCustomComponent } from './../../../components/select-custom/select-custom.component';
 import { FieldCustomComponent } from './../../../components/field-custom/field-custom.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +15,15 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
+import {
+   SearchOutline
+} from '@ant-design/icons-angular/icons';
+import { IconDefinition } from '@ant-design/icons-angular';
+
+const icons: IconDefinition[] = [
+  SearchOutline,
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,8 +36,9 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
-    NzDividerModule
+    NzDividerModule,
+    NzIconModule.forChild(icons),
   ],
-  declarations: [FormClientComponent, FieldCustomComponent, SelectCustomComponent]
+  declarations: [FormClientComponent]
 })
 export class FormClientModule { }

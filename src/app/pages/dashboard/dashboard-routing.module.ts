@@ -21,7 +21,11 @@ const routes: Routes = [
         loadChildren: () => import('../../pages/client/client.module').then( m => m.ClientModule)
       },
       {
-        path: 'client/addClient',
+        path: 'client/add',
+        loadChildren: () => import('../../pages/client/form-client/form-client.module').then( m => m.FormClientModule)
+      },
+      {
+        path: 'client/edit/:id',
         loadChildren: () => import('../../pages/client/form-client/form-client.module').then( m => m.FormClientModule)
       },
     ]

@@ -1,8 +1,14 @@
 .action-form {
   width: 100%;
+  min-height: 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.action-form button {
+  min-width: 120px;
+  margin: 0 5px;
 }
 
 .content {
@@ -13,7 +19,17 @@
 
 .client-form {
   width: 100%;
+  max-width: 950px;
+  padding: 40px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  background: #fff;
 }
+
+nz-select {
+  width: 100%;
+}
+
+
+

@@ -19,10 +19,7 @@ export class FormClientComponent implements OnInit {
 
   client: Client;
 
-  options: any[] = [
-    {id: '1', text: 'Pessoa Física'},
-    {id: '2', text: 'Pessoa Jurídica'}
-  ];
+  titleForm: string;
 
   labelDoc = 'CPF';
   labelFullname = 'Nome Completo';
@@ -38,6 +35,13 @@ export class FormClientComponent implements OnInit {
 
   ngOnInit() {
     this.client = this.route.snapshot.data["client"];
+
+    if(this.client.id == null) {
+      this.titleForm = 'Cadastro de Cliente';
+    } else {
+      this.titleForm = 'Edição de Cliente';
+    }
+
     this.onCreateForm();
   }
 
@@ -52,12 +56,12 @@ export class FormClientComponent implements OnInit {
       address: this.client.address,
       homeNumber: this.client.homeNumber,
       complement: this.client.complement,
+      neighborhood: null,
       state: this.client.state,
       city: this.client.city,
       phoneNumberOne: this.client.phoneNumberOne,
       phoneNumberTwo: this.client.phoneNumberTwo,
-      email: this.client.email,
-      registrationDate: new Date()
+      email: this.client.email
     })
   }
 
@@ -94,7 +98,11 @@ export class FormClientComponent implements OnInit {
             'SUCESSO!',
             `${msgSuccess}`
           );
-          this.onCreateForm();
+          if(this.client.id) {
+            this.onBackToLocation();
+          } else {
+            this.onCreateForm();
+          }
         },
         (error) => {
           let err = error;

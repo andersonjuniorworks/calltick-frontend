@@ -1,34 +1,51 @@
-<div class="table-manager-header">
-  <button class="btn btn-primary" routerLink="addClient">Adicionar</button>
+<div class="content">
+  <div class="table-header">
+    <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+  </div>
+  <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+          CPF | CNPJ
+          <nz-filter-trigger [(nzVisible)]="visibleDoc" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>Nome Completo | Razão Social</th>
+        <th>Apelido | Nome Fantasia</th>
+        <th>Cidade</th>
+        <th>Contato</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of clients">
+        <td>{{ data.cpfOrCnpj }}</td>
+        <td>{{ data.fullname }}</td>
+        <td>{{ data.nickname }}</td>
+        <td>{{ data.city }}</td>
+        <td>{{ data.phoneNumberOne }}</td>
+        <td>
+          <button class="btn-action primary">
+            <img src="../../../assets/icon/eye.svg" alt="icone de olho">
+          </button>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
+            <img src="../../../assets/icon/edit.svg" alt="icone de edição">
+          </button>
+          <button class="btn-action danger">
+            <img src="../../../assets/icon/delete.svg" alt="icone de deletar">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="CPF ou CNPJ do cliente" [(ngModel)]="searchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchByDoc()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
 </div>
-
-<table class="table-manager">
-  <thead>
-    <tr>
-      <th>Documento</th>
-      <th>Nome / Razão</th>
-      <th>Apelido / Fantasia</th>
-      <th>Contato</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of clients">
-      <td>{{data.cpfOrCnpj}}</td>
-      <td>{{data.fullname}}</td>
-      <td>{{data.nickname}}</td>
-      <td>{{data.phoneNumberOne}}</td>
-      <td>
-        <button class="btn-action primary">
-          <img src="../../../assets/icon/eye.svg" alt="icone de olho">
-        </button>
-        <button class="btn-action warning">
-          <img src="../../../assets/icon/edit.svg" alt="icone de edição">
-        </button>
-        <button class="btn-action danger">
-          <img src="../../../assets/icon/delete.svg" alt="icone de deletar">
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>

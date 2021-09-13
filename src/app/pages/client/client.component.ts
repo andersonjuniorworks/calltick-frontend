@@ -16,11 +16,9 @@ export class ClientComponent implements OnInit {
   clients: Client[];
 
   page: number = 0;
-  sizePage: number = 5;
+  size: number = 5;
 
   listOfDisplayData: Client[];
-
-  size: NzButtonSize = 'large';
 
   searchValue = '';
   searchValueFullname = '';
@@ -46,7 +44,7 @@ export class ClientComponent implements OnInit {
   }
 
   onList():void {
-    this.clientService.findAll(`${this.page}`, `${this.sizePage}`).subscribe(response => {
+    this.clientService.findAll(`${this.page}`, `${this.size}`).subscribe(response => {
       this.clients = response.body;
       this.listOfDisplayData = this.clients;
     })
