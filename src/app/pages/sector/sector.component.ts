@@ -34,8 +34,8 @@ export class SectorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.onList();
     this.onCreateForm();
+    this.onList();
   }
 
   onCreateForm() {
@@ -100,16 +100,13 @@ export class SectorComponent implements OnInit {
   }
 
   onAdd() {
-    this.sector.id = null;
-    this.sector.description = null;
-    this.showModal()
+    this.showModal(null);
   }
 
   onEdit(id) {
     this.sectorService.findById(id).subscribe((response) => {
       this.sector = response;
-      console.log(this.sector)
-      this.showModal();
+      this.showModal(this.sector);
     });
   }
 
@@ -140,13 +137,13 @@ export class SectorComponent implements OnInit {
     this.onList();
   }
 
-  showModal(): void {
-    if (!this.sector) {
-      this.onCreateForm()
+  showModal(value): void {
+    if(!value) {
+      this.onCreateForm();
     } else {
       this.sectorForm.patchValue({
-        id: this.sector.id,
-        description: this.sector.description,
+        id: value.id,
+        description: value.description,
       });
     }
     this.isVisible = true;
@@ -163,6 +160,6 @@ export class SectorComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    console.log('TESTE')
+    console.log('TESTE');
   }
 }

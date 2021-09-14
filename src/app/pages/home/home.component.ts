@@ -1,3 +1,4 @@
+import { ClientService } from './../../services/client.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  clientCount: number = 0;
+
+  constructor(
+    private clientService: ClientService
+  ) { }
 
   ngOnInit() {
+    this.onClientCount();
+  }
+
+  onClientCount() {
+    this.clientService.findCount().subscribe((response) => {
+      this.clientCount = response;
+    })
   }
 
 }

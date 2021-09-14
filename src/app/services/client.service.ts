@@ -30,6 +30,10 @@ export class ClientService {
     return this.http.get<Client>(`${this.API}/${id}`).pipe(take(1));
   }
 
+  findCount() {
+    return this.http.get<number>(`${this.API}/count`).pipe(take(1));
+  }
+
   findByDocument(value: string): Observable<HttpResponse<Client[]>> {
     return this.http
       .get<Client[]>(`${this.API}/document?`, {
