@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'client/edit/:id',
         loadChildren: () => import('../../pages/client/form-client/form-client.module').then( m => m.FormClientModule)
       },
+      {
+        path: 'sector',
+        loadChildren: () => import('../../pages/sector/sector.module').then( m => m.SectorModule)
+      },
     ]
   },
 

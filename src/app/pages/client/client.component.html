@@ -18,7 +18,7 @@
           CPF | CNPJ
           <nz-filter-trigger
             [(nzVisible)]="visibleDoc"
-            [nzActive]="searchValue.length > 0"
+            [nzActive]="searchValueDocument.length > 0"
             [nzDropdownMenu]="menuDoc"
           >
             <i nz-icon nzType="search"></i>
@@ -60,7 +60,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of clients">
-        <td>{{ data.document }}</td>
+        <td>{{ data.document | cpfOuCnpj }}</td>
         <td>{{ data.fullname }}</td>
         <td>{{ data.nickname }}</td>
         <td>{{ data.city }}</td>

@@ -1,0 +1,90 @@
+<div class="content">
+  <div class="table-header">
+    <button class="btn btn-secondary" (click)="showModal()">Adicionar</button>
+  </div>
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="85%">
+          Descrição
+          <nz-filter-trigger
+            [(nzVisible)]="visibleDescription"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menuDoc"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzRight>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of sectors">
+        <td>{{ data.description }}</td>
+        <td>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
+            <img src="../../../assets/icon/edit.svg" alt="icone de edição" />
+          </button>
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+            <img src="../../../assets/icon/delete.svg" alt="icone de deletar" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-dropdown-menu #menuDoc="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Descrição"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByDescription()"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Setor"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="sectorForm">
+      <nz-form-item>
+        <nz-form-label nzFor="description">Descrição*</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" nzSize="large" id="description" placeholder="Digite a descrição do setor" formControlName="description">
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+    <button nz-button nzType="primary" (click)="handleOk()">Salvar</button>
+  </div>
+</nz-modal>
