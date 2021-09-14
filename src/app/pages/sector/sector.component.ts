@@ -55,7 +55,6 @@ export class SectorComponent implements OnInit {
   }
 
   onSubmit() {
-
     let msgSuccess = 'Setor cadastrado com sucesso!!!';
 
     if (this.sectorForm.value.id) {
@@ -65,7 +64,7 @@ export class SectorComponent implements OnInit {
     this.sectorService.save(this.sectorForm.value).subscribe(
       (success) => {
         this.notification.create('success', 'SUCESSO!', `${msgSuccess}`);
-        this.onCreateForm();
+        this.onList();
       },
       (error) => {
         let err = error;
@@ -76,7 +75,6 @@ export class SectorComponent implements OnInit {
         );
       }
     );
-    this.onList();
   }
 
   onDelete(value) {
@@ -101,6 +99,20 @@ export class SectorComponent implements OnInit {
     );
   }
 
+  onAdd() {
+    this.sector.id = null;
+    this.sector.description = null;
+    this.showModal()
+  }
+
+  onEdit(id) {
+    this.sectorService.findById(id).subscribe((response) => {
+      this.sector = response;
+      console.log(this.sector)
+      this.showModal();
+    });
+  }
+
   showDeleteConfirm(value): void {
     this.modal.confirm({
       nzTitle: 'Deseja realmente excluir este setor?',
@@ -108,9 +120,9 @@ export class SectorComponent implements OnInit {
       nzOkText: 'Sim',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => this.onDelete(value) ,
+      nzOnOk: () => this.onDelete(value),
       nzCancelText: 'Não',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => console.log('Cancel'),
     });
   }
 
@@ -129,6 +141,14 @@ export class SectorComponent implements OnInit {
   }
 
   showModal(): void {
+    if (!this.sector) {
+      this.onCreateForm()
+    } else {
+      this.sectorForm.patchValue({
+        id: this.sector.id,
+        description: this.sector.description,
+      });
+    }
     this.isVisible = true;
   }
 
@@ -143,5 +163,6 @@ export class SectorComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    console.log('TESTE')
   }
 }
