@@ -54,7 +54,7 @@
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
-        <th nzWidth="150px">Contato</th>
+        <th nzWidth="200px">Contato</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -64,7 +64,7 @@
         <td>{{ data.fullname }}</td>
         <td>{{ data.nickname }}</td>
         <td>{{ data.city }}</td>
-        <td>{{ data.phoneNumberOne }}</td>
+        <td>{{ data.phoneNumberOne | telefoneOuCelular }}</td>
         <td>
           <button class="btn-action primary" (click)="showModal()">
             <img src="../../../assets/icon/eye.svg" alt="icone de olho" />
@@ -79,6 +79,18 @@
       </tr>
     </tbody>
   </nz-table>
+
+  <div class="pagination">
+<!--     <button nz-button nzType="primary" (click)="previousPage()">
+      <i nz-icon nzType="left"></i>
+      Anterior
+    </button>
+    <button nz-button nzType="primary" (click)="nextPage()">
+      <i nz-icon nzType="right"></i>
+      Próximo
+    </button> -->
+    <nz-pagination [nzPageIndex]="page" [nzTotal]="totalPages" [nzPageSize]="10" nzSimple (nzPageIndexChange)="paginate($event)"></nz-pagination>
+  </div>
 
   <nz-dropdown-menu #menuDoc="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">

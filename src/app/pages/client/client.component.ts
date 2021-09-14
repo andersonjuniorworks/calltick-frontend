@@ -14,8 +14,9 @@ export class ClientComponent implements OnInit {
 
   clients: Client[];
 
-  page: number = 0;
+  page: number = 1;
   size: number = 5;
+  totalPages: number = 0;
 
   loading = true;
 
@@ -53,10 +54,14 @@ export class ClientComponent implements OnInit {
   }
 
   onList():void {
-    this.clientService.findAll(`${this.page}`, `${this.size}`).subscribe(response => {
+    this.clientService.findAll(`${this.page-1}`, `${this.size}`).subscribe(response => {
       this.clients = response.body;
       this.listOfDisplayData = this.clients;
       this.loading = false;
+      this.clientService.findCount().subscribe((count) => {
+        this.totalPages = this.size / count;
+        this.totalPages = Math.ceil(this.totalPages+1)*10;
+      })
     })
   }
 
@@ -149,6 +154,23 @@ export class ClientComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  paginate(event) {
+    this.page = event;
+    this.onList();
+  }
+
+  nextPage() {
+    this.page++;
+    console.log(this.page);
+    this.onList();
+  }
+
+  previousPage() {
+    this.page--;
+    console.log(this.page)
+    this.onList();
   }
 
 }

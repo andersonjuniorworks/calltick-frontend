@@ -16,13 +16,17 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 import {
   DeleteOutline,
   EditOutline,
   FileSearchOutline,
+  LeftOutline,
   PlusOutline,
+  RightOutline,
   SearchOutline
 } from '@ant-design/icons-angular/icons';
 
@@ -31,7 +35,9 @@ const icons: IconDefinition[] = [
   EditOutline,
   DeleteOutline,
   FileSearchOutline,
-  PlusOutline
+  PlusOutline,
+  RightOutline,
+  LeftOutline
 ];
 
 const maskConfig: Partial<IConfig> = {
@@ -49,6 +55,7 @@ const maskConfig: Partial<IConfig> = {
     NzInputModule,
     NzModalModule,
     NzEmptyModule,
+    NzPaginationModule,
     NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
     PipesModule,
