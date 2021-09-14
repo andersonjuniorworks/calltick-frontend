@@ -1,7 +1,7 @@
 export interface Client {
   id: number;
   type: number;
-  cpfOrCnpj: string;
+  document: string;
   fullname: string;
   nickname: string;
   zipcode: string

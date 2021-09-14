@@ -44,7 +44,7 @@ body {
 }
 
 .btn.btn-primary {
-  border-radius: 5px;
+  border-radius: 0px;
   background: var(--primary);
   color: #fff;
 }
@@ -56,7 +56,7 @@ body {
 }
 
 .btn.btn-secondary {
-  border-radius: 5px;
+  border-radius: 0px;
   background: var(--secondary);
   color: #fff;
 }
@@ -68,7 +68,7 @@ body {
 }
 
 .btn.btn-terciary {
-  border-radius: 5px;
+  border-radius: 0px;
   background: var(--terciary);
   color: #fff;
 }

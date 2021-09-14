@@ -24,6 +24,12 @@ const icons: IconDefinition[] = [
   SearchOutline,
 ];
 
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -37,6 +43,7 @@ const icons: IconDefinition[] = [
     NzButtonModule,
     NzSelectModule,
     NzDividerModule,
+    NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
   ],
   declarations: [FormClientComponent]

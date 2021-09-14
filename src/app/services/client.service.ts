@@ -1,14 +1,9 @@
 import { Client } from './../models/client.model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { delay, take, tap, map, catchError } from "rxjs/operators";
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,23 +13,73 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(
-    page: string,
-    size: string
-  ): Observable<HttpResponse<Client[]>> {
+  findAll(page: string, size: string): Observable<HttpResponse<Client[]>> {
     return this.http
       .get<Client[]>(`${this.API}?`, {
-        params: { "page": page, "size": size },
-        observe: "response",
+        params: { page: page, size: size },
+        observe: 'response',
       })
       .pipe(
-        tap((response) => response.headers.getAll("x-limit, x-offset, x-totalCount")
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount')
         )
       );
   }
 
   findById(id) {
     return this.http.get<Client>(`${this.API}/${id}`).pipe(take(1));
+  }
+
+  findByDocument(value: string): Observable<HttpResponse<Client[]>> {
+    return this.http
+      .get<Client[]>(`${this.API}/document?`, {
+        params: { value: value },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount')
+        )
+      );
+  }
+
+  findByName(value: string): Observable<HttpResponse<Client[]>> {
+    return this.http
+      .get<Client[]>(`${this.API}/fullname?`, {
+        params: { value: value },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount')
+        )
+      );
+  }
+
+  findByNickname(value: string): Observable<HttpResponse<Client[]>> {
+    return this.http
+      .get<Client[]>(`${this.API}/nickname?`, {
+        params: { value: value },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount')
+        )
+      );
+  }
+
+  findByCity(value: string): Observable<HttpResponse<Client[]>> {
+    return this.http
+      .get<Client[]>(`${this.API}/city?`, {
+        params: { value: value },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount')
+        )
+      );
   }
 
   private insert(client) {

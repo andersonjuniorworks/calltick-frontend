@@ -7,22 +7,25 @@
     </div>
     <div class="row">
       <div class="col-3">
+        <nz-form-item>
         <nz-form-label nzFor="clientType">Tipo de Cliente</nz-form-label>
         <nz-form-control nzCompact>
           <nz-select
             formControlName="type"
             id="clientType"
             nzPlaceHolder="Selecione"
+            nzSize="large"
             (ngModelChange)="onChangeTypeClient()"
           >
             <nz-option nzValue="1" nzLabel="Pessoa Física"></nz-option>
             <nz-option nzValue="2" nzLabel="Pessoa Juridica"></nz-option>
           </nz-select>
         </nz-form-control>
+      </nz-form-item>
       </div>
       <div class="col-3">
         <nz-form-item>
-          <nz-form-label nzFor="cpfOrCnpj">{{ labelDoc }}*</nz-form-label>
+          <nz-form-label nzFor="document">{{ labelDoc }}*</nz-form-label>
           <nz-form-control nzCompact nzHasFeedback [nzErrorTip]="docValidation">
             <input
               type="text"
@@ -30,9 +33,11 @@
               nz-input
               id="cpfOrCnpj"
               placeholder="Digite o {{ labelDoc }}"
-              minlength="14"
+              minlength="11"
               maxlength="18"
               required
+              nzSize="large"
+              mask="000.000.000-00||00.000.000/0000-00"
             />
           </nz-form-control>
         </nz-form-item>
@@ -51,6 +56,7 @@
               minlength="5"
               maxlength="255"
               required
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -65,6 +71,7 @@
               nz-input
               id="nickname"
               placeholder="Digite o {{ labelNickname }}"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -81,6 +88,7 @@
               id="zipcode"
               nz-input
               placeholder="Ex: 00000-000"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -95,6 +103,7 @@
               nz-input
               id="address"
               placeholder="Digite o nome da rua"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -109,6 +118,7 @@
               nz-input
               id="homeNumber"
               placeholder="Ex: 123"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -123,6 +133,7 @@
               nz-input
               id="complement"
               placeholder="Ex: Apartamento"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -139,6 +150,7 @@
               nz-input
               id="neighborhood"
               placeholder="Ex: Centro"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -154,6 +166,7 @@
               formControlName="state"
               id="state"
               required
+              nzSize="large"
             >
               <nz-option nzLabel="Ceará" nzValue="CE"></nz-option>
             </nz-select>
@@ -171,6 +184,7 @@
               formControlName="city"
               id="city"
               required
+              nzSize="large"
             >
               <nz-option nzLabel="Ararendá" nzValue="Ararendá"></nz-option>
               <nz-option nzLabel="Crateús" nzValue="Crateús"></nz-option>
@@ -206,6 +220,7 @@
               id="phoneNumberOne"
               placeholder="Ex.: Telefone ou Celular"
               required
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -220,6 +235,7 @@
               nz-input
               id="phoneNumberTwo"
               placeholder="Ex.: Telefone ou Celular"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
@@ -234,18 +250,20 @@
               nz-input
               id="email"
               placeholder="Digite o email"
+              nzSize="large"
             />
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
     <div class="action-form">
-      <button nz-button nzType="default" (click)="onBackToLocation()">
+      <button nz-button nzType="default" nzSize="large" (click)="onBackToLocation()">
         Voltar
       </button>
       <button
         nz-button
         nzType="primary"
+        nzSize="large"
         (click)="onSubmit()"
         [disabled]="!formClient.valid"
       >
@@ -278,7 +296,7 @@
     ><span class="valid-text">Máximo de 18 caracteres</span></ng-container
   >
   <ng-container *ngIf="formClient.get('cpfOrCnpj').hasError('minlength')"
-    ><span class="valid-text">Minimo de 14 caracteres</span></ng-container
+    ><span class="valid-text">Minimo de 13 caracteres</span></ng-container
   >
   <ng-container *ngIf="formClient.get('cpfOrCnpj').hasError('required')"
     ><span class="valid-text">{{ labelDoc }} obrigatório</span></ng-container

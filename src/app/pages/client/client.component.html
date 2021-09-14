@@ -2,50 +2,187 @@
   <div class="table-header">
     <button class="btn btn-secondary" routerLink="add">Adicionar</button>
   </div>
-  <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+  >
     <thead>
       <tr>
-        <th nzCustomFilter>
+        <th nzWidth="200px">
           CPF | CNPJ
-          <nz-filter-trigger [(nzVisible)]="visibleDoc" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <nz-filter-trigger
+            [(nzVisible)]="visibleDoc"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menuDoc"
+          >
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
-        <th>Nome Completo | Razão Social</th>
-        <th>Apelido | Nome Fantasia</th>
-        <th>Cidade</th>
-        <th>Contato</th>
+        <th nzWidth="380px">
+          Nome | Razão Social
+          <nz-filter-trigger
+            [(nzVisible)]="visibleName"
+            [nzActive]="searchValueFullname.length > 0"
+            [nzDropdownMenu]="menuName"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzWidth="380px">
+          Apelido | Fantasia
+          <nz-filter-trigger
+            [(nzVisible)]="visibleNickname"
+            [nzActive]="searchValueNickname.length > 0"
+            [nzDropdownMenu]="menuNickname"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>
+          Cidade
+          <nz-filter-trigger
+            [(nzVisible)]="visibleCity"
+            [nzActive]="searchValueCity.length > 0"
+            [nzDropdownMenu]="menuCity"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzWidth="150px">Contato</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of clients">
-        <td>{{ data.cpfOrCnpj }}</td>
+        <td>{{ data.document }}</td>
         <td>{{ data.fullname }}</td>
         <td>{{ data.nickname }}</td>
         <td>{{ data.city }}</td>
         <td>{{ data.phoneNumberOne }}</td>
         <td>
-          <button class="btn-action primary">
-            <img src="../../../assets/icon/eye.svg" alt="icone de olho">
+          <button class="btn-action primary" (click)="showModal()">
+            <img src="../../../assets/icon/eye.svg" alt="icone de olho" />
           </button>
           <button class="btn-action warning" (click)="onEdit(data.id)">
-            <img src="../../../assets/icon/edit.svg" alt="icone de edição">
+            <img src="../../../assets/icon/edit.svg" alt="icone de edição" />
           </button>
-          <button class="btn-action danger">
-            <img src="../../../assets/icon/delete.svg" alt="icone de deletar">
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+            <img src="../../../assets/icon/delete.svg" alt="icone de deletar" />
           </button>
         </td>
       </tr>
     </tbody>
   </nz-table>
-  <nz-dropdown-menu #menu="nzDropdownMenu">
+
+  <nz-dropdown-menu #menuDoc="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">
       <div class="search-box">
-        <input type="text" nz-input placeholder="CPF ou CNPJ do cliente" [(ngModel)]="searchValue" />
-        <button nz-button nzSize="small" nzType="primary" (click)="searchByDoc()" class="search-button">Buscar</button>
+        <input
+          type="text"
+          nz-input
+          placeholder="CPF ou CNPJ do cliente"
+          [(ngModel)]="searchValue"
+          mask="000.000.000-00||00.000.000/0000-00"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByDoc()"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuName="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Nome do cliente"
+          [(ngModel)]="searchValueFullname"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByName()"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuNickname="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Apelido ou nome fantasia"
+          [(ngModel)]="searchValueNickname"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByNickname()"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <nz-dropdown-menu #menuCity="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Nome da cidade"
+          [(ngModel)]="searchValueCity"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByCity()"
+          class="search-button"
+        >
+          Buscar
+        </button>
         <button nz-button nzSize="small" (click)="reset()">Limpar</button>
       </div>
     </div>
   </nz-dropdown-menu>
 </div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Visualizar Cliente"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <h3>Função em desenvolvimento</h3>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+  </div>
+</nz-modal>

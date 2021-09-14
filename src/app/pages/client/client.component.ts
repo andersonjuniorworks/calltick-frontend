@@ -2,7 +2,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from './../../services/client.service';
 import { Client } from './../../models/client.model';
 import { Component, OnInit } from '@angular/core';
-import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -18,12 +17,28 @@ export class ClientComponent implements OnInit {
   page: number = 0;
   size: number = 5;
 
+  loading = true;
+
   listOfDisplayData: Client[];
 
   searchValue = '';
+  searchValueDocument = '';
   searchValueFullname = '';
+  searchValueNickname = '';
+  searchValueCity = '';
+
   visibleDoc = false;
   visibleName = false;
+  visibleNickname = false;
+  visibleCity = false;
+
+  isVisible = false;
+  isOkLoading = false;
+
+  filterCity = [
+    { text: 'Crateús', value: 'Crateús' },
+    { text: 'Fortaleza', value: 'Fortaleza' }
+  ];
 
   constructor(
     private modal: NzModalService,
@@ -37,16 +52,11 @@ export class ClientComponent implements OnInit {
     this.onList();
   }
 
-  reset(): void {
-    this.searchValue = '';
-    this.searchValueFullname = '';
-    this.onList();
-  }
-
   onList():void {
     this.clientService.findAll(`${this.page}`, `${this.size}`).subscribe(response => {
       this.clients = response.body;
       this.listOfDisplayData = this.clients;
+      this.loading = false;
     })
   }
 
@@ -76,14 +86,40 @@ export class ClientComponent implements OnInit {
     );
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.searchValueFullname = '';
+    this.searchValueNickname = '';
+    this.searchValueCity = '';
+    this.onList();
+  }
+
   searchByDoc(): void {
     this.visibleDoc = false;
-    this.listOfDisplayData = this.clients.filter((item: Client) => item.cpfOrCnpj.indexOf(this.searchValue) !== -1);
+    this.clientService.findByDocument(this.searchValueDocument).subscribe((response) => {
+      this.clients = response.body;
+    })
   }
 
   searchByName(): void {
     this.visibleName = false;
-    this.listOfDisplayData = this.clients.filter((item: Client) => item.fullname.indexOf(this.searchValueFullname) !== -1);
+    this.clientService.findByName(this.searchValueFullname).subscribe((response) => {
+      this.clients = response.body;
+    })
+  }
+
+  searchByNickname(): void {
+    this.visibleNickname = false;
+    this.clientService.findByNickname(this.searchValueNickname).subscribe((response) => {
+      this.clients = response.body;
+    })
+  }
+
+  searchByCity(): void {
+    this.visibleCity = false;
+    this.clientService.findByCity(this.searchValueCity).subscribe((response) => {
+      this.clients = response.body;
+    })
   }
 
   showDeleteConfirm(value): void {
@@ -99,8 +135,20 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  teste() {
-    alert('Deu certo!!!');
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
 }

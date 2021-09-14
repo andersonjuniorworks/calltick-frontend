@@ -49,7 +49,7 @@ export class FormClientComponent implements OnInit {
     this.formClient = this.formBuilder.group({
       id: this.client.id,
       type: [this.client.type],
-      cpfOrCnpj: [this.client.cpfOrCnpj, [Validators.required, Validators.minLength(14), Validators.maxLength(18)]],
+      document: [this.client.document, [Validators.required, Validators.minLength(11), Validators.maxLength(18)]],
       fullname: [this.client.fullname, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       nickname: this.client.nickname,
       zipcode: this.client.zipcode,

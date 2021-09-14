@@ -15,6 +15,8 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
 import {
   DeleteOutline,
   EditOutline,
@@ -31,6 +33,10 @@ const icons: IconDefinition[] = [
   PlusOutline
 ];
 
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,8 +48,10 @@ const icons: IconDefinition[] = [
     NzInputModule,
     NzModalModule,
     NzEmptyModule,
+    NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
   ],
-  declarations: [ClientComponent]
+  declarations: [ClientComponent],
+  providers: []
 })
 export class ClientModule { }
