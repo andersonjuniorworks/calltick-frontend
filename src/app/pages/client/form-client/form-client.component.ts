@@ -56,7 +56,7 @@ export class FormClientComponent implements OnInit {
       address: this.client.address,
       homeNumber: this.client.homeNumber,
       complement: this.client.complement,
-      neighborhood: null,
+      neighborhood: this.client.neighborhood,
       state: [this.client.state, [Validators.required]],
       city: [this.client.city, [Validators.required]],
       phoneNumberOne: [this.client.phoneNumberOne, [Validators.required]],

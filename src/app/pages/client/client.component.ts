@@ -12,10 +12,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class ClientComponent implements OnInit {
 
+  client: Client;
   clients: Client[];
 
   page: number = 1;
-  size: number = 5;
+  size: number = 10;
+  total: number;
   totalPages: number = 0;
 
   loading = true;
@@ -35,6 +37,11 @@ export class ClientComponent implements OnInit {
 
   isVisible = false;
   isOkLoading = false;
+
+  paginationDisable = false;
+
+  labelDoc: string;
+  labelNickname: string;
 
   filterCity = [
     { text: 'Crateús', value: 'Crateús' },
@@ -59,6 +66,7 @@ export class ClientComponent implements OnInit {
       this.listOfDisplayData = this.clients;
       this.loading = false;
       this.clientService.findCount().subscribe((count) => {
+        this.total = count;
         this.totalPages = this.size / count;
         this.totalPages = Math.ceil(this.totalPages+1)*10;
       })
@@ -103,6 +111,7 @@ export class ClientComponent implements OnInit {
     this.visibleDoc = false;
     this.clientService.findByDocument(this.searchValueDocument).subscribe((response) => {
       this.clients = response.body;
+      this.total = this.clients.length;
     })
   }
 
@@ -110,6 +119,7 @@ export class ClientComponent implements OnInit {
     this.visibleName = false;
     this.clientService.findByName(this.searchValueFullname).subscribe((response) => {
       this.clients = response.body;
+      this.total = this.clients.length;
     })
   }
 
@@ -117,13 +127,15 @@ export class ClientComponent implements OnInit {
     this.visibleNickname = false;
     this.clientService.findByNickname(this.searchValueNickname).subscribe((response) => {
       this.clients = response.body;
+      this.total = this.clients.length;
     })
   }
 
   searchByCity(): void {
-    this.visibleCity = false;
+    this.paginationDisable = true;
     this.clientService.findByCity(this.searchValueCity).subscribe((response) => {
       this.clients = response.body;
+      this.total = this.clients.length;
     })
   }
 
@@ -140,7 +152,18 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  showModal(): void {
+  showModal(client): void {
+    this.client = client;
+    if(this.client.type == 1) {
+      this.labelDoc = 'CPF';
+      this.labelNickname = 'Apelido'
+    } else {
+      this.labelDoc = 'CNPJ';
+      this.labelNickname = 'Nome Fantasia'
+    }
+    if(this.client.phoneNumberTwo == '' || this.client.phoneNumberTwo == null) {
+      this.client.phoneNumberTwo = this.client.phoneNumberOne
+    }
     this.isVisible = true;
   }
 

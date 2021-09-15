@@ -17,8 +17,8 @@
             nzSize="large"
             (ngModelChange)="onChangeTypeClient()"
           >
-            <nz-option nzValue="1" nzLabel="Pessoa Física"></nz-option>
-            <nz-option nzValue="2" nzLabel="Pessoa Juridica"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="Pessoa Física"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="Pessoa Juridica"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -169,7 +169,7 @@
               required
               nzSize="large"
             >
-              <nz-option nzLabel="Ceará" nzValue="CE"></nz-option>
+              <nz-option nzLabel="Ceará" nzValue="Ceará"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -189,6 +189,15 @@
             >
               <nz-option nzLabel="Ararendá" nzValue="Ararendá"></nz-option>
               <nz-option nzLabel="Crateús" nzValue="Crateús"></nz-option>
+              <nz-option nzLabel="Caucaia" nzValue="Caucaia"></nz-option>
+              <nz-option
+              nzLabel="Fortaleza"
+              nzValue="Fortaleza"
+            ></nz-option>
+            <nz-option
+            nzLabel="Iguatu"
+            nzValue="Iguatu"
+          ></nz-option>
               <nz-option
                 nzLabel="Independência"
                 nzValue="Independência"

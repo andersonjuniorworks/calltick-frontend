@@ -17,6 +17,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
@@ -56,6 +57,7 @@ const maskConfig: Partial<IConfig> = {
     NzModalModule,
     NzEmptyModule,
     NzPaginationModule,
+    NzDescriptionsModule,
     NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
     PipesModule,

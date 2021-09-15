@@ -5,16 +5,17 @@
   <nz-table
     #nzTable
     [nzData]="listOfDisplayData"
-    nzTableLayout="fixed"
+
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzLoading]="loading"
     [nzPaginationPosition]="'bottom'"
     [nzNoResult]="'Nenhum resultado encontrado'"
+    [nzScroll]="{ x: '1200px', y: '550px' }"
   >
     <thead>
       <tr>
-        <th nzWidth="200px">
+        <th>
           CPF | CNPJ
           <nz-filter-trigger
             [(nzVisible)]="visibleDoc"
@@ -24,7 +25,7 @@
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
-        <th nzWidth="380px">
+        <th>
           Nome | Razão Social
           <nz-filter-trigger
             [(nzVisible)]="visibleName"
@@ -34,7 +35,7 @@
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
-        <th nzWidth="380px">
+        <th>
           Apelido | Fantasia
           <nz-filter-trigger
             [(nzVisible)]="visibleNickname"
@@ -54,7 +55,7 @@
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
-        <th nzWidth="200px">Contato</th>
+        <th>Contato</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -66,7 +67,7 @@
         <td>{{ data.city }}</td>
         <td>{{ data.phoneNumberOne | telefoneOuCelular }}</td>
         <td>
-          <button class="btn-action primary" (click)="showModal()">
+          <button class="btn-action primary" (click)="showModal(data)">
             <img src="../../../assets/icon/eye.svg" alt="icone de olho" />
           </button>
           <button class="btn-action warning" (click)="onEdit(data.id)">
@@ -80,16 +81,11 @@
     </tbody>
   </nz-table>
 
-  <div class="pagination">
-<!--     <button nz-button nzType="primary" (click)="previousPage()">
-      <i nz-icon nzType="left"></i>
-      Anterior
-    </button>
-    <button nz-button nzType="primary" (click)="nextPage()">
-      <i nz-icon nzType="right"></i>
-      Próximo
-    </button> -->
-    <nz-pagination [nzPageIndex]="page" [nzTotal]="totalPages" [nzPageSize]="10" nzSimple (nzPageIndexChange)="paginate($event)"></nz-pagination>
+<div class="pagination">
+  <div class="registers">
+    <p>Total de registros: <strong>{{total}}</strong></p>
+  </div>
+    <nz-pagination [nzPageIndex]="page" [nzTotal]="totalPages" [nzPageSize]="size" nzSimple (nzPageIndexChange)="paginate($event)" [nzDisabled]="paginationDisable"></nz-pagination>
   </div>
 
   <nz-dropdown-menu #menuDoc="nzDropdownMenu">
@@ -190,9 +186,25 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading"
+  nzWidth="950px"
 >
   <div *nzModalContent>
-    <h3>Função em desenvolvimento</h3>
+
+    <nz-descriptions [nzTitle]="client.fullname" nzLayout="horizontal">
+      <nz-descriptions-item [nzTitle]="labelDoc"><strong>{{client.document}}</strong></nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="labelNickname" [nzSpan]="2"><strong>{{client.nickname}}</strong></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="CEP">{{client.zipcode}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Endereço">{{client.address}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Nº">{{client.homeNumber}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Complemento">{{client.complement}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Bairro">{{client.neighborhood}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Estado">{{client.state}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Cidade">{{client.city}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Contato">{{client.phoneNumberOne | telefoneOuCelular}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Contato">{{client.phoneNumberTwo | telefoneOuCelular}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Email" [nzSpan]="2">{{client.email}}</nz-descriptions-item>
+    </nz-descriptions>
+
   </div>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>

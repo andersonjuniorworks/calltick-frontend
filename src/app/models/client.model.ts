@@ -8,6 +8,7 @@ export interface Client {
   address: string;
   homeNumber: string;
   complement: string;
+  neighborhood: string;
   city: string;
   state: string;
   phoneNumberOne: string;
