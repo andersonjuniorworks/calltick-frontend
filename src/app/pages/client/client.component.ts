@@ -145,6 +145,7 @@ export class ClientComponent implements OnInit {
       nzContent: `<b style="color: red;">${value.fullname}</b>`,
       nzOkText: 'Sim',
       nzOkType: 'primary',
+      nzWidth: '500px',
       nzOkDanger: true,
       nzOnOk: () => this.onDelete(value) ,
       nzCancelText: 'Não',

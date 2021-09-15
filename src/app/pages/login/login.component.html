@@ -8,14 +8,14 @@
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Preencha o campo de email">
                         <nz-input-group [nzPrefix]="prefixMail" nzSize="large">
-                            <input type="email" nz-input formControlName="userName" placeholder="Digite o email" />
+                            <input type="email" nz-input formControlName="email" placeholder="Digite o email" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Preencha o campo de senha">
                         <nz-input-group [nzPrefix]="prefixPass" [nzSuffix]="hiddenPass" nzSize="large">
-                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input [(ngModel)]="password" placeholder="Digite a senha" />
+                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password" placeholder="Digite a senha" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>

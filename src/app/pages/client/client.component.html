@@ -191,7 +191,7 @@
   <div *nzModalContent>
 
     <nz-descriptions [nzTitle]="client.fullname" nzLayout="horizontal">
-      <nz-descriptions-item [nzTitle]="labelDoc"><strong>{{client.document}}</strong></nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="labelDoc"><strong>{{client.document | cpfOuCnpj}}</strong></nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="labelNickname" [nzSpan]="2"><strong>{{client.nickname}}</strong></nz-descriptions-item>
       <nz-descriptions-item nzTitle="CEP">{{client.zipcode}}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Endereço">{{client.address}}</nz-descriptions-item>
