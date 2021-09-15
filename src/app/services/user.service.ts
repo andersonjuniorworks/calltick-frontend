@@ -35,8 +35,11 @@ export class UserService {
     return this.http.get<User>(`${this.API}/${id}`).pipe(take(1));
   }
 
+  findByEmail(email) {
+    return this.http.get<User>(`${this.API}/email?value=${email}`).pipe(take(1));
+  }
+
   login(user: User) {
-    this.storage.setLocalUser(user);
     return this.http.get<User>(`${this.API}/login?email=${user.email}&password=${user.password}`).pipe(take(1));
   }
 

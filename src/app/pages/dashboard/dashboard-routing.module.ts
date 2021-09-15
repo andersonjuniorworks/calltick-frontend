@@ -32,6 +32,10 @@ const routes: Routes = [
         path: 'sector',
         loadChildren: () => import('../../pages/sector/sector.module').then( m => m.SectorModule)
       },
+      {
+        path: 'ticket',
+        loadChildren: () => import('../../pages/ticket/ticket.module').then( m => m.TicketModule)
+      },
     ]
   },
 

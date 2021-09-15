@@ -1,3 +1,5 @@
+import { User } from './../../models/user.model';
+import { StorageService } from './../../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,9 +12,18 @@ export class DashboardComponent implements OnInit {
   isCollapsed = false;
   theme = true;
 
-  constructor() { }
+  user: User;
+
+  constructor(
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
+    this.onReadUser();
+  }
+
+  onReadUser() {
+    this.user = this.storageService.getLocalUser();
   }
 
 }

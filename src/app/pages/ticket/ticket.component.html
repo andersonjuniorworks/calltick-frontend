@@ -1,0 +1,24 @@
+<div class="content">
+  <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
+    <nz-list-item *ngFor="let data of tickets">
+      <ng-container>
+        <nz-list-item-meta
+          nzAvatar="./assets/icon/ticket.svg"
+          nzDescription="{{data.client.fullname}}"
+        >
+          <nz-list-item-meta-title>
+            <a href="https://ng.ant.design">{{data.description}}</a>
+          </nz-list-item-meta-title>
+        </nz-list-item-meta>
+        <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
+        <nz-tag nzColor="processing" *ngIf="data.status == 2">Processando</nz-tag>
+        <nz-tag nzColor="success" *ngIf="data.status == 3">Finalizado</nz-tag>
+        <nz-tag nzColor="error" *ngIf="data.status == 4">Cancelado</nz-tag>
+        <ul nz-list-item-actions>
+          <nz-list-item-action><a>Finalizar</a></nz-list-item-action>
+          <nz-list-item-action><a>Visualizar</a></nz-list-item-action>
+        </ul>
+      </ng-container>
+    </nz-list-item>
+  </nz-list>
+</div>
