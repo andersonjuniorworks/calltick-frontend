@@ -1,16 +1,18 @@
+import { User } from './user.model';
 import { Client } from './client.model';
 import { Sector } from './sector.model';
 export interface Ticket {
-  id: number,
+  id: number;
   client: Client,
-  active: number,
-  closeBy: string,
-  closingDate: string,
-  subject: string,
-  description: string,
-  openBy:	string,
-  openingDate: string,
-  sector:	Sector,
-  status:	number,
-  technicalReport: string
+  user: User;
+  active: number;
+  closeBy: string;
+  closingDate: string;
+  subject: string;
+  description: string;
+  openBy: string;
+  openingDate: string;
+  sector: Sector;
+  status: number;
+  technicalReport: string;
 }

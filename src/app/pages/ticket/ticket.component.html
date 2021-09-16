@@ -1,22 +1,37 @@
 <div class="content">
+
+  <div class="table-header">
+    <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+  </div>
+
   <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
     <nz-list-item *ngFor="let data of tickets">
       <ng-container>
         <nz-list-item-meta
           nzAvatar="./assets/icon/ticket.svg"
-          nzDescription="{{data.client.fullname}}"
+          nzDescription="{{data.client.fullname}} "
         >
           <nz-list-item-meta-title>
-            <a href="https://ng.ant.design">{{data.description}}</a>
+            <a href="#">{{data.description}}</a>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
+        <span id="tag">Responsável: <strong>{{data.user.fullname}}</strong></span>
+        <nz-tag nzColor="default" id="tagSec">{{data.sector.description}}</nz-tag>
+        <nz-tag nzColor="default">{{data.openingDate}}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
         <nz-tag nzColor="processing" *ngIf="data.status == 2">Processando</nz-tag>
         <nz-tag nzColor="success" *ngIf="data.status == 3">Finalizado</nz-tag>
         <nz-tag nzColor="error" *ngIf="data.status == 4">Cancelado</nz-tag>
         <ul nz-list-item-actions>
-          <nz-list-item-action><a>Finalizar</a></nz-list-item-action>
-          <nz-list-item-action><a>Visualizar</a></nz-list-item-action>
+          <nz-list-item-action>
+            <button nz-button nzType="default" nzShape="circle" [disabled]="data.status == 3 || data.status == 4" nzTooltipTitle="Finalizar" nzTooltipPlacement="top" nz-tooltip><i nz-icon nzType="check"></i></button>
+          </nz-list-item-action>
+          <nz-list-item-action>
+            <button nz-button nzType="default" nzShape="circle" nzTooltipTitle="Visualizar" nzTooltipPlacement="top" nz-tooltip ><i nz-icon nzType="eye"></i></button>
+          </nz-list-item-action>
+          <nz-list-item-action>
+            <button nz-button nzType="default" nzShape="circle" nzTooltipTitle="Editar" nzTooltipPlacement="top" nz-tooltip *ngIf="userProfile == 1" (click)="onEdit(data.id)"><i nz-icon nzType="edit"></i></button>
+          </nz-list-item-action>
         </ul>
       </ng-container>
     </nz-list-item>

@@ -36,6 +36,14 @@ const routes: Routes = [
         path: 'ticket',
         loadChildren: () => import('../../pages/ticket/ticket.module').then( m => m.TicketModule)
       },
+      {
+        path: 'ticket/add',
+        loadChildren: () => import('../ticket/form-ticket/form-ticket.module').then( m => m.FormTicketModule)
+      },
+      {
+        path: 'ticket/edit/:id',
+        loadChildren: () => import('../ticket/form-ticket/form-ticket.module').then( m => m.FormTicketModule)
+      },
     ]
   },
 

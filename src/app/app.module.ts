@@ -11,8 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
-registerLocaleData(en);
+import pt from '@angular/common/locales/pt-PT';
+registerLocaleData(pt);
 
 import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 
@@ -33,15 +33,16 @@ import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
         switch (localId) {
           case 'en':
             return en_US;
-          /** keep the same with angular.json/i18n/locales configuration **/
           case 'pt':
             return pt_BR;
           default:
             return pt_BR;
         }
       }, deps: [LOCALE_ID]
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+}

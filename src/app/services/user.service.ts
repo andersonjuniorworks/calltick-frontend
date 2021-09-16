@@ -35,6 +35,10 @@ export class UserService {
     return this.http.get<User>(`${this.API}/${id}`).pipe(take(1));
   }
 
+  findCount() {
+    return this.http.get<number>(`${this.API}/count`).pipe(take(1));
+  }
+
   findByEmail(email) {
     return this.http.get<User>(`${this.API}/email?value=${email}`).pipe(take(1));
   }

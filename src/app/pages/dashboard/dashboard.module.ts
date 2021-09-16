@@ -45,4 +45,6 @@ const icons: IconDefinition[] = [
   declarations: [DashboardComponent],
   providers: [{ provide: NZ_I18N, useValue: en_US }]
 })
-export class DashboardModule { }
+export class DashboardModule {
+
+}

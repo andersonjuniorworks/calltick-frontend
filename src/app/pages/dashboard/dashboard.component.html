@@ -15,15 +15,11 @@
       <img src="./assets/icon/apps.svg" alt="icone de clientes" />
       <span>Setores</span>
     </li>
-    <li routerLink="ticket" routerLinkActive="active-route" *ngIf="user.profile == 1">
+    <li routerLink="ticket" routerLinkActive="active-route">
       <img src="./assets/icon/file_report.svg" alt="icone de clientes"/>
       <span>Chamados</span>
     </li>
-    <li *ngIf="user.profile == 2">
-      <img src="./assets/icon/file_report.svg" alt="icone de clientes"/>
-      <span>Meus Chamados</span>
-    </li>
-    <li>
+    <li *ngIf="user.profile == 1">
       <img src="./assets/icon/receipt_2.svg" alt="icone de clientes" />
       <span>Pagamentos</span>
     </li>

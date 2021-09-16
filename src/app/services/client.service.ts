@@ -21,7 +21,7 @@ export class ClientService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount')
+          response.headers.get('x-total-count')
         )
       );
   }
@@ -109,6 +109,7 @@ export class ClientService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      'x-total-count': 'application/json',
     }),
   };
 }
