@@ -1,3 +1,10 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { PipesModule } from './../../pipes/pipes.module';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -18,6 +25,7 @@ const icons: IconDefinition[] = [];
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     TicketRoutingModule,
     NzListModule,
     NzTagModule,
@@ -25,6 +33,12 @@ const icons: IconDefinition[] = [];
     NzButtonModule,
     NzToolTipModule,
     NzPaginationModule,
+    NzModalModule,
+    NzDescriptionsModule,
+    NzDividerModule,
+    NzInputModule,
+    NzFormModule,
+    PipesModule,
     NzIconModule.forChild(icons),
   ],
   declarations: [TicketComponent]

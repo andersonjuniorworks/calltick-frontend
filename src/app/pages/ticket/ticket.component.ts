@@ -1,11 +1,11 @@
+import { FormControl } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
 import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
-import { getISOWeek } from 'date-fns';
 
 @Component({
   selector: 'app-ticket',
@@ -26,14 +26,27 @@ export class TicketComponent implements OnInit {
 
   userProfile: number;
 
+  ticket: Ticket;
   tickets: Ticket[];
+
+  isVisible = false;
+  isOkLoading = false;
+
+  isVisibleShowTicket = false;
+
+  docTitle: string;
+  fullnameTitle: string;
+  nicknameTitle: string;
+
+  technicalReporter = new FormControl();
 
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
     private storage: StorageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit() {
@@ -56,6 +69,30 @@ export class TicketComponent implements OnInit {
     this.userProfile = this.storage.getLocalUser().profile;
   }
 
+  onFinishTicket(ticket) {
+    this.ticket = ticket;
+    this.ticket.technicalReport = this.technicalReporter.value;
+    this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
+    this.ticketService.finish(this.ticket).subscribe(
+      (success) => {
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `Chamado finalizado com sucesso!!!`
+        );
+        this.onList();
+      },
+      (error) => {
+        let err = error;
+        this.notification.create(
+          'error',
+          `ERRO ${err.error.status}`,
+          `${err.error.message}`
+        );
+      })
+      this.handleCancel();
+  }
+
   onEdit(id) {
     this.router.navigate(["edit", id], { relativeTo: this.route });
   }
@@ -64,5 +101,50 @@ export class TicketComponent implements OnInit {
     this.page = event;
     this.onList();
   }
+
+  showModal(ticket): void {
+    if(ticket.client.type == 1) {
+      this.docTitle = 'CPF';
+      this.fullnameTitle = 'Nome Completo';
+      this.nicknameTitle = 'Apelido';
+    } else {
+      this.docTitle = 'CNPJ';
+      this.fullnameTitle = 'Razão Social';
+      this.nicknameTitle = 'Nome Fantasia';
+    }
+    this.ticket = ticket;
+    this.isVisible = true;
+  }
+
+  showModalViewTicket(ticket): void {
+    if(ticket.client.type == 1) {
+      this.docTitle = 'CPF';
+      this.fullnameTitle = 'Nome Completo';
+      this.nicknameTitle = 'Apelido';
+    } else {
+      this.docTitle = 'CNPJ';
+      this.fullnameTitle = 'Razão Social';
+      this.nicknameTitle = 'Nome Fantasia';
+    }
+    this.ticket = ticket;
+    this.isVisibleShowTicket = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  handleCancelViewTicket() {
+    this.isVisibleShowTicket =false;
+  }
+
 
 }
