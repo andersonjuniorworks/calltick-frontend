@@ -40,6 +40,10 @@ export class TicketService {
     return this.http.put(`${this.API}/update/${ticket.id}`, ticket).pipe(take(1));
   }
 
+  public notification() {
+    return this.http.get(`http://192.168.0.8:5050/notify`).pipe(take(1));
+  }
+
   save(ticket) {
     if (ticket.id) {
       return this.update(ticket);

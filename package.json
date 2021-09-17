@@ -20,9 +20,13 @@
     "@angular/platform-browser-dynamic": "~11.2.10",
     "@angular/router": "~11.2.10",
     "@ant-design/icons-angular": "^12.0.3",
+    "@stomp/ng2-stompjs": "^8.0.0",
+    "@stomp/stompjs": "^6.1.2",
     "ng-zorro-antd": "^11.4.2",
     "ngx-mask": "^12.0.0",
     "rxjs": "~6.6.0",
+    "sockjs-client": "^1.5.2",
+    "stompjs": "^2.3.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

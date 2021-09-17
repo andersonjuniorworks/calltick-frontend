@@ -12,6 +12,7 @@ import { Client } from './../../../models/client.model';
 import { ClientService } from './../../../services/client.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { WebSocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'app-form-ticket',
@@ -40,8 +41,10 @@ export class FormTicketComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
-    private storageService: StorageService
-  ) {}
+    private storageService: StorageService,
+  ) {
+
+  }
 
   ngOnInit() {
     this.ticket = this.route.snapshot.data['ticket'];
@@ -112,6 +115,7 @@ export class FormTicketComponent implements OnInit {
             this.onBackToLocation();
           } else {
             this.onCreateForm();
+            this.ticketService.notification().subscribe()
           }
         },
         (error) => {
@@ -124,7 +128,6 @@ export class FormTicketComponent implements OnInit {
         }
       );
     }
-    this.onPlaySound();
   }
 
   onBackToLocation() {

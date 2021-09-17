@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormTicketComponent } from './form-ticket.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { WebSocketService } from '../../../services/websocket.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzInputModule,
     NzButtonModule,
   ],
-  declarations: [FormTicketComponent]
+  declarations: [FormTicketComponent],
 })
 export class FormTicketModule { }

@@ -15,6 +15,8 @@ import pt from '@angular/common/locales/pt-PT';
 registerLocaleData(pt);
 
 import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
+import { NgZorroAntdModule } from './shared/nz-zorro.module';
+import { WebSocketService } from './services/websocket.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,7 @@ import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    NgZorroAntdModule
   ],
 
   providers: [
@@ -40,6 +43,7 @@ import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
         }
       }, deps: [LOCALE_ID]
     },
+    {provide: WebSocketService}
   ],
   bootstrap: [AppComponent],
 })

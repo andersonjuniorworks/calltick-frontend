@@ -1,112 +1,65 @@
 <div class="content">
-  <form class="client-form" [formGroup]="ticketForm">
-    <div class="row">
-      <div class="form-title">
-        <h2>{{pageTitle}}</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <nz-form-item>
-          <nz-form-label nzFor="client">Cliente</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback>
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione um cliente"
-              nzSize="large"
-              formControlName="client"
-            >
-              <nz-option
-                [nzLabel]="client.fullname + ' - ' + client.document"
-                [nzValue]="client"
-                *ngFor="let client of clients"
-              ></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="subject">Assunto</nz-form-label>
-          <nz-form-control nzHasFeedback>
-            <input
-              nz-input
-              formControlName="subject"
-              id="fullname"
-              placeholder="Digite o assunto do chamado"
-              minlength="5"
-              maxlength="255"
-              required
-              nzSize="large"
-            />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-3">
-        <nz-form-item>
-          <nz-form-label nzFor="sector">Setor</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback>
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione um setor"
-              nzSize="large"
-              id="sector"
-              formControlName="sector"
-            >
-              <nz-option
-                [nzLabel]="sector.description"
-                [nzValue]="sector"
-                *ngFor="let sector of sectors"
-              ></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-3">
-        <nz-form-item>
-          <nz-form-label nzFor="user">Reponsável</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback>
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione um responsável"
-              nzSize="large"
-              id="user"
-              formControlName="user"
-            >
-              <nz-option
-                [nzLabel]="user.fullname"
-                [nzValue]="user"
-                *ngFor="let user of users"
-              ></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <nz-form-label nzFor="description">Descrição</nz-form-label>
-        <textarea rows="4" nz-input id="description" formControlName="description"></textarea>
-      </div>
-    </div>
-    <div class="action-form">
-      <button nz-button nzType="default" nzSize="large" (click)="onBackToLocation()">
+    <form class="client-form" [formGroup]="ticketForm">
+        <div class="row">
+            <div class="form-title">
+                <h2>{{pageTitle}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <nz-form-item>
+                    <nz-form-label nzFor="client">Cliente</nz-form-label>
+                    <nz-form-control nzCompact nzHasFeedback>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="client">
+                            <nz-option [nzLabel]="client.fullname + ' - ' + client.document" [nzValue]="client" *ngFor="let client of clients"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <nz-form-item>
+                    <nz-form-label nzFor="subject">Assunto</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <input nz-input formControlName="subject" id="fullname" placeholder="Digite o assunto do chamado" minlength="5" maxlength="255" required nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-3">
+                <nz-form-item>
+                    <nz-form-label nzFor="sector">Setor</nz-form-label>
+                    <nz-form-control nzCompact nzHasFeedback>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" id="sector" formControlName="sector">
+                            <nz-option [nzLabel]="sector.description" [nzValue]="sector" *ngFor="let sector of sectors"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-3">
+                <nz-form-item>
+                    <nz-form-label nzFor="user">Reponsável</nz-form-label>
+                    <nz-form-control nzCompact nzHasFeedback>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" id="user" formControlName="user">
+                            <nz-option [nzLabel]="user.fullname" [nzValue]="user" *ngFor="let user of users"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <nz-form-label nzFor="description">Descrição</nz-form-label>
+                <textarea rows="4" nz-input id="description" formControlName="description"></textarea>
+            </div>
+        </div>
+        <div class="action-form">
+            <button nz-button nzType="default" nzSize="large" (click)="onBackToLocation()">
         Voltar
       </button>
-      <button
-        nz-button
-        nzType="primary"
-        nzSize="large"
-        (click)="onSubmit()"
-        [disabled]="!ticketForm.valid"
-      >
+            <button nz-button nzType="primary" nzSize="large" (click)="onSubmit()" [disabled]="!ticketForm.valid">
         Salvar
       </button>
-    </div>
-  </form>
+        </div>
+    </form>
 </div>
