@@ -98,11 +98,6 @@ export class FormTicketComponent implements OnInit {
 
   onSubmit() {
     if (this.ticketForm.valid) {
-      let msgSuccess = 'Chamado cadastrado com sucesso!!!';
-
-      if (this.ticketForm.value.id) {
-        msgSuccess = 'Chamado atualizado com sucesso!!!';
-      }
 
       this.ticketForm.patchValue({
         openBy: this.storageService.getLocalUser().fullname,
@@ -110,9 +105,9 @@ export class FormTicketComponent implements OnInit {
 
       this.ticketService.save(this.ticketForm.value).subscribe(
         (success) => {
-          this.notification.create('success', 'SUCESSO!', `${msgSuccess}`);
           if (this.ticket.id) {
             this.onBackToLocation();
+            this.notification.create('success', 'SUCESSO!', `Chamado atualizado com sucesso!!!`);
           } else {
             this.onCreateForm();
             this.ticketService.notification().subscribe()

@@ -1,52 +1,52 @@
 <div class="sidebar">
-  <div class="logo">
-    <h2>Logo</h2>
-  </div>
-  <ul>
-    <li routerLink="home" routerLinkActive="active-route">
-      <img src="./assets/icon/home.svg" alt="icone de clientes" />
-      <span class="active">Home</span>
-    </li>
-      <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1">
-        <img src="./assets/icon/users.svg" alt="icone de clientes" />
-        <span> Clientes </span>
-      </li>
-    <li routerLink="sector" routerLinkActive="active-route">
-      <img src="./assets/icon/apps.svg" alt="icone de clientes" />
-      <span>Setores</span>
-    </li>
-    <li routerLink="ticket" routerLinkActive="active-route">
-      <img src="./assets/icon/file_report.svg" alt="icone de clientes"/>
-      <span>Chamados</span>
-    </li>
-    <li *ngIf="user.profile == 1">
-      <img src="./assets/icon/receipt_2.svg" alt="icone de clientes" />
-      <span>Pagamentos</span>
-    </li>
-    <li *ngIf="user.profile == 1">
-      <img src="./assets/icon/lock_open.svg" alt="icone de clientes" />
-      <span>Liberação</span>
-    </li>
-    <li *ngIf="user.profile == 1">
-      <img src="./assets/icon/user.svg" alt="icone de clientes" />
-      <span>Usuários</span>
-    </li>
-    <li>
-      <img src="./assets/icon/exit.svg" alt="icone de clientes" />
-      <span>Sair</span>
-    </li>
-  </ul>
+    <div class="logo">
+        <img src="./assets/img/logo.svg" alt="">
+    </div>
+    <ul>
+        <li routerLink="home" routerLinkActive="active-route">
+            <img src="./assets/icon/home.svg" alt="icone de clientes" />
+            <span class="active">Home</span>
+        </li>
+        <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1">
+            <img src="./assets/icon/users.svg" alt="icone de clientes" />
+            <span> Clientes </span>
+        </li>
+        <li routerLink="sector" routerLinkActive="active-route">
+            <img src="./assets/icon/apps.svg" alt="icone de clientes" />
+            <span>Setores</span>
+        </li>
+        <li routerLink="ticket" routerLinkActive="active-route">
+            <img src="./assets/icon/file_report.svg" alt="icone de clientes" />
+            <span>Chamados</span>
+        </li>
+        <li *ngIf="user.profile == 1">
+            <img src="./assets/icon/receipt_2.svg" alt="icone de clientes" />
+            <span>Pagamentos</span>
+        </li>
+        <li *ngIf="user.profile == 1">
+            <img src="./assets/icon/lock_open.svg" alt="icone de clientes" />
+            <span>Liberação</span>
+        </li>
+        <li *ngIf="user.profile == 1">
+            <img src="./assets/icon/user.svg" alt="icone de clientes" />
+            <span>Usuários</span>
+        </li>
+        <li>
+            <img src="./assets/icon/exit.svg" alt="icone de clientes" />
+            <span>Sair</span>
+        </li>
+    </ul>
 </div>
 
 <div class="container">
-  <div class="navbar">
-    <ul>
-      <li>
-        <span>Bem vindo <strong>{{user.fullname}}</strong></span>
-      </li>
-    </ul>
-  </div>
-  <div class="main">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="navbar">
+        <ul>
+            <li>
+                <span>Bem vindo <strong>{{user.fullname}}</strong></span>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
 </div>
