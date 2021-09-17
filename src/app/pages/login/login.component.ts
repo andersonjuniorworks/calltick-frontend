@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
             `Usuário logado com sucesso!`
           );
           this.onNavigateToDashboard();
+          this.storage.setAuthStatus(success);
         },
         (error) => {
           let err = error;

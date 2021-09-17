@@ -1,3 +1,4 @@
+import { AuthGuardService } from './../../services/auth_guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
@@ -43,7 +44,7 @@ const icons: IconDefinition[] = [
     NzIconModule.forChild(icons),
   ],
   declarations: [DashboardComponent],
-  providers: [{ provide: NZ_I18N, useValue: en_US }]
+  providers: [{ provide: NZ_I18N, useValue: en_US }, {provide: AuthGuardService}]
 })
 export class DashboardModule {
 

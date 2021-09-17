@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/auth_guard.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -43,7 +44,8 @@ import { WebSocketService } from './services/websocket.service';
         }
       }, deps: [LOCALE_ID]
     },
-    {provide: WebSocketService}
+    {provide: WebSocketService},
+    {provide: AuthGuardService}
   ],
   bootstrap: [AppComponent],
 })
