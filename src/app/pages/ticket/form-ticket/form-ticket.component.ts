@@ -41,10 +41,8 @@ export class FormTicketComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
-    private storageService: StorageService,
-  ) {
-
-  }
+    private storageService: StorageService
+  ) {}
 
   ngOnInit() {
     this.ticket = this.route.snapshot.data['ticket'];
@@ -55,22 +53,35 @@ export class FormTicketComponent implements OnInit {
   }
 
   onCreateForm() {
-
-    if(!this.ticket.id) {
-      this.pageTitle = 'Adicionar Chamado'
+    if (!this.ticket.id) {
+      this.pageTitle = 'Adicionar Chamado';
+      this.ticketForm = this.formBuilder.group({
+        id: [this.ticket.id],
+        client: [this.ticket.client],
+        sector: [this.ticket.sector],
+        user: [this.ticket.user],
+        subject: [this.ticket.subject],
+        description: [this.ticket.description],
+        openBy: [this.ticket.openBy],
+        status: [this.ticket.status],
+        openingDate: [this.ticket.openingDate]
+      });
     } else {
-      this.pageTitle = 'Editar Chamado'
+      this.pageTitle = 'Editar Chamado';
+      this.ticketForm = this.formBuilder.group({
+        id: [this.ticket.id],
+        client: [this.ticket.client.id],
+        sector: [this.ticket.sector.id],
+        user: [this.ticket.user.id],
+        subject: [this.ticket.subject],
+        description: [this.ticket.description],
+        openBy: [this.ticket.openBy],
+        status: [this.ticket.status],
+        openingDate: [this.ticket.openingDate]
+      });
     }
 
-    this.ticketForm = this.formBuilder.group({
-      id: [this.ticket.id],
-      client: [this.ticket.client],
-      sector: [this.ticket.sector],
-      user: [this.ticket.user],
-      subject: [this.ticket.subject],
-      description: [this.ticket.description],
-      openBy: [this.ticket.openBy],
-    });
+
   }
 
   onListClient() {
@@ -97,32 +108,58 @@ export class FormTicketComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.ticketForm.valid) {
 
-      this.ticketForm.patchValue({
-        openBy: this.storageService.getLocalUser().fullname,
+    this.clientService
+      .findById(this.ticketForm.get('client').value)
+      .subscribe((clientRes) => {
+        this.ticketForm.patchValue({
+          client: clientRes,
+        });
+        this.sectorService
+          .findById(this.ticketForm.get('sector').value)
+          .subscribe((sectorRes) => {
+            this.ticketForm.patchValue({
+              sector: sectorRes,
+            });
+            this.userService
+            .findById(this.ticketForm.get('user').value)
+            .subscribe((userRes) => {
+              this.ticketForm.patchValue({
+                user: userRes,
+              });
+              if (this.ticketForm.valid) {
+                this.ticketForm.patchValue({
+                  openBy: this.storageService.getLocalUser().fullname,
+                });
+
+                this.ticketService.save(this.ticketForm.value).subscribe(
+                  (success) => {
+                    if (this.ticket.id) {
+                      this.onBackToLocation();
+                      this.notification.create(
+                        'success',
+                        'SUCESSO!',
+                        `Chamado atualizado com sucesso!!!`
+                      );
+                    } else {
+                      this.onCreateForm();
+                      this.ticketService.notification().subscribe();
+                    }
+                  },
+                  (error) => {
+                    let err = error;
+                    this.notification.create(
+                      'error',
+                      `ERRO ${err.error.status}`,
+                      `${err.error.message}`
+                    );
+                  }
+                );
+              }
+            });
+          });
       });
 
-      this.ticketService.save(this.ticketForm.value).subscribe(
-        (success) => {
-          if (this.ticket.id) {
-            this.onBackToLocation();
-            this.notification.create('success', 'SUCESSO!', `Chamado atualizado com sucesso!!!`);
-          } else {
-            this.onCreateForm();
-            this.ticketService.notification().subscribe()
-          }
-        },
-        (error) => {
-          let err = error;
-          this.notification.create(
-            'error',
-            `ERRO ${err.error.status}`,
-            `${err.error.message}`
-          );
-        }
-      );
-    }
   }
 
   onBackToLocation() {

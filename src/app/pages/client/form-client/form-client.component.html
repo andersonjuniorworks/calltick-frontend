@@ -42,6 +42,23 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+      <div class="col-3" *ngIf="formClient.get('type').value == 2">
+        <nz-form-item>
+          <nz-form-label nzFor="stateRegistration">Inscrição Estadual</nz-form-label>
+          <nz-form-control nzCompact>
+            <input
+              type="text"
+              formControlName="stateRegistration"
+              nz-input
+              id="stateRegistration"
+              placeholder="Digite a inscrição estadual"
+              minlength="9"
+              maxlength="9"
+              nzSize="large"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
     </div>
     <div class="row">
       <div class="col-6">

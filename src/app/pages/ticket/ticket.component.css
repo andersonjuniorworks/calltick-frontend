@@ -14,6 +14,10 @@
   padding: 40px;
 }
 
+nz-list {
+  height: 600px;
+}
+
 nz-list-item {
   padding: 20px;
   background: #fff;
@@ -34,4 +38,18 @@ nz-tag {
 
 nz-range-picker {
   margin: 0 8px 12px 0;
+}
+
+.registers {
+  height: 50px;
+  padding: 15px 0 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.registers p {
+  line-height: 100%;
+}
+.block {
+  margin: 0 0 50px 0;
 }

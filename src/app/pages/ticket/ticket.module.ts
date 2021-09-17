@@ -1,3 +1,4 @@
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TicketRoutingModule } from './ticket-routing.module';
@@ -23,6 +24,7 @@ const icons: IconDefinition[] = [];
     NzDatePickerModule,
     NzButtonModule,
     NzToolTipModule,
+    NzPaginationModule,
     NzIconModule.forChild(icons),
   ],
   declarations: [TicketComponent]

@@ -36,4 +36,12 @@
       </ng-container>
     </nz-list-item>
   </nz-list>
+
+  <div class="pagination">
+    <div class="registers">
+      <p>Total de registros: <strong>{{total}}</strong></p>
+    </div>
+      <nz-pagination [nzPageIndex]="page" [nzTotal]="totalPages" [nzPageSize]="size" nzSimple (nzPageIndexChange)="paginate($event)" [nzDisabled]="paginationDisable"></nz-pagination>
+    </div>
+
 </div>

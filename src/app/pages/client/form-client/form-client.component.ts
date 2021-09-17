@@ -1,3 +1,4 @@
+import { SectorService } from './../../../services/sector.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientService } from './../../../services/client.service';
 import { Client } from './../../../models/client.model';
@@ -50,6 +51,7 @@ export class FormClientComponent implements OnInit {
       id: this.client.id,
       type: [this.client.type],
       document: [this.client.document, [Validators.required, Validators.minLength(11), Validators.maxLength(18)]],
+      stateRegistration: [this.client.stateRegistration],
       fullname: [this.client.fullname, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       nickname: this.client.nickname,
       zipcode: this.client.zipcode,
@@ -63,6 +65,18 @@ export class FormClientComponent implements OnInit {
       phoneNumberTwo: this.client.phoneNumberTwo,
       email: [this.client.email, [Validators.email]]
     })
+
+    if(this.client.id != null) {
+      this.formClient.get('type').disable();
+      this.formClient.get('document').disable();
+    }
+
+    if(this.client.type == 2) {
+      this.labelDoc = 'CNPJ';
+      this.labelFullname = 'Razão Social';
+      this.labelNickname = 'Nome Fantasia';
+    }
+
   }
 
   onChangeTypeClient() {

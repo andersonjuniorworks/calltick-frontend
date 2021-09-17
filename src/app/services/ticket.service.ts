@@ -32,6 +32,10 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }
 
+  findCount() {
+    return this.http.get<number>(`${this.API}/count`).pipe(take(1));
+  }
+
   private insert(ticket) {
     return this.http.post(`${this.API}/insert`, ticket).pipe(take(1));
   }
@@ -41,7 +45,11 @@ export class TicketService {
   }
 
   public notification() {
-    return this.http.get(`http://192.168.0.8:5050/notify`).pipe(take(1));
+    return this.http.get(`http://localhost:5050/notify`).pipe(take(1));
+  }
+
+  public finish(ticket) {
+    return this.http.put(`${this.API}/finish/${ticket.id}`, ticket).pipe(take(1));
   }
 
   save(ticket) {

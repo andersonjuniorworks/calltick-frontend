@@ -17,8 +17,12 @@ export class TicketComponent implements OnInit {
   initLoading = false; // bug
   loadingMore = true;
 
-  page: number = 0;
-  size: number = 10;
+  page: number = 1;
+  size: number = 6;
+  total: number;
+  totalPages: number = 0;
+
+  paginationDisable = false;
 
   userProfile: number;
 
@@ -38,9 +42,13 @@ export class TicketComponent implements OnInit {
   }
 
   onList() {
-    this.ticketService.findAll(`${this.page}`,`${this.size}`).subscribe((response) => {
+    this.ticketService.findAll(`${this.page-1}`,`${this.size}`).subscribe((response) => {
       this.tickets = response.body
-      console.log(this.tickets)
+      this.ticketService.findCount().subscribe((count) => {
+        this.total = count;
+        this.totalPages = this.size / count;
+        this.totalPages = Math.ceil(this.totalPages)*10;
+      })
     })
   }
 
@@ -52,5 +60,9 @@ export class TicketComponent implements OnInit {
     this.router.navigate(["edit", id], { relativeTo: this.route });
   }
 
+  paginate(event) {
+    this.page = event;
+    this.onList();
+  }
 
 }

@@ -2,6 +2,7 @@ export interface Client {
   id: number;
   type: number;
   document: string;
+  stateRegistration: string;
   fullname: string;
   nickname: string;
   zipcode: string
