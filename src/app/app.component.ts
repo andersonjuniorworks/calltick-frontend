@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   onPlaySound() {
-    let src = '../../../../assets/song/bell.wav';
+    let src = './assets/song/bell.wav';
     let audio = new Audio(src);
     audio.play();
   }

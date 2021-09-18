@@ -18,16 +18,18 @@ registerLocaleData(pt);
 import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 import { NgZorroAntdModule } from './shared/nz-zorro.module';
 import { WebSocketService } from './services/websocket.service';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
   ],
 
   providers: [
