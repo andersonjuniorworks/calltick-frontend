@@ -1,0 +1,139 @@
+<div class="content">
+  <div class="table-header">
+    <button class="btn btn-secondary" (click)="onAdd()">Adicionar</button>
+  </div>
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="50%">
+          Descrição
+          <nz-filter-trigger
+            [(nzVisible)]="visibleDescription"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menuDoc"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>Email</th>
+        <th>Perfil</th>
+        <th nzRight>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of users">
+        <td>{{ data.fullname }}</td>
+        <td>{{ data.email }}</td>
+        <td *ngIf="data.profile == 1">Administrador</td>
+        <td *ngIf="data.profile == 2">Técnico</td>
+        <td *ngIf="data.profile == 3">Atendimento</td>
+        <td>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
+            <img src="./assets/icon/edit.svg" alt="icone de edição" />
+          </button>
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+            <img src="./assets/icon/delete.svg" alt="icone de deletar" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-dropdown-menu #menuDoc="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Nome"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByFullname()"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Usuário"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="sectorForm">
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="description">Nome Completo*</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                nzSize="large"
+                id="description"
+                placeholder="Digite o nome do usuário"
+                formControlName="fullname"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="description">Nome Completo*</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="text"
+                  nzSize="large"
+                  id="description"
+                  placeholder="Digite o nome do usuário"
+                  formControlName="fullname"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="description">Nome Completo*</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="text"
+                  nzSize="large"
+                  id="description"
+                  placeholder="Digite o nome do usuário"
+                  formControlName="fullname"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+    <button nz-button nzType="primary" (click)="handleOk()">Salvar</button>
+  </div>
+</nz-modal>

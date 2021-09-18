@@ -46,6 +46,10 @@ const routes: Routes = [
         path: 'ticket/edit/:id',
         loadChildren: () => import('../ticket/form-ticket/form-ticket.module').then( m => m.FormTicketModule)
       },
+      {
+        path: 'user',
+        loadChildren: () => import('../user/user.module').then( m => m.UserModule)
+      },
     ]
   },
 

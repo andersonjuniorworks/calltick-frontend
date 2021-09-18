@@ -27,7 +27,7 @@
             <img src="./assets/icon/lock_open.svg" alt="icone de clientes" />
             <span>Liberação</span>
         </li>
-        <li *ngIf="user.profile == 1">
+        <li routerLink="user" routerLinkActive="active-route" *ngIf="user.profile == 1">
             <img src="./assets/icon/user.svg" alt="icone de clientes" />
             <span>Usuários</span>
         </li>
