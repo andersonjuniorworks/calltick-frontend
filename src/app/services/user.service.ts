@@ -32,7 +32,7 @@ export class UserService {
   }
 
   findById(id) {
-    return this.http.get<User>(`${this.API}/${id}`).pipe(take(1));
+    return this.http.get<User>(`${this.API}/${id}`).pipe(take(1), tap(console.log));
   }
 
   findCount() {

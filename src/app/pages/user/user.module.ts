@@ -15,6 +15,8 @@ import {
   SearchOutline
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 const icons: IconDefinition[] = [
   SearchOutline,
@@ -29,9 +31,11 @@ const icons: IconDefinition[] = [
     NzTableModule,
     NzDropDownModule,
     NzButtonModule,
+    NzFormModule,
     NzInputModule,
     NzModalModule,
     NzEmptyModule,
+    NzSelectModule,
     NzIconModule.forChild(icons),
   ],
   declarations: [UserComponent]

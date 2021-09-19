@@ -2,7 +2,7 @@ import { UserService } from './../../services/user.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { User } from './../../models/user.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -27,6 +27,12 @@ export class UserComponent implements OnInit {
   page: number = 0;
   size: number = 10;
 
+  profiles = [
+    {value: 1, text: 'Administrador'},
+    {value: 2, text: 'Técnico'},
+    {value: 3, text: 'Atendimento'}
+  ]
+
   userForm: FormGroup;
 
   constructor(
@@ -43,8 +49,11 @@ export class UserComponent implements OnInit {
 
   onCreateForm() {
     this.userForm = this.formBuilder.group({
-      id: null,
-      description: null,
+      id: [null],
+      fullname: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      email: [null, [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(255)]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      profile: [null, [Validators.required]]
     });
   }
 
@@ -58,10 +67,13 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    let msgSuccess = 'Setor cadastrado com sucesso!!!';
+
+    console.log(this.userForm.value)
+
+    let msgSuccess = 'Usuário cadastrado com sucesso!!!';
 
     if (this.userForm.value.id) {
-      msgSuccess = 'Setor atualizado com sucesso!!!';
+      msgSuccess = 'Usuário atualizado com sucesso!!!';
     }
 
     this.userService.save(this.userForm.value).subscribe(
@@ -87,7 +99,7 @@ export class UserComponent implements OnInit {
         this.notification.create(
           'success',
           'SUCESSO!',
-          `Setor excluido com sucesso`
+          `Usuário excluido com sucesso`
         );
         this.onList();
       },
@@ -102,6 +114,23 @@ export class UserComponent implements OnInit {
     );
   }
 
+  showDeleteConfirm(value): void {
+    if(value.id != 1){
+      this.modal.confirm({
+        nzTitle: 'Deseja realmente excluir este usuário?',
+        nzContent: `<b style="color: red;">${value.fullname}</b>`,
+        nzOkText: 'Sim',
+        nzOkType: 'primary',
+        nzOkDanger: true,
+        nzOnOk: () => this.onDelete(value),
+        nzCancelText: 'Não',
+        nzOnCancel: () => console.log('Cancel'),
+      });
+    } else {
+      this.notification.create('warning', 'ALERTA!', `Não é possível excluir o usuário administrador!`);
+    }
+  }
+
   onAdd() {
     this.showModal(null);
   }
@@ -110,19 +139,6 @@ export class UserComponent implements OnInit {
     this.userService.findById(id).subscribe((response) => {
       this.user = response;
       this.showModal(this.user);
-    });
-  }
-
-  showDeleteConfirm(value): void {
-    this.modal.confirm({
-      nzTitle: 'Deseja realmente excluir este setor?',
-      nzContent: `<b style="color: red;">${value.description}</b>`,
-      nzOkText: 'Sim',
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: () => this.onDelete(value),
-      nzCancelText: 'Não',
-      nzOnCancel: () => console.log('Cancel'),
     });
   }
 
@@ -143,13 +159,21 @@ export class UserComponent implements OnInit {
   showModal(value): void {
     if(!value) {
       this.onCreateForm();
+      this.isVisible = true;
     } else {
-      this.userForm.patchValue({
-        id: value.id,
-        description: value.description,
-      });
+      if(value.id != 1) {
+        this.userForm.patchValue({
+          id: value.id,
+          fullname: value.fullname,
+          email: value.email,
+          password: value.password,
+          profile: value.profile,
+        });
+        this.isVisible = true;
+      } else {
+        this.notification.create('warning', 'ALERTA!', `Não é possível editar o usuário administrador!`);
+      }
     }
-    this.isVisible = true;
   }
 
   handleOk(): void {
@@ -163,7 +187,6 @@ export class UserComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    console.log('TESTE');
   }
 
 }
