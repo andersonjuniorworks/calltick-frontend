@@ -1,0 +1,56 @@
+.content {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.client-form {
+    width: 100%;
+    max-width: 750px;
+    padding: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background: #fff;
+}
+
+nz-select {
+    width: 100%;
+}
+
+nz-form-item {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+nz-form-control {
+    width: 100%;
+}
+
+nz-date-picker {
+    width: 100%;
+}
+
+.valid-text {
+    font-size: 12px;
+}
+
+.action-form {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.action-form button {
+    min-width: 120px;
+    margin: 0 5px;
+}
+
+.key-content {
+    width: 100%;
+    text-align: center;
+}
