@@ -195,4 +195,8 @@ export class TicketComponent implements OnInit {
     this.isVisibleTransferModal = false;
   }
 
+  onCloseTransferModal() {
+    this.isVisibleTransferModal = false;
+  }
+
 }

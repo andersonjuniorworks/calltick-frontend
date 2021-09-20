@@ -119,6 +119,10 @@
 }
 
 @media (max-width: 450px) {
+  .navbar {
+    width: 100%;
+    left: 0;
+  }
     .sidebar {
         display: none;
     }

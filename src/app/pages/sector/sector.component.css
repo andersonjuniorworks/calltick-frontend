@@ -22,3 +22,30 @@
   padding: 40px;
 }
 
+.sector-form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background: #fff;
+}
+
+input {
+  width: 100%;
+}
+
+nz-form-item {
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+nz-form-control {
+  width: 100%;
+}
+
+.valid-text {
+  font-size: 12px;
+}
+
+

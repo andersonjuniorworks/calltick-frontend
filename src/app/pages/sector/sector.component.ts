@@ -1,5 +1,5 @@
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { SectorService } from './../../services/sector.service';
 import { Sector } from './../../models/sector.model';
@@ -40,8 +40,8 @@ export class SectorComponent implements OnInit {
 
   onCreateForm() {
     this.sectorForm = this.formBuilder.group({
-      id: null,
-      description: null,
+      id: [null],
+      description: [null, [Validators.required]],
     });
   }
 

@@ -1,3 +1,4 @@
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SectorRoutingModule } from './sector-routing.module';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
@@ -32,6 +33,7 @@ const icons: IconDefinition[] = [
     NzInputModule,
     NzModalModule,
     NzEmptyModule,
+    NzFormModule,
     NzIconModule.forChild(icons),
   ],
   declarations: [SectorComponent]

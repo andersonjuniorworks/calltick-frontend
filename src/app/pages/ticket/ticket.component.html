@@ -1,4 +1,9 @@
 <div class="content">
+
+  <div class="row">
+    <h2>Gerenciamento de Chamados</h2>
+  </div>
+
   <div class="table-header">
     <button class="btn btn-secondary" routerLink="add">Adicionar</button>
   </div>
@@ -11,7 +16,7 @@
           nzDescription="{{ data.client.fullname }} "
         >
           <nz-list-item-meta-title>
-            <a href="#">{{ data.subject }}</a>
+            <a (click)="showModalViewTicket(data)">{{ data.subject }}</a>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
         <span id="tag"
@@ -257,8 +262,8 @@
 
 <nz-modal
   [(nzVisible)]="isVisibleTransferModal"
-  nzTitle="Modal Title"
-  (nzOnCancel)="handleCancel()"
+  nzTitle="Transferência de Chamado"
+  (nzOnCancel)="onCloseTransferModal()"
   (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading"
 >

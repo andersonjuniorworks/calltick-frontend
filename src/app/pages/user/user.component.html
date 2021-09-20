@@ -1,127 +1,228 @@
 <div class="content">
-    <div class="table-header">
-        <button class="btn btn-secondary" (click)="onAdd()">Adicionar</button>
-    </div>
-    <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" [nzFrontPagination]="false" [nzShowPagination]="false" [nzLoading]="loading" [nzPaginationPosition]="'bottom'" [nzNoResult]="'Nenhum resultado encontrado'">
-        <thead>
-            <tr>
-                <th nzWidth="50%">
-                    Nome de Usuário
-                    <nz-filter-trigger [(nzVisible)]="visibleDescription" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menuDoc">
-                        <i nz-icon nzType="search"></i>
-                    </nz-filter-trigger>
-                </th>
-                <th>Email</th>
-                <th>Perfil</th>
-                <th nzRight>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of users">
-                <td>{{ data.fullname }}</td>
-                <td>{{ data.email }}</td>
-                <td *ngIf="data.profile == 1">Administrador</td>
-                <td *ngIf="data.profile == 2">Técnico</td>
-                <td *ngIf="data.profile == 3">Atendimento</td>
-                <td>
-                    <button class="btn-action warning" (click)="onEdit(data.id)">
+  <div class="row">
+    <h2>Gerenciamento de Usuários</h2>
+  </div>
+  <div class="table-header">
+    <button class="btn btn-secondary" (click)="onAdd()">Adicionar</button>
+  </div>
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="50%">
+          Nome de Usuário
+          <nz-filter-trigger
+            [(nzVisible)]="visibleDescription"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menuDoc"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>Email</th>
+        <th>Perfil</th>
+        <th nzRight>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of users">
+        <td>{{ data.fullname }}</td>
+        <td>{{ data.email }}</td>
+        <td *ngIf="data.profile == 1">Administrador</td>
+        <td *ngIf="data.profile == 2">Técnico</td>
+        <td *ngIf="data.profile == 3">Atendimento</td>
+        <td>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
             <img src="./assets/icon/edit.svg" alt="icone de edição" />
           </button>
-                    <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
             <img src="./assets/icon/delete.svg" alt="icone de deletar" />
           </button>
-                </td>
-            </tr>
-        </tbody>
-    </nz-table>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 
-    <nz-dropdown-menu #menuDoc="nzDropdownMenu">
-        <div class="ant-table-filter-dropdown">
-            <div class="search-box">
-                <input type="text" nz-input placeholder="Nome" [(ngModel)]="searchValue" />
-                <button nz-button nzSize="small" nzType="primary" (click)="searchByFullname()" class="search-button">
+  <nz-dropdown-menu #menuDoc="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Nome"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="searchByFullname()"
+          class="search-button"
+        >
           Buscar
         </button>
-                <button nz-button nzSize="small" (click)="reset()">Limpar</button>
-            </div>
-        </div>
-    </nz-dropdown-menu>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Cadastrar Usuário" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
-    <div *nzModalContent>
-        <form [formGroup]="userForm" nz-form>
-            <div class="row">
-                <div class="col-12">
-                    <nz-form-item>
-                        <nz-form-label nzFor="fullname">Nome Completo*</nz-form-label>
-                        <nz-form-control nzHasFeedback [nzErrorTip]="fullnameValidation" nzCompact>
-                            <input nz-input type="text" nzSize="large" id="fullname" placeholder="Digite o nome do usuário" formControlName="fullname" minlength="8" maxlength="255" required />
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <nz-form-item>
-                        <nz-form-label nzFor="email">Email*</nz-form-label>
-                        <nz-form-control nzHasFeedback [nzErrorTip]="emailValidation">
-                            <input nz-input type="email" nzSize="large" id="email" placeholder="Digite o email" formControlName="email" />
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <nz-form-item>
-                        <nz-form-label nzFor="password">Senha*</nz-form-label>
-                        <nz-form-control>
-                            <input nz-input type="password" nzSize="large" id="password" placeholder="Digite a senha" formControlName="password" minlength="8" required>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="col-6">
-                    <nz-form-item>
-                        <nz-form-label nzFor="profile">Perfil*</nz-form-label>
-                        <nz-form-control>
-                            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um perfil" nzSize="large" id="profile" formControlName="profile">
-                                <nz-option [nzLabel]="profile.text" [nzValue]="profile.value" *ngFor="let profile of profiles">
-                                </nz-option>
-                            </nz-select>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div *nzModalFooter>
-        <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
-        <button nz-button nzType="primary" (click)="handleOk()" [disabled]="!userForm.valid">Salvar</button>
-    </div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Usuário"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="userForm" nz-form>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="fullname">Nome Completo*</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzErrorTip]="fullnameValidation"
+              nzCompact
+            >
+              <input
+                nz-input
+                type="text"
+                nzSize="large"
+                id="fullname"
+                placeholder="Digite o nome do usuário"
+                formControlName="fullname"
+                minlength="8"
+                maxlength="255"
+                required
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="email">Email*</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="emailValidation">
+              <input
+                nz-input
+                type="email"
+                nzSize="large"
+                id="email"
+                placeholder="Digite o email"
+                formControlName="email"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="password">Senha*</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="password"
+                nzSize="large"
+                id="password"
+                placeholder="Digite a senha"
+                formControlName="password"
+                minlength="8"
+                required
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label nzFor="profile">Perfil*</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Selecione um perfil"
+                nzSize="large"
+                id="profile"
+                formControlName="profile"
+              >
+                <nz-option
+                  [nzLabel]="profile.text"
+                  [nzValue]="profile.value"
+                  *ngFor="let profile of profiles"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [disabled]="!userForm.valid"
+    >
+      Salvar
+    </button>
+  </div>
 </nz-modal>
 
 <ng-template #fullnameValidation let-control>
-    <ng-container *ngIf="userForm.get('fullname').hasError('maxlength')"><span class="valid-text">Tamanho máximo de 255
-      caracteres</span></ng-container>
-    <ng-container *ngIf="userForm.get('fullname').hasError('minlength')"><span class="valid-text">Tamanho minimo de 5
-      caracteres</span></ng-container>
-    <ng-container *ngIf="userForm.get('fullname').hasError('required')"><span class="valid-text">Nome de usuário obrigatório</span></ng-container>
+  <ng-container *ngIf="userForm.get('fullname').hasError('maxlength')"
+    ><span class="valid-text"
+      >Tamanho máximo de 255 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="userForm.get('fullname').hasError('minlength')"
+    ><span class="valid-text"
+      >Tamanho minimo de 5 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="userForm.get('fullname').hasError('required')"
+    ><span class="valid-text">Nome de usuário obrigatório</span></ng-container
+  >
 </ng-template>
 
 <ng-template #emailValidation let-control>
-    <ng-container *ngIf="userForm.get('email').hasError('maxlength')"><span class="valid-text">Tamanho máximo de 255
-    caracteres</span></ng-container>
-    <ng-container *ngIf="userForm.get('email').hasError('minlength')"><span class="valid-text">Tamanho minimo de 5
-    caracteres</span></ng-container>
-    <ng-container *ngIf="userForm.get('email').hasError('required')"><span class="valid-text">Email obrigatório
-    obrigatório</span></ng-container>
-    <ng-container *ngIf="userForm.get('email').hasError('email')"><span class="valid-text">Email inválido
-      obrigatório</span></ng-container>
+  <ng-container *ngIf="userForm.get('email').hasError('maxlength')"
+    ><span class="valid-text"
+      >Tamanho máximo de 255 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="userForm.get('email').hasError('minlength')"
+    ><span class="valid-text"
+      >Tamanho minimo de 5 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="userForm.get('email').hasError('required')"
+    ><span class="valid-text">Email obrigatório obrigatório</span></ng-container
+  >
+  <ng-container *ngIf="userForm.get('email').hasError('email')"
+    ><span class="valid-text">Email inválido obrigatório</span></ng-container
+  >
 </ng-template>
 
 <ng-template #emailValidation let-control>
-    <ng-container *ngIf="userForm.get('password').hasError('minlength')"><span class="valid-text">Tamanho minimo de 8
-  caracteres</span></ng-container>
-    <ng-container *ngIf="userForm.get('password').hasError('required')"><span class="valid-text">Email obrigatório
-  obrigatório</span></ng-container>
+  <ng-container *ngIf="userForm.get('password').hasError('minlength')"
+    ><span class="valid-text"
+      >Tamanho minimo de 8 caracteres</span
+    ></ng-container
+  >
+  <ng-container *ngIf="userForm.get('password').hasError('required')"
+    ><span class="valid-text">Email obrigatório obrigatório</span></ng-container
+  >
 </ng-template>
