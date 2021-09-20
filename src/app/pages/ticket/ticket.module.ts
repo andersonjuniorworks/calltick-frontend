@@ -1,3 +1,4 @@
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -19,8 +20,11 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { IconDefinition } from '@ant-design/icons-angular';
+import { SyncOutline } from '@ant-design/icons-angular/icons';
 
-const icons: IconDefinition[] = [];
+const icons: IconDefinition[] = [
+  SyncOutline
+];
 
 @NgModule({
   imports: [
@@ -38,6 +42,7 @@ const icons: IconDefinition[] = [];
     NzDividerModule,
     NzInputModule,
     NzFormModule,
+    NzSelectModule,
     PipesModule,
     NzIconModule.forChild(icons),
   ],

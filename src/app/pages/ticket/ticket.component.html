@@ -11,7 +11,7 @@
           nzDescription="{{ data.client.fullname }} "
         >
           <nz-list-item-meta-title>
-            <a href="#">{{ data.description }}</a>
+            <a href="#">{{ data.subject }}</a>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
         <span id="tag"
@@ -40,6 +40,20 @@
               (click)="showModal(data)"
             >
               <i nz-icon nzType="check"></i>
+            </button>
+          </nz-list-item-action>
+          <nz-list-item-action>
+            <button
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              [disabled]="data.status == 3 || data.status == 4"
+              nzTooltipTitle="Transferir"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              (click)="showModalTransfer(data)"
+            >
+              <i nz-icon nzType="sync"></i>
             </button>
           </nz-list-item-action>
           <nz-list-item-action>
@@ -102,32 +116,46 @@
   <div *nzModalContent>
     <nz-descriptions nzLayout="horizontal">
       <nz-descriptions-item [nzTitle]="docTitle" [nzSpan]="3">
-        <strong>{{ticket.client.document | cpfOuCnpj}}</strong>
+        <strong>{{ ticket.client.document | cpfOuCnpj }}</strong>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="fullnameTitle" [nzSpan]="2"><strong>{{ticket.client.fullname}}</strong></nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="nicknameTitle" [nzSpan]="1">{{ticket.client.nickname}}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="fullnameTitle" [nzSpan]="2"
+        ><strong>{{ ticket.client.fullname }}</strong></nz-descriptions-item
+      >
+      <nz-descriptions-item [nzTitle]="nicknameTitle" [nzSpan]="1">{{
+        ticket.client.nickname
+      }}</nz-descriptions-item>
     </nz-descriptions>
     <nz-divider></nz-divider>
     <nz-descriptions nzLayout="horizontal">
       <nz-descriptions-item [nzTitle]="'Abertura'" [nzSpan]="1">
-        {{ticket.openingDate}}
+        {{ ticket.openingDate }}
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Setor'" [nzSpan]="1">
-        {{ticket.sector.description}}
+        {{ ticket.sector.description }}
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Status'" [nzSpan]="1">
         <nz-tag nzColor="warning" *ngIf="ticket.status == 1">Aberto</nz-tag>
-        <nz-tag nzColor="processing" *ngIf="ticket.status == 2">Processando</nz-tag>
+        <nz-tag nzColor="processing" *ngIf="ticket.status == 2"
+          >Processando</nz-tag
+        >
         <nz-tag nzColor="success" *ngIf="ticket.status == 3">Finalizado</nz-tag>
         <nz-tag nzColor="error" *ngIf="ticket.status == 4">Cancelado</nz-tag>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{ticket.user.fullname}}</nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Aberto por'" [nzSpan]="1">{{ticket.openBy}}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{
+        ticket.user.fullname
+      }}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Aberto por'" [nzSpan]="1">{{
+        ticket.openBy
+      }}</nz-descriptions-item>
     </nz-descriptions>
     <nz-divider></nz-divider>
     <nz-descriptions nzLayout="horizontal">
-      <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"><strong>{{ticket.subject}}</strong></nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"><strong>{{ticket.description}}</strong></nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"
+        ><strong>{{ ticket.subject }}</strong></nz-descriptions-item
+      >
+      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"
+        ><strong>{{ ticket.description }}</strong></nz-descriptions-item
+      >
     </nz-descriptions>
     <div class="ticket-finish">
       <div class="row">
@@ -135,17 +163,23 @@
           <nz-form-item>
             <nz-form-label nzFor="description">Relato Técnico</nz-form-label>
             <nz-form-control nzCompact nzHasFeedback>
-              <textarea rows="6" nz-input id="description" [formControl]="technicalReporter"></textarea>
+              <textarea
+                rows="6"
+                nz-input
+                id="description"
+                [formControl]="technicalReporter"
+              ></textarea>
             </nz-form-control>
-        </nz-form-item>
+          </nz-form-item>
         </div>
       </div>
     </div>
-
   </div>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
-    <button nz-button nzType="primary" (click)="onFinishTicket(ticket)">Finalizar</button>
+    <button nz-button nzType="primary" (click)="onFinishTicket(ticket)">
+      Finalizar
+    </button>
   </div>
 </nz-modal>
 
@@ -160,41 +194,111 @@
   <div *nzModalContent>
     <nz-descriptions nzLayout="horizontal">
       <nz-descriptions-item [nzTitle]="docTitle" [nzSpan]="3">
-        <strong>{{ticket.client.document | cpfOuCnpj}}</strong>
+        <strong>{{ ticket.client.document | cpfOuCnpj }}</strong>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="fullnameTitle" [nzSpan]="2"><strong>{{ticket.client.fullname}}</strong></nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="nicknameTitle" [nzSpan]="1">{{ticket.client.nickname}}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="fullnameTitle" [nzSpan]="2"
+        ><strong>{{ ticket.client.fullname }}</strong></nz-descriptions-item
+      >
+      <nz-descriptions-item [nzTitle]="nicknameTitle" [nzSpan]="1">{{
+        ticket.client.nickname
+      }}</nz-descriptions-item>
     </nz-descriptions>
     <nz-divider></nz-divider>
     <nz-descriptions nzLayout="horizontal">
       <nz-descriptions-item [nzTitle]="'Abertura'" [nzSpan]="1">
-        {{ticket.openingDate}}
+        {{ ticket.openingDate }}
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Setor'" [nzSpan]="1">
-        {{ticket.sector.description}}
+        {{ ticket.sector.description }}
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Status'" [nzSpan]="1">
         <nz-tag nzColor="warning" *ngIf="ticket.status == 1">Aberto</nz-tag>
-        <nz-tag nzColor="processing" *ngIf="ticket.status == 2">Processando</nz-tag>
+        <nz-tag nzColor="processing" *ngIf="ticket.status == 2"
+          >Processando</nz-tag
+        >
         <nz-tag nzColor="success" *ngIf="ticket.status == 3">Finalizado</nz-tag>
         <nz-tag nzColor="error" *ngIf="ticket.status == 4">Cancelado</nz-tag>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{ticket.user.fullname}}</nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Aberto por'" [nzSpan]="1">{{ticket.openBy}}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{
+        ticket.user.fullname
+      }}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Aberto por'" [nzSpan]="1">{{
+        ticket.openBy
+      }}</nz-descriptions-item>
     </nz-descriptions>
     <nz-divider></nz-divider>
     <nz-descriptions nzLayout="horizontal">
-      <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"><strong>{{ticket.subject}}</strong></nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"><strong>{{ticket.description}}</strong></nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"
+        ><strong>{{ ticket.subject }}</strong></nz-descriptions-item
+      >
+      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"
+        ><strong>{{ ticket.description }}</strong></nz-descriptions-item
+      >
     </nz-descriptions>
     <nz-divider *ngIf="ticket.status == 3"></nz-divider>
     <nz-descriptions nzLayout="horizontal" *ngIf="ticket.status == 3">
-      <nz-descriptions-item [nzTitle]="'Relato Técnico'" [nzSpan]="3"><strong>{{ticket.technicalReport}}</strong></nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Fechado por'" [nzSpan]="1">{{ticket.closeBy}}</nz-descriptions-item>
-      <nz-descriptions-item [nzTitle]="'Fechamento'" [nzSpan]="1">{{ticket.closingDate}}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Relato Técnico'" [nzSpan]="3"
+        ><strong>{{ ticket.technicalReport }}</strong></nz-descriptions-item
+      >
+      <nz-descriptions-item [nzTitle]="'Fechado por'" [nzSpan]="1">{{
+        ticket.closeBy
+      }}</nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Fechamento'" [nzSpan]="1">{{
+        ticket.closingDate
+      }}</nz-descriptions-item>
     </nz-descriptions>
   </div>
   <div *nzModalFooter>
-    <button nz-button nzType="default" (click)="handleCancelViewTicket()">Voltar</button>
+    <button nz-button nzType="default" (click)="handleCancelViewTicket()">
+      Voltar
+    </button>
+  </div>
+</nz-modal>
+
+<nz-modal
+  [(nzVisible)]="isVisibleTransferModal"
+  nzTitle="Modal Title"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <p>Responsável Anterior:</p>
+    <p>
+      <strong>{{ responsible }}</strong>
+    </p>
+
+    <nz-divider></nz-divider>
+
+    <form>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="user">Transferir para:</nz-form-label>
+            <nz-form-control nzCompact nzHasFeedback>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Selecione um responsável"
+                nzSize="large"
+                id="user"
+                [formControl]="newResponsible"
+              >
+                <nz-option
+                  [nzLabel]="user.fullname"
+                  [nzValue]="user"
+                  *ngFor="let user of users"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="onConfirmTransfer()">
+      Transferir
+    </button>
   </div>
 </nz-modal>

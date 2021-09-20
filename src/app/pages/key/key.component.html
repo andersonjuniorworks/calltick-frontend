@@ -1,12 +1,17 @@
 <div class="content">
     <form [formGroup]="keyForm" nz-form class="client-form">
+      <div class="row">
+        <div class="form-title">
+          <h2>Chave de Liberação</h2>
+        </div>
+      </div>
         <div class="row">
             <div class="col-12">
                 <nz-form-item>
                     <nz-form-label nzFor="client">Cliente</nz-form-label>
                     <nz-form-control nzCompact nzHasFeedback>
                         <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="document">
-                            <nz-option [nzLabel]="client.fullname + ' - ' + client.document" [nzValue]="client.document" *ngFor="let client of clients"></nz-option>
+                            <nz-option [nzLabel]="cli.fullname + ' - ' + cli.document" [nzValue]="cli" *ngFor="let cli of clients"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -17,8 +22,8 @@
                 <nz-form-item>
                     <nz-form-label nzFor="month">Mês</nz-form-label>
                     <nz-form-control nzCompact nzHasFeedback>
-                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="month">
-                            <nz-option [nzLabel]="month.value" [nzValue]="month.value" id="month" *ngFor="let month of months" (nzOnOpenChange)="onChange($event)"></nz-option>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione o mês" nzSize="large" formControlName="month">
+                            <nz-option [nzLabel]="month.text" [nzValue]="month.value" id="month" *ngFor="let month of months" (nzOnOpenChange)="onChange($event)"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -49,5 +54,9 @@
             <p>Sua chave de liberação é:</p>
             <h2>{{key}}</h2>
         </div>
+    </ng-container>
+    <ng-container *nzModalFooter>
+      <button nz-button nzType="default" (click)="onHandleCancel()">Fechar</button>
+      <button nz-button nzType="primary" (click)="onSendToWhatsApp()"><i nz-icon nzType="whats-app" nzTheme="outline"></i>Enviar no Whatsapp</button>
     </ng-container>
 </nz-modal>

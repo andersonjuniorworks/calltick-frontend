@@ -1,3 +1,5 @@
+import { UserService } from './../../services/user.service';
+import { User } from './../../models/user.model';
 import { FormControl } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,10 +12,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.css']
+  styleUrls: ['./ticket.component.css'],
 })
 export class TicketComponent implements OnInit {
-
   initLoading = false; // bug
   loadingMore = true;
 
@@ -33,10 +34,16 @@ export class TicketComponent implements OnInit {
   isOkLoading = false;
 
   isVisibleShowTicket = false;
+  isVisibleTransferModal = false;
 
   docTitle: string;
   fullnameTitle: string;
   nicknameTitle: string;
+
+  responsible: string;
+  newResponsible = new FormControl();
+
+  users: User[];
 
   technicalReporter = new FormControl();
 
@@ -44,25 +51,29 @@ export class TicketComponent implements OnInit {
     private ticketService: TicketService,
     private msg: NzMessageService,
     private storage: StorageService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private notification: NzNotificationService,
-  ) { }
+    private notification: NzNotificationService
+  ) {}
 
   ngOnInit() {
     this.onList();
     this.onVerifyProfile();
+    this.onListUser();
   }
 
   onList() {
-    this.ticketService.findAll(`${this.page-1}`,`${this.size}`).subscribe((response) => {
-      this.tickets = response.body
-      this.ticketService.findCount().subscribe((count) => {
-        this.total = count;
-        this.totalPages = this.size / count;
-        this.totalPages = Math.ceil(this.totalPages)*10;
-      })
-    })
+    this.ticketService
+      .findAll(`${this.page - 1}`, `${this.size}`)
+      .subscribe((response) => {
+        this.tickets = response.body;
+        this.ticketService.findCount().subscribe((count) => {
+          this.total = count;
+          this.totalPages = this.size / count;
+          this.totalPages = Math.ceil(this.totalPages) * 10;
+        });
+      });
   }
 
   onVerifyProfile() {
@@ -89,12 +100,13 @@ export class TicketComponent implements OnInit {
           `ERRO ${err.error.status}`,
           `${err.error.message}`
         );
-      })
-      this.handleCancel();
+      }
+    );
+    this.handleCancel();
   }
 
   onEdit(id) {
-    this.router.navigate(["edit", id], { relativeTo: this.route });
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 
   paginate(event) {
@@ -103,7 +115,7 @@ export class TicketComponent implements OnInit {
   }
 
   showModal(ticket): void {
-    if(ticket.client.type == 1) {
+    if (ticket.client.type == 1) {
       this.docTitle = 'CPF';
       this.fullnameTitle = 'Nome Completo';
       this.nicknameTitle = 'Apelido';
@@ -117,7 +129,7 @@ export class TicketComponent implements OnInit {
   }
 
   showModalViewTicket(ticket): void {
-    if(ticket.client.type == 1) {
+    if (ticket.client.type == 1) {
       this.docTitle = 'CPF';
       this.fullnameTitle = 'Nome Completo';
       this.nicknameTitle = 'Apelido';
@@ -143,8 +155,44 @@ export class TicketComponent implements OnInit {
   }
 
   handleCancelViewTicket() {
-    this.isVisibleShowTicket =false;
+    this.isVisibleShowTicket = false;
   }
 
+  showModalTransfer(data) {
+    this.ticket = data;
+    this.responsible = data.user.fullname;
+    this.isVisibleTransferModal = true;
+  }
+
+  onListUser() {
+    this.userService.findCount().subscribe((count) => {
+      this.userService.findAll('0', `${count}`).subscribe((response) => {
+        this.users = response.body;
+      });
+    });
+  }
+
+  onConfirmTransfer() {
+    this.ticket.user = this.newResponsible.value;
+    this.ticketService.transfer(this.ticket).subscribe(
+      (success) => {
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `Chamado transferido com sucesso!!!`
+        );
+        this.onList();
+      },
+      (error) => {
+        let err = error;
+        this.notification.create(
+          'error',
+          `ERRO ${err.error.status}`,
+          `${err.error.message}`
+        );
+      }
+    );
+    this.isVisibleTransferModal = false;
+  }
 
 }

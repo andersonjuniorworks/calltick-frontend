@@ -45,11 +45,15 @@ export class TicketService {
   }
 
   public notification() {
-    return this.http.get(`http://187.19.165.178:5050/notify`).pipe(take(1));
+    return this.http.get(`http://localhost:5050/notify`).pipe(take(1));
   }
 
   public finish(ticket) {
     return this.http.put(`${this.API}/finish/${ticket.id}`, ticket).pipe(take(1));
+  }
+
+  public transfer(ticket) {
+    return this.http.put(`${this.API}/transfer/${ticket.id}`, ticket).pipe(take(1));
   }
 
   save(ticket) {

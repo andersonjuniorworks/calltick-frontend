@@ -1,3 +1,5 @@
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { KeyComponent } from './key.component';
@@ -15,7 +17,12 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { PipesModule } from '../../pipes/pipes.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { WhatsAppOutline } from '@ant-design/icons-angular/icons';
 registerLocaleData(localePt);
+
+const icons: IconDefinition[] = [
+  WhatsAppOutline
+];
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -34,6 +41,7 @@ const maskConfig: Partial<IConfig> = {
     NzResultModule,
     NzModalModule,
     NgxMaskModule.forRoot(maskConfig),
+    NzIconModule.forChild(icons),
   ],
   declarations: [KeyComponent],
   providers: [

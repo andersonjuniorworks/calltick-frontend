@@ -19,6 +19,7 @@ export class KeyComponent implements OnInit {
 
   keyForm: FormGroup;
 
+  client: Client;
   clients: Client[];
 
   sizeClient: number;
@@ -72,13 +73,14 @@ export class KeyComponent implements OnInit {
   }
 
   onGenerateKey() {
+    this.client = this.keyForm.get('document').value;
     let date = new Date();
     date = this.keyForm.get('year').value;
     this.keyForm.patchValue({
       year: date.getFullYear()
     });
     this.isVisible = true;
-    this.keyService.findKey(`${this.keyForm.get('document').value}`, `00/${this.keyForm.get('month').value+'/'+this.keyForm.get('year').value}`).subscribe((response)=>{
+    this.keyService.findKey(`${this.client.document}`, `00/${this.keyForm.get('month').value+'/'+this.keyForm.get('year').value}`).subscribe((response)=>{
       this.key = response['key'];
       this.onCreateForm();
     })
@@ -86,6 +88,17 @@ export class KeyComponent implements OnInit {
 
   onBackToLocation() {
     this.location.back();
+  }
+
+  onHandleCancel() {
+    this.isVisible = false;
+  }
+
+  onSendToWhatsApp() {
+    window.open(
+      `https://api.whatsapp.com/send?phone=55${this.client.phoneNumberOne}&text=Caro cliente, sua chave de liberação é: *${this.key}*`,
+      "_blank"
+    );
   }
 
 }
