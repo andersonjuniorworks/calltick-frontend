@@ -69,13 +69,23 @@
         <td>{{ data.city }}</td>
         <td>{{ data.phoneNumberOne | telefoneOuCelular }}</td>
         <td>
-          <button class="btn-action primary" (click)="showModal(data)">
+          <button
+            class="btn-action primary"
+            (click)="showModal(data)"
+            nzTooltipTitle="Visualizar"
+            nzTooltipPlacement="top"
+            nz-tooltip
+          >
             <img src="./assets/icon/eye.svg" alt="icone de olho" />
           </button>
-          <button class="btn-action warning" (click)="onEdit(data.id)">
+          <button class="btn-action warning" (click)="onEdit(data.id)" nzTooltipTitle="Editar"
+          nzTooltipPlacement="top"
+          nz-tooltip>
             <img src="./assets/icon/edit.svg" alt="icone de edição" />
           </button>
-          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)" nzTooltipTitle="Excluir"
+          nzTooltipPlacement="top"
+          nz-tooltip>
             <img src="./assets/icon/delete.svg" alt="icone de deletar" />
           </button>
         </td>
@@ -210,7 +220,7 @@
         ><strong>{{ client.nickname }}</strong></nz-descriptions-item
       >
       <nz-descriptions-item nzTitle="CEP">{{
-        client.zipcode
+        client.zipcode | cep
       }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Endereço">{{
         client.address

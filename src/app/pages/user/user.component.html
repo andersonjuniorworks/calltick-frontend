@@ -181,6 +181,95 @@
   </div>
 </nz-modal>
 
+<nz-modal
+  [(nzVisible)]="isVisibleEditUserModal"
+  nzTitle="Editar Usuário"
+  (nzOnCancel)="closeModalEditUser()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="userForm" nz-form>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="fullname">Nome Completo*</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzErrorTip]="fullnameValidation"
+              nzCompact
+            >
+              <input
+                nz-input
+                type="text"
+                nzSize="large"
+                id="fullname"
+                placeholder="Digite o nome do usuário"
+                formControlName="fullname"
+                minlength="8"
+                maxlength="255"
+                required
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="email">Email*</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="emailValidation">
+              <input
+                nz-input
+                type="email"
+                nzSize="large"
+                id="email"
+                placeholder="Digite o email"
+                formControlName="email"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="profile">Perfil*</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Selecione um perfil"
+                nzSize="large"
+                id="profile"
+                formControlName="profile"
+              >
+                <nz-option
+                  [nzLabel]="profile.text"
+                  [nzValue]="profile.value"
+                  *ngFor="let profile of profiles"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModalEditUser()">Voltar</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [disabled]="!userForm.valid"
+    >
+      Salvar
+    </button>
+  </div>
+</nz-modal>
+
 <ng-template #fullnameValidation let-control>
   <ng-container *ngIf="userForm.get('fullname').hasError('maxlength')"
     ><span class="valid-text"

@@ -8,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-
   user: User;
   users: User[];
 
@@ -27,11 +26,13 @@ export class UserComponent implements OnInit {
   page: number = 0;
   size: number = 10;
 
+  isVisibleEditUserModal = false;
+
   profiles = [
-    {value: 1, text: 'Administrador'},
-    {value: 2, text: 'Técnico'},
-    {value: 3, text: 'Atendimento'}
-  ]
+    { value: 1, text: 'Administrador' },
+    { value: 2, text: 'Técnico' },
+    { value: 3, text: 'Atendimento' },
+  ];
 
   userForm: FormGroup;
 
@@ -40,7 +41,7 @@ export class UserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modal: NzModalService,
     private notification: NzNotificationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.onCreateForm();
@@ -50,26 +51,39 @@ export class UserComponent implements OnInit {
   onCreateForm() {
     this.userForm = this.formBuilder.group({
       id: [null],
-      fullname: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
-      email: [null, [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(255)]],
+      fullname: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(255),
+        ],
+      ],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(5),
+          Validators.maxLength(255),
+        ],
+      ],
       password: [null, [Validators.required, Validators.minLength(8)]],
-      profile: [null, [Validators.required]]
+      profile: [null, [Validators.required]],
     });
   }
 
   onList(): void {
-    this.userService.findAll(`${this.page}`,`${this.size}`).subscribe((response) => {
-      this.users = response.body;
-      this.listOfDisplayData = this.users;
-      this.loading = false;
-    });
-    console.log(this.users);
+    this.userService
+      .findAll(`${this.page}`, `${this.size}`)
+      .subscribe((response) => {
+        this.users = response.body;
+        this.listOfDisplayData = this.users;
+        this.loading = false;
+      });
   }
 
   onSubmit() {
-
-    console.log(this.userForm.value)
-
     let msgSuccess = 'Usuário cadastrado com sucesso!!!';
 
     if (this.userForm.value.id) {
@@ -80,6 +94,7 @@ export class UserComponent implements OnInit {
       (success) => {
         this.notification.create('success', 'SUCESSO!', `${msgSuccess}`);
         this.onList();
+        this.closeModalEditUser();
       },
       (error) => {
         let err = error;
@@ -115,7 +130,7 @@ export class UserComponent implements OnInit {
   }
 
   showDeleteConfirm(value): void {
-    if(value.id != 1){
+    if (value.id != 1) {
       this.modal.confirm({
         nzTitle: 'Deseja realmente excluir este usuário?',
         nzContent: `<b style="color: red;">${value.fullname}</b>`,
@@ -127,28 +142,30 @@ export class UserComponent implements OnInit {
         nzOnCancel: () => console.log('Cancel'),
       });
     } else {
-      this.notification.create('warning', 'ALERTA!', `Não é possível excluir o usuário administrador!`);
+      this.notification.create(
+        'warning',
+        'ALERTA!',
+        `Não é possível excluir o usuário administrador!`
+      );
     }
   }
 
   onAdd() {
-    this.showModal(null);
+    this.showModal();
   }
 
   onEdit(id) {
     this.userService.findById(id).subscribe((response) => {
       this.user = response;
-      this.showModal(this.user);
+      this.showModalEditUser(this.user);
     });
   }
 
   searchByFullname(): void {
     this.visibleDescription = false;
-    this.userService
-      .findByFullname(this.searchValue)
-      .subscribe((response) => {
-        this.users = response.body;
-      });
+    this.userService.findByFullname(this.searchValue).subscribe((response) => {
+      this.users = response.body;
+    });
   }
 
   reset(): void {
@@ -156,24 +173,32 @@ export class UserComponent implements OnInit {
     this.onList();
   }
 
-  showModal(value): void {
-    if(!value) {
-      this.onCreateForm();
-      this.isVisible = true;
+  showModal(): void {
+    this.onCreateForm();
+    this.isVisible = true;
+  }
+
+  showModalEditUser(value) {
+    if (value.id != 1) {
+      this.userForm.patchValue({
+        id: value.id,
+        fullname: value.fullname,
+        email: value.email,
+        password: value.password,
+        profile: value.profile,
+      });
+      this.isVisibleEditUserModal = true;
     } else {
-      if(value.id != 1) {
-        this.userForm.patchValue({
-          id: value.id,
-          fullname: value.fullname,
-          email: value.email,
-          password: value.password,
-          profile: value.profile,
-        });
-        this.isVisible = true;
-      } else {
-        this.notification.create('warning', 'ALERTA!', `Não é possível editar o usuário administrador!`);
-      }
+      this.notification.create(
+        'warning',
+        'ALERTA!',
+        `Não é possível editar o usuário administrador!`
+      );
     }
+  }
+
+  closeModalEditUser() {
+    this.isVisibleEditUserModal = false;
   }
 
   handleOk(): void {
@@ -188,5 +213,4 @@ export class UserComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-
 }

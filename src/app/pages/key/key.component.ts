@@ -28,6 +28,8 @@ export class KeyComponent implements OnInit {
 
   isVisible = false;
 
+  teste: string;
+
   months = [
     {text: 'JANEIRO', value: '01'},
     {text: 'FEVEREIRO', value: '02'},

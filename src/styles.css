@@ -103,16 +103,33 @@ body {
     cursor: pointer;
 }
 
+.btn-action:disabled {
+  transform: scale(1);
+  cursor: pointer;
+}
+
 .btn-action.primary {
     background: var(--primary);
+}
+
+.btn-action.primary:disabled {
+  background: #e6e6e6;
 }
 
 .btn-action.warning {
     background: var(--warning);
 }
 
+.btn-action.warning:disabled {
+  background: #e6e6e6;
+}
+
 .btn-action.danger {
     background: var(--danger);
+}
+
+.btn-action.danger:disabled {
+  background: #e6e6e6;
 }
 
 .table-header {

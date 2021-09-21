@@ -40,6 +40,7 @@ const maskConfig: Partial<IConfig> = {
     NzDatePickerModule,
     NzResultModule,
     NzModalModule,
+    PipesModule,
     NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
   ],

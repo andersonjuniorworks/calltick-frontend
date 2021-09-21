@@ -1,3 +1,4 @@
+import { User } from './../models/user.model';
 import { tap, take } from 'rxjs/operators';
 import { environment } from './../../environments/environment.prod';
 import { Ticket } from './../models/ticket.model';
@@ -40,12 +41,31 @@ export class TicketService {
       );
   }
 
+  findAllByUser(user: string, status: string, active: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/user?`, {
+        params: { user: user, status: status, active: active, page: page, size: size },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+        ),
+      );
+  }
+
   findById(id) {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }
 
   findCount() {
     return this.http.get<number>(`${this.API}/count`).pipe(take(1));
+  }
+
+  countByUser(user: string, status: string) {
+    return this.http.get<number>(`${this.API}/countByUser?`, {
+      params: { user: user, status: status },
+      observe: 'response',
+    })
   }
 
   private insert(ticket) {

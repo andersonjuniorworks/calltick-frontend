@@ -3,7 +3,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { TicketService } from './../../../services/ticket.service';
 import { Ticket } from './../../../models/ticket.model';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../../../services/user.service';
 import { User } from './../../../models/user.model';
 import { SectorService } from './../../../services/sector.service';
@@ -57,11 +57,11 @@ export class FormTicketComponent implements OnInit {
       this.pageTitle = 'Adicionar Chamado';
       this.ticketForm = this.formBuilder.group({
         id: [this.ticket.id],
-        client: [this.ticket.client],
-        sector: [this.ticket.sector],
-        user: [this.ticket.user],
-        subject: [this.ticket.subject],
-        description: [this.ticket.description],
+        client: [this.ticket.client, [Validators.required]],
+        sector: [this.ticket.sector, [Validators.required]],
+        user: [this.ticket.user, [Validators.required]],
+        subject: [this.ticket.subject, [Validators.required]],
+        description: [this.ticket.description, [Validators.required]],
         openBy: [this.ticket.openBy],
         status: [this.ticket.status],
         openingDate: [this.ticket.openingDate]
@@ -70,11 +70,11 @@ export class FormTicketComponent implements OnInit {
       this.pageTitle = 'Editar Chamado';
       this.ticketForm = this.formBuilder.group({
         id: [this.ticket.id],
-        client: [this.ticket.client.id],
-        sector: [this.ticket.sector.id],
-        user: [this.ticket.user.id],
-        subject: [this.ticket.subject],
-        description: [this.ticket.description],
+        client: [this.ticket.client.id, [Validators.required]],
+        sector: [this.ticket.sector.id, [Validators.required]],
+        user: [this.ticket.user.id, [Validators.required]],
+        subject: [this.ticket.subject, [Validators.required]],
+        description: [this.ticket.description, [Validators.required]],
         openBy: [this.ticket.openBy],
         status: [this.ticket.status],
         openingDate: [this.ticket.openingDate]

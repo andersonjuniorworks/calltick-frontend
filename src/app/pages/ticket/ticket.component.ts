@@ -15,6 +15,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./ticket.component.css'],
 })
 export class TicketComponent implements OnInit {
+
   initLoading = false; // bug
   loadingMore = true;
 
@@ -70,8 +71,9 @@ export class TicketComponent implements OnInit {
         this.tickets = response.body;
         this.ticketService.findCount().subscribe((count) => {
           this.total = count;
-          this.totalPages = this.size / count;
+          this.totalPages = this.total / this.size;
           this.totalPages = Math.ceil(this.totalPages) * 10;
+          this.totalPages = this.totalPages / 2;
         });
       });
   }

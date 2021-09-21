@@ -82,7 +82,7 @@
   <ng-container *nzModalContent>
     <div class="key-content">
       <p>Sua chave de liberação é:</p>
-      <h2>{{ key }}</h2>
+      <h2>{{ key | maskKey }}</h2>
     </div>
   </ng-container>
   <ng-container *nzModalFooter>

@@ -22,11 +22,12 @@
 
 .client-form {
   width: 100%;
+  height: auto;
   max-width: 1024px;
   padding: 40px;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   background: #fff;
 }
 
