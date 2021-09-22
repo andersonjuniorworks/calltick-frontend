@@ -20,7 +20,7 @@ export class TicketComponent implements OnInit {
   loadingMore = true;
 
   page: number = 1;
-  size: number = 6;
+  size: number = 5;
   total: number;
   totalPages: number = 0;
 

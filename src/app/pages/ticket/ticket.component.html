@@ -1,5 +1,4 @@
 <div class="content">
-
   <div class="row">
     <h2>Gerenciamento de Chamados</h2>
   </div>
@@ -11,17 +10,23 @@
   <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
     <nz-list-item *ngFor="let data of tickets">
       <ng-container>
-        <nz-list-item-meta
-          nzAvatar="./assets/icon/ticket.svg"
-          nzDescription="{{ data.client.fullname }} "
-        >
+        <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
           <nz-list-item-meta-title>
-            <a (click)="showModalViewTicket(data)">{{ data.subject }}</a>
+            <a (click)="showModalViewTicket(data)" id="itemTitle">{{ data.subject }}</a>
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-title>
+            <span id="itemSubTitle">{{data.client.fullname}}</span>
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-title>
+            <span id="itemSubTitle">Responsável: <strong>{{
+              data.user.fullname
+            }}</strong></span>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
-        <span id="tag"
+
+    <!--     <span id="tag"
           >Responsável: <strong>{{ data.user.fullname }}</strong></span
-        >
+        > -->
         <nz-tag nzColor="default" id="tagSec">{{
           data.sector.description
         }}</nz-tag>
@@ -61,7 +66,7 @@
               <i nz-icon nzType="sync"></i>
             </button>
           </nz-list-item-action>
-          <nz-list-item-action>
+   <!--        <nz-list-item-action>
             <button
               nz-button
               nzType="default"
@@ -73,7 +78,7 @@
             >
               <i nz-icon nzType="eye"></i>
             </button>
-          </nz-list-item-action>
+          </nz-list-item-action> -->
           <nz-list-item-action>
             <button
               nz-button

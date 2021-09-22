@@ -39,11 +39,6 @@ export class LoginComponent implements OnInit {
       this.storage.setLocalUser(response);
       this.userService.login(this.validateForm.value).subscribe(
         (success) => {
-          this.notification.create(
-            'success',
-            'SUCESSO!',
-            `Usuário logado com sucesso!`
-          );
           this.onNavigateToDashboard();
           this.storage.setAuthStatus(success);
         },

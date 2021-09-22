@@ -19,12 +19,15 @@
     align-items: center;
     margin: 15px 0 0 0;
     border-radius: 5px;
-    background: var(--primary);
 }
 
 .sidebar .logo img {
     width: 50px;
     height: 50px;
+}
+
+.sidebar .logo:hover {
+  cursor: pointer;
 }
 
 .sidebar ul {

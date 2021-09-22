@@ -17,7 +17,7 @@ body {
     --terciary: #AAB2FF;
     --warning: #FFCA28;
     --danger: #DD2C00;
-    --gradient-violet: linear-gradient(180deg, #7984EE 0%, #6730EC 100%);
+    --gradient-violet: linear-gradient(-45deg, #7984EE 0%, #6730EC 100%);
 }
 
 .container {
