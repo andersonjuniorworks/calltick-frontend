@@ -1,6 +1,6 @@
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/user.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
@@ -44,10 +44,12 @@ export class TicketComponent implements OnInit {
   responsible: string;
   newResponsible = new FormControl();
 
+  finishForm: FormGroup;
+
   users: User[];
   userId: number;
 
-  technicalReporter = new FormControl();
+  //technicalReporter = new FormControl();
 
   constructor(
     private ticketService: TicketService,
@@ -56,13 +58,21 @@ export class TicketComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
+    this.onCreateFinishForm();
     this.onVerifyProfile();
     this.onList();
     this.onListUser();
+  }
+
+  onCreateFinishForm() {
+    this.finishForm = this.formBuilder.group({
+      technicalReporter: [null, [Validators.required]]
+    })
   }
 
   onList() {
@@ -86,7 +96,7 @@ export class TicketComponent implements OnInit {
 
   onFinishTicket(ticket) {
     this.ticket = ticket;
-    this.ticket.technicalReport = this.technicalReporter.value;
+    this.ticket.technicalReport = this.finishForm.get('technicalReporter').value;
     this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
     this.ticketService.finish(this.ticket).subscribe(
       (success) => {

@@ -12,19 +12,21 @@
       <ng-container>
         <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
           <nz-list-item-meta-title>
-            <a (click)="showModalViewTicket(data)" id="itemTitle">{{ data.subject }}</a>
+            <a (click)="showModalViewTicket(data)" id="itemTitle">{{
+              data.subject
+            }}</a>
           </nz-list-item-meta-title>
           <nz-list-item-meta-title>
-            <span id="itemSubTitle">{{data.client.fullname}}</span>
+            <span id="itemSubTitle">{{ data.client.fullname }}</span>
           </nz-list-item-meta-title>
           <nz-list-item-meta-title>
-            <span id="itemSubTitle">Responsável: <strong>{{
-              data.user.fullname
-            }}</strong></span>
+            <span id="itemSubTitle"
+              >Responsável: <strong>{{ data.user.fullname }}</strong></span
+            >
           </nz-list-item-meta-title>
         </nz-list-item-meta>
 
-    <!--     <span id="tag"
+        <!--     <span id="tag"
           >Responsável: <strong>{{ data.user.fullname }}</strong></span
         > -->
         <nz-tag nzColor="default" id="tagSec">{{
@@ -43,7 +45,9 @@
               nz-button
               nzType="default"
               nzShape="circle"
-              [disabled]="data.user.id != userId || data.status == 3 || data.status == 4"
+              [disabled]="
+                data.user.id != userId || data.status == 3 || data.status == 4
+              "
               nzTooltipTitle="Finalizar"
               nzTooltipPlacement="top"
               nz-tooltip
@@ -57,7 +61,9 @@
               nz-button
               nzType="default"
               nzShape="circle"
-              [disabled]="data.user.id != userId || data.status == 3 || data.status == 4"
+              [disabled]="
+                data.user.id != userId || data.status == 3 || data.status == 4
+              "
               nzTooltipTitle="Transferir"
               nzTooltipPlacement="top"
               nz-tooltip
@@ -66,7 +72,7 @@
               <i nz-icon nzType="sync"></i>
             </button>
           </nz-list-item-action>
-   <!--        <nz-list-item-action>
+          <!--        <nz-list-item-action>
             <button
               nz-button
               nzType="default"
@@ -170,24 +176,32 @@
     <div class="ticket-finish">
       <div class="row">
         <div class="col-12">
-          <nz-form-item>
-            <nz-form-label nzFor="description">Relato Técnico</nz-form-label>
-            <nz-form-control nzCompact nzHasFeedback>
-              <textarea
-                rows="6"
-                nz-input
-                id="description"
-                [formControl]="technicalReporter"
-              ></textarea>
-            </nz-form-control>
-          </nz-form-item>
+          <form [formGroup]="finishForm">
+            <nz-form-item>
+              <nz-form-label nzFor="description">Relato Técnico</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                <textarea
+                  rows="6"
+                  nz-input
+                  id="description"
+                  formControlName="technicalReporter"
+                  required
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
         </div>
       </div>
     </div>
   </div>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
-    <button nz-button nzType="primary" (click)="onFinishTicket(ticket)">
+    <button
+      nz-button
+      nzType="primary"
+      (click)="onFinishTicket(ticket)"
+      [disabled]="!finishForm.valid"
+    >
       Finalizar
     </button>
   </div>

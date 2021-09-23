@@ -3,7 +3,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from './../../services/user.service';
 import { StorageService } from './../../services/storage.service';
 import { User } from './../../models/user.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
 import { ClientService } from './../../services/client.service';
@@ -55,6 +55,8 @@ export class HomeComponent implements OnInit {
 
   countTickets: number = 0;
 
+  finishForm: FormGroup;
+
   constructor(
     private clientService: ClientService,
     private ticketService: TicketService,
@@ -63,15 +65,23 @@ export class HomeComponent implements OnInit {
     private notification: NzNotificationService,
     private router: Router,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.onCreateFinishForm();
     this.onVerifyUser();
     this.onTicketCount();
     this.onTicketOpenedCount();
     this.onTicketFinishCount();
     this.onClientCount();
     this.onTicketCountByUser();
+  }
+
+  onCreateFinishForm() {
+    this.finishForm = this.formBuilder.group({
+      technicalReporter: [null, [Validators.required]]
+    })
   }
 
   onClientCount() {
@@ -121,7 +131,7 @@ export class HomeComponent implements OnInit {
 
   onFinishTicket(ticket) {
     this.ticket = ticket;
-    this.ticket.technicalReport = this.technicalReporter.value;
+    this.ticket.technicalReport = this.finishForm.get('technicalReporter').value;
     this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
     this.ticketService.finish(this.ticket).subscribe(
       (success) => {

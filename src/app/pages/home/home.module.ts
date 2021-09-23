@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './../../pipes/pipes.module';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -43,6 +44,7 @@ const icons: IconDefinition[] = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     HomeRoutingModule,
     NzStatisticModule,
     NzGridModule,

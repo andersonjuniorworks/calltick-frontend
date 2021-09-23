@@ -24,7 +24,6 @@
 </div>
 
 <div class="content">
-
   <div class="row">
     <h2>Meus Chamados</h2>
   </div>
@@ -175,24 +174,31 @@
     <div class="ticket-finish">
       <div class="row">
         <div class="col-12">
-          <nz-form-item>
-            <nz-form-label nzFor="description">Relato Técnico</nz-form-label>
-            <nz-form-control nzCompact nzHasFeedback>
-              <textarea
-                rows="6"
-                nz-input
-                id="description"
-                [formControl]="technicalReporter"
-              ></textarea>
-            </nz-form-control>
-          </nz-form-item>
+          <form [formGroup]="finishForm">
+            <nz-form-item>
+              <nz-form-label nzFor="description">Relato Técnico</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                <textarea
+                  rows="6"
+                  nz-input
+                  id="description"
+                  formControlName="technicalReporter"
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
         </div>
       </div>
     </div>
   </div>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
-    <button nz-button nzType="primary" (click)="onFinishTicket(ticket)">
+    <button
+      nz-button
+      nzType="primary"
+      (click)="onFinishTicket(ticket)"
+      [disabled]="!finishForm.valid"
+    >
       Finalizar
     </button>
   </div>
