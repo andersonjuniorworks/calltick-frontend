@@ -7,13 +7,12 @@
   </div>
   <nz-table
     #nzTable
-    [nzData]="listOfDisplayData"
+    [nzData]="clients"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzLoading]="loading"
     [nzPaginationPosition]="'bottom'"
     [nzNoResult]="'Nenhum resultado encontrado'"
-    [nzScroll]="{ x: '1200px', y: '500px' }"
   >
     <thead>
       <tr>

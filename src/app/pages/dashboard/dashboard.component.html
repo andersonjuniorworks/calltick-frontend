@@ -4,35 +4,35 @@
     </div>
     <ul>
         <li routerLink="home" routerLinkActive="active-route">
-            <img src="./assets/icon/home.svg" alt="icone de clientes" />
+            <img src="./assets/icon/home.svg" alt="icone home" />
             <span class="active">Home</span>
         </li>
         <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1">
             <img src="./assets/icon/users.svg" alt="icone de clientes" />
             <span> Clientes </span>
         </li>
-        <li routerLink="sector" routerLinkActive="active-route">
-            <img src="./assets/icon/apps.svg" alt="icone de clientes" />
+        <li routerLink="sector" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 2">
+            <img src="./assets/icon/apps.svg" alt="icone de setores" />
             <span>Setores</span>
         </li>
         <li routerLink="ticket" routerLinkActive="active-route">
-            <img src="./assets/icon/file_report.svg" alt="icone de clientes" />
+            <img src="./assets/icon/file_report.svg" alt="icone de chamados" />
             <span>Chamados</span>
         </li>
         <li *ngIf="user.id == 1">
-            <img src="./assets/icon/receipt_2.svg" alt="icone de clientes" />
+            <img src="./assets/icon/receipt_2.svg" alt="icone de pagamentos" />
             <span>Pagamentos</span>
         </li>
-        <li *ngIf="user.profile == 1" routerLink="key" routerLinkActive="active-route">
-            <img src="./assets/icon/lock_open.svg" alt="icone de clientes" />
+        <li *ngIf="user.profile == 1 || user.profile == 3" routerLink="key" routerLinkActive="active-route">
+            <img src="./assets/icon/lock_open.svg" alt="icone de liberação" />
             <span>Liberação</span>
         </li>
         <li routerLink="user" routerLinkActive="active-route" *ngIf="user.profile == 1">
-            <img src="./assets/icon/user.svg" alt="icone de clientes" />
+            <img src="./assets/icon/user.svg" alt="icone de usuários" />
             <span>Usuários</span>
         </li>
         <li (click)="showLogoutConfirm()">
-            <img src="./assets/icon/exit.svg" alt="icone de clientes" />
+            <img src="./assets/icon/exit.svg" alt="icone de sair" />
             <span>Sair</span>
         </li>
     </ul>

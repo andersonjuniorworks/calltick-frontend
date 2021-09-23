@@ -18,7 +18,7 @@
 nz-list {
   width: 100%;
   max-height: 520px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: auto;
 }
 

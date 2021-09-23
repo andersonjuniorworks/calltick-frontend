@@ -8,10 +8,9 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
-
   client: Client;
   clients: Client[];
 
@@ -45,7 +44,7 @@ export class ClientComponent implements OnInit {
 
   filterCity = [
     { text: 'Crateús', value: 'Crateús' },
-    { text: 'Fortaleza', value: 'Fortaleza' }
+    { text: 'Fortaleza', value: 'Fortaleza' },
   ];
 
   constructor(
@@ -53,28 +52,31 @@ export class ClientComponent implements OnInit {
     private clientService: ClientService,
     private notification: NzNotificationService,
     private router: Router,
-    private route: ActivatedRoute,
-    ) { }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.onList();
   }
 
-  onList():void {
-    this.clientService.findAll(`${this.page-1}`, `${this.size}`).subscribe(response => {
-      this.clients = response.body;
-      this.listOfDisplayData = this.clients;
-      this.loading = false;
-      this.clientService.findCount().subscribe((count) => {
-        this.total = count;
-        this.totalPages = this.size / count;
-        this.totalPages = Math.ceil(this.totalPages+1)*10;
-      })
-    })
+  onList(): void {
+    this.clientService
+      .findAll(`${this.page - 1}`, `${this.size}`)
+      .subscribe((response) => {
+        this.clients = response.body;
+        this.loading = false;
+        if (this.clients.length > 0) {
+          this.clientService.findCount().subscribe((count) => {
+            this.total = count;
+            this.totalPages = this.size / count;
+            this.totalPages = Math.ceil(this.totalPages + 1) * 10;
+          });
+        }
+      });
   }
 
   onEdit(id) {
-    this.router.navigate(["edit", id], { relativeTo: this.route });
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 
   onDelete(value) {
@@ -109,34 +111,42 @@ export class ClientComponent implements OnInit {
 
   searchByDoc(): void {
     this.visibleDoc = false;
-    this.clientService.findByDocument(this.searchValueDocument).subscribe((response) => {
-      this.clients = response.body;
-      this.total = this.clients.length;
-    })
+    this.clientService
+      .findByDocument(this.searchValueDocument)
+      .subscribe((response) => {
+        this.clients = response.body;
+        this.total = this.clients.length;
+      });
   }
 
   searchByName(): void {
     this.visibleName = false;
-    this.clientService.findByName(this.searchValueFullname).subscribe((response) => {
-      this.clients = response.body;
-      this.total = this.clients.length;
-    })
+    this.clientService
+      .findByName(this.searchValueFullname)
+      .subscribe((response) => {
+        this.clients = response.body;
+        this.total = this.clients.length;
+      });
   }
 
   searchByNickname(): void {
     this.visibleNickname = false;
-    this.clientService.findByNickname(this.searchValueNickname).subscribe((response) => {
-      this.clients = response.body;
-      this.total = this.clients.length;
-    })
+    this.clientService
+      .findByNickname(this.searchValueNickname)
+      .subscribe((response) => {
+        this.clients = response.body;
+        this.total = this.clients.length;
+      });
   }
 
   searchByCity(): void {
     this.paginationDisable = true;
-    this.clientService.findByCity(this.searchValueCity).subscribe((response) => {
-      this.clients = response.body;
-      this.total = this.clients.length;
-    })
+    this.clientService
+      .findByCity(this.searchValueCity)
+      .subscribe((response) => {
+        this.clients = response.body;
+        this.total = this.clients.length;
+      });
   }
 
   showDeleteConfirm(value): void {
@@ -147,23 +157,26 @@ export class ClientComponent implements OnInit {
       nzOkType: 'primary',
       nzWidth: '500px',
       nzOkDanger: true,
-      nzOnOk: () => this.onDelete(value) ,
+      nzOnOk: () => this.onDelete(value),
       nzCancelText: 'Não',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => console.log('Cancel'),
     });
   }
 
   showModal(client): void {
     this.client = client;
-    if(this.client.type == 1) {
+    if (this.client.type == 1) {
       this.labelDoc = 'CPF';
-      this.labelNickname = 'Apelido'
+      this.labelNickname = 'Apelido';
     } else {
       this.labelDoc = 'CNPJ';
-      this.labelNickname = 'Nome Fantasia'
+      this.labelNickname = 'Nome Fantasia';
     }
-    if(this.client.phoneNumberTwo == '' || this.client.phoneNumberTwo == null) {
-      this.client.phoneNumberTwo = this.client.phoneNumberOne
+    if (
+      this.client.phoneNumberTwo == '' ||
+      this.client.phoneNumberTwo == null
+    ) {
+      this.client.phoneNumberTwo = this.client.phoneNumberOne;
     }
     this.isVisible = true;
   }
@@ -193,8 +206,7 @@ export class ClientComponent implements OnInit {
 
   previousPage() {
     this.page--;
-    console.log(this.page)
+    console.log(this.page);
     this.onList();
   }
-
 }
