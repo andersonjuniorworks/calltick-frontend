@@ -45,6 +45,7 @@ export class TicketComponent implements OnInit {
   newResponsible = new FormControl();
 
   users: User[];
+  userId: number;
 
   technicalReporter = new FormControl();
 
@@ -59,8 +60,8 @@ export class TicketComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.onList();
     this.onVerifyProfile();
+    this.onList();
     this.onListUser();
   }
 
@@ -80,6 +81,7 @@ export class TicketComponent implements OnInit {
 
   onVerifyProfile() {
     this.userProfile = this.storage.getLocalUser().profile;
+    this.userId = this.storage.getLocalUser().id;
   }
 
   onFinishTicket(ticket) {

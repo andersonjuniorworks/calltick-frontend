@@ -59,7 +59,7 @@
               nz-button
               nzType="default"
               nzShape="circle"
-              [disabled]="data.status == 3 || data.status == 4"
+              [disabled]="data.user.id != this.userProfile"
               nzTooltipTitle="Finalizar"
               nzTooltipPlacement="top"
               nz-tooltip

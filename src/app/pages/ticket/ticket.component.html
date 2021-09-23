@@ -43,7 +43,7 @@
               nz-button
               nzType="default"
               nzShape="circle"
-              [disabled]="data.status == 3 || data.status == 4"
+              [disabled]="data.user.id != userId || data.status == 3 || data.status == 4"
               nzTooltipTitle="Finalizar"
               nzTooltipPlacement="top"
               nz-tooltip
@@ -57,7 +57,7 @@
               nz-button
               nzType="default"
               nzShape="circle"
-              [disabled]="data.status == 3 || data.status == 4"
+              [disabled]="data.user.id != userId || data.status == 3 || data.status == 4"
               nzTooltipTitle="Transferir"
               nzTooltipPlacement="top"
               nz-tooltip
