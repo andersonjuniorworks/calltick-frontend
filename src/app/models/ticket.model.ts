@@ -4,6 +4,7 @@ import { Sector } from './sector.model';
 export interface Ticket {
   id: number;
   client: Client,
+  typeService: number;
   user: User;
   active: number;
   closeBy: string;

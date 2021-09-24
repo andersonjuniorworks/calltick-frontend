@@ -214,8 +214,13 @@
 >
   <div *nzModalContent>
     <nz-descriptions nzLayout="horizontal">
-      <nz-descriptions-item [nzTitle]="docTitle" [nzSpan]="3">
+      <nz-descriptions-item [nzTitle]="docTitle" [nzSpan]="2">
         <strong>{{ ticket.client.document | cpfOuCnpj }}</strong>
+      </nz-descriptions-item>
+      <nz-descriptions-item [nzTitle]="'Tipo'" [nzSpan]="1">
+        <strong *ngIf="ticket.typeService == 1">Interno</strong>
+        <strong *ngIf="ticket.typeService == 2">Externo</strong>
+        <strong *ngIf="ticket.typeService == 3">Remoto</strong>
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="fullnameTitle" [nzSpan]="2"
         ><strong>{{ ticket.client.fullname }}</strong></nz-descriptions-item

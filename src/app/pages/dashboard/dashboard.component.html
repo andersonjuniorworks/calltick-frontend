@@ -7,15 +7,15 @@
             <img src="./assets/icon/home.svg" alt="icone home" />
             <span class="active">Home</span>
         </li>
-        <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1">
+        <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3">
             <img src="./assets/icon/users.svg" alt="icone de clientes" />
             <span> Clientes </span>
         </li>
-        <li routerLink="contract" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 2">
+        <li routerLink="contract" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3">
           <img src="./assets/icon/file_text.svg" alt="icone de setores" />
           <span>Contratos</span>
       </li>
-        <li routerLink="sector" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 2">
+        <li routerLink="sector" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3">
             <img src="./assets/icon/apps.svg" alt="icone de setores" />
             <span>Setores</span>
         </li>

@@ -27,6 +27,8 @@ export class ContractsComponent implements OnInit {
 
   contractForm: FormGroup;
 
+  titleModal: string;
+
   constructor(
     private contractService: ContractService,
     private formBuilder: FormBuilder,
@@ -102,6 +104,7 @@ export class ContractsComponent implements OnInit {
   }
 
   onAdd() {
+    this.titleModal = 'Cadastrar Contrato';
     this.showModal(null);
   }
 
@@ -110,6 +113,7 @@ export class ContractsComponent implements OnInit {
       this.contract = response;
       this.showModal(this.contract);
     });
+    this.titleModal = 'Editar Contrato';
   }
 
   showDeleteConfirm(value): void {

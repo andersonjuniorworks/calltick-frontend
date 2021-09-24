@@ -12,7 +12,6 @@ import { Client } from './../../../models/client.model';
 import { ClientService } from './../../../services/client.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { WebSocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'app-form-ticket',
@@ -58,6 +57,7 @@ export class FormTicketComponent implements OnInit {
       this.ticketForm = this.formBuilder.group({
         id: [this.ticket.id],
         client: [this.ticket.client, [Validators.required]],
+        typeService: [this.ticket.typeService],
         sector: [this.ticket.sector, [Validators.required]],
         user: [this.ticket.user, [Validators.required]],
         subject: [this.ticket.subject, [Validators.required]],
@@ -71,6 +71,7 @@ export class FormTicketComponent implements OnInit {
       this.ticketForm = this.formBuilder.group({
         id: [this.ticket.id],
         client: [this.ticket.client.id, [Validators.required]],
+        typeService: [this.ticket.typeService],
         sector: [this.ticket.sector.id, [Validators.required]],
         user: [this.ticket.user.id, [Validators.required]],
         subject: [this.ticket.subject, [Validators.required]],

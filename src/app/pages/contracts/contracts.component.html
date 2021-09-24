@@ -73,7 +73,7 @@
 
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="Cadastrar Contrato"
+  [nzTitle]="titleModal"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading"

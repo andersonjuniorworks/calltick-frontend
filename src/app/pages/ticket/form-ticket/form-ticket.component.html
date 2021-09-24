@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">
+      <div class="col-9">
         <nz-form-item>
           <nz-form-label nzFor="client">Cliente</nz-form-label>
           <nz-form-control
@@ -29,6 +29,30 @@
                 *ngFor="let client of clients"
                 required
               ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-3">
+        <nz-form-item>
+          <nz-form-label nzFor="user">Tipo de Atendimento</nz-form-label>
+          <nz-form-control
+            nzCompact
+            nzHasFeedback
+            [nzErrorTip]="'Campo obrigatório'"
+          >
+            <nz-select
+              nzShowSearch
+              nzAllowClear
+              nzPlaceHolder="Selecione"
+              nzSize="large"
+              id="user"
+              formControlName="typeService"
+              required
+            >
+              <nz-option [nzValue]="1" nzLabel="Interno"></nz-option>
+              <nz-option [nzValue]="2" nzLabel="Externo"></nz-option>
+              <nz-option [nzValue]="3" nzLabel="Remoto"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
