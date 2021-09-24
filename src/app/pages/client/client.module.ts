@@ -1,3 +1,4 @@
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { PipesModule } from './../../pipes/pipes.module';
 
@@ -62,7 +63,8 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),
     PipesModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzSelectModule,
   ],
   declarations: [ClientComponent],
   providers: []

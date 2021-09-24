@@ -11,6 +11,10 @@
             <img src="./assets/icon/users.svg" alt="icone de clientes" />
             <span> Clientes </span>
         </li>
+        <li routerLink="contract" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 2">
+          <img src="./assets/icon/file_text.svg" alt="icone de setores" />
+          <span>Contratos</span>
+      </li>
         <li routerLink="sector" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 2">
             <img src="./assets/icon/apps.svg" alt="icone de setores" />
             <span>Setores</span>

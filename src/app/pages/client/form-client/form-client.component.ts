@@ -1,3 +1,5 @@
+import { Contract } from './../../../models/contract.model';
+import { ContractService } from './../../../services/contract.service';
 import { SectorService } from './../../../services/sector.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientService } from './../../../services/client.service';
@@ -26,12 +28,15 @@ export class FormClientComponent implements OnInit {
   labelFullname = 'Nome Completo';
   labelNickname = 'Apelido';
 
+  contracts: Contract[];
+
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
     private route: ActivatedRoute,
     private clientService: ClientService,
     private notification: NzNotificationService,
+    private contractService: ContractService
   ) { }
 
   ngOnInit() {
@@ -44,6 +49,8 @@ export class FormClientComponent implements OnInit {
     }
 
     this.onCreateForm();
+    this.onReadContracts();
+    this.onPopulateContract();
   }
 
   onCreateForm() {
@@ -63,12 +70,16 @@ export class FormClientComponent implements OnInit {
       city: [this.client.city, [Validators.required]],
       phoneNumberOne: [this.client.phoneNumberOne, [Validators.required]],
       phoneNumberTwo: this.client.phoneNumberTwo,
-      email: [this.client.email, [Validators.email]]
+      email: [this.client.email, [Validators.email]],
+      contract: [null]
     })
 
     if(this.client.id != null) {
       this.formClient.get('type').disable();
       this.formClient.get('document').disable();
+      this.formClient.patchValue({
+        contract: this.client.contract.id
+      })
     }
 
     if(this.client.type == 2) {
@@ -77,6 +88,14 @@ export class FormClientComponent implements OnInit {
       this.labelNickname = 'Nome Fantasia';
     }
 
+  }
+
+  onPopulateContract() {
+    this.contractService.findById(this.formClient.get('contract').value).subscribe((response) => {
+      this.formClient.patchValue({
+        contract: response.id
+      })
+    })
   }
 
   onChangeTypeClient() {
@@ -127,8 +146,14 @@ export class FormClientComponent implements OnInit {
           );
         }
       );
-
     }
+
+  }
+
+  onReadContracts() {
+    this.contractService.findAll().subscribe((response) => {
+      this.contracts = response.body;
+    })
   }
 
 }

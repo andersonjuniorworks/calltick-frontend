@@ -1,0 +1,117 @@
+<div class="content">
+  <div class="row">
+    <h2>Gerenciamento de Contrato</h2>
+  </div>
+  <div class="table-header">
+    <button class="btn btn-secondary" (click)="onAdd()">Adicionar</button>
+  </div>
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+    [nzScroll]="{ x: '1200px', y: '450px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="75%">
+          Descrição
+          <nz-filter-trigger
+            [(nzVisible)]="visibleDescription"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menuDoc"
+          >
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>Preço</th>
+        <th nzRight>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of contracts">
+        <td>{{ data.description }}</td>
+        <td>{{ data.price | currency: 'BRL' }}</td>
+        <td>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
+            <img src="./assets/icon/edit.svg" alt="icone de edição" />
+          </button>
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+            <img src="./assets/icon/delete.svg" alt="icone de deletar" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-dropdown-menu #menuDoc="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Descrição"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Contrato"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="contractForm" class="contract-form">
+      <nz-form-item>
+        <nz-form-label nzFor="description">Descrição*</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="'Campo obrigatório'">
+          <input
+            nz-input
+            type="text"
+            nzSize="large"
+            id="description"
+            placeholder="Digite a descrição do contrato"
+            formControlName="description"
+            required
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="price">Preço</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input
+            nz-input
+            type="text"
+            nzSize="large"
+            id="price"
+            placeholder="R$ 00,00"
+            formControlName="price"
+            currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [disabled]="!contractForm.valid">Salvar</button>
+  </div>
+</nz-modal>

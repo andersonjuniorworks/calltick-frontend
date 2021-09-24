@@ -59,6 +59,21 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+      <div class="col-3">
+        <nz-form-item>
+        <nz-form-label nzFor="contract">Contrato</nz-form-label>
+        <nz-form-control nzCompact>
+          <nz-select
+            formControlName="contract"
+            id="contract"
+            nzPlaceHolder="Selecione"
+            nzSize="large"
+          >
+            <nz-option [nzValue]="option.id" nzLabel="{{option.description}}" *ngFor="let option of contracts"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      </div>
     </div>
     <div class="row">
       <div class="col-6">

@@ -1,3 +1,4 @@
+import { Contract } from './contract.model';
 export interface Client {
   id: number;
   type: number;
@@ -16,4 +17,5 @@ export interface Client {
   phoneNumberTwo: string;
   email: string;
   registrationDate: string;
+  contract?: Contract;
 }
