@@ -104,8 +104,8 @@ body {
 }
 
 .btn-action:disabled {
-  transform: scale(1);
-  cursor: pointer;
+    transform: scale(1);
+    cursor: pointer;
 }
 
 .btn-action.primary {
@@ -113,7 +113,7 @@ body {
 }
 
 .btn-action.primary:disabled {
-  background: #e6e6e6;
+    background: #e6e6e6;
 }
 
 .btn-action.warning {
@@ -121,7 +121,7 @@ body {
 }
 
 .btn-action.warning:disabled {
-  background: #e6e6e6;
+    background: #e6e6e6;
 }
 
 .btn-action.danger {
@@ -129,7 +129,7 @@ body {
 }
 
 .btn-action.danger:disabled {
-  background: #e6e6e6;
+    background: #e6e6e6;
 }
 
 .table-header {

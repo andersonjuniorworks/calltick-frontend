@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" id="menu">
     <div class="logo" routerLink="home">
         <img src="./assets/img/logo.svg" alt="">
     </div>
@@ -40,8 +40,11 @@
 
 <div class="container">
     <div class="navbar">
+        <button class="toggle" id="buttonToggle" (click)="onToogleMenu()">
+          <img src="./assets/icon/menu.svg" alt="">
+        </button>
         <ul>
-            <li>
+            <li id="userProfile">
                 <span>Bem vindo <strong>{{user.fullname}}</strong></span>
             </li>
         </ul>
@@ -50,5 +53,3 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-
-

@@ -50,5 +50,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  onToogleMenu() {
+    document.querySelector('#menu').classList.toggle("sidemenu-active");
+  }
 
 }
