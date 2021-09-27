@@ -69,7 +69,7 @@
             nzPlaceHolder="Selecione"
             nzSize="large"
           >
-            <nz-option [nzValue]="option.id" nzLabel="{{option.description}}" *ngFor="let option of contracts"></nz-option>
+            <nz-option [nzValue]="option" nzLabel="{{option.description}}" *ngFor="let option of contracts"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -81,6 +81,7 @@
           <nz-form-label nzFor="fullname">{{ labelFullname }}*</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="fullnameValidation">
             <input
+              type="text"
               nz-input
               formControlName="fullname"
               id="fullname"

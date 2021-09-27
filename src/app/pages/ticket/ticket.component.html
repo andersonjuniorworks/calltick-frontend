@@ -33,6 +33,7 @@
           data.sector.description
         }}</nz-tag>
         <nz-tag nzColor="default">{{ data.openingDate }}</nz-tag>
+        <nz-tag nzColor="default" *ngIf="data.status == 3">{{ data.closingDate }}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
         <nz-tag nzColor="processing" *ngIf="data.status == 2"
           >Processando</nz-tag

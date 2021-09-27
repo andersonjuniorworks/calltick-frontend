@@ -64,9 +64,10 @@
           <nz-form-label nzFor="subject">Assunto</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="'Campo obrigatório'">
             <input
+            type="text"
               nz-input
               formControlName="subject"
-              id="fullname"
+              id="subject"
               placeholder="Digite o assunto do chamado"
               minlength="5"
               maxlength="255"

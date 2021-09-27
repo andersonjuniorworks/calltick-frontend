@@ -54,4 +54,8 @@ export class DashboardComponent implements OnInit {
     document.querySelector('#menu').classList.toggle("sidemenu-active");
   }
 
+  onHidden() {
+    document.querySelector('#menu').classList.remove("sidemenu-active");
+  }
+
 }

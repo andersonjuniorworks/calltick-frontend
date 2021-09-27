@@ -54,32 +54,29 @@ export class FormClientComponent implements OnInit {
   }
 
   onCreateForm() {
-    this.formClient = this.formBuilder.group({
-      id: this.client.id,
-      type: [this.client.type],
-      document: [this.client.document, [Validators.required, Validators.minLength(11), Validators.maxLength(18)]],
-      stateRegistration: [this.client.stateRegistration],
-      fullname: [this.client.fullname, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
-      nickname: this.client.nickname,
-      zipcode: this.client.zipcode,
-      address: this.client.address,
-      homeNumber: this.client.homeNumber,
-      complement: this.client.complement,
-      neighborhood: this.client.neighborhood,
-      state: [this.client.state, [Validators.required]],
-      city: [this.client.city, [Validators.required]],
-      phoneNumberOne: [this.client.phoneNumberOne, [Validators.required]],
-      phoneNumberTwo: this.client.phoneNumberTwo,
-      email: [this.client.email, [Validators.email]],
-      contract: [null]
-    })
+      this.formClient = this.formBuilder.group({
+        id: this.client.id,
+        type: [this.client.type],
+        document: [this.client.document, [Validators.required, Validators.minLength(11), Validators.maxLength(18)]],
+        stateRegistration: [this.client.stateRegistration],
+        fullname: [this.client.fullname, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+        nickname: this.client.nickname,
+        zipcode: this.client.zipcode,
+        address: this.client.address,
+        homeNumber: this.client.homeNumber,
+        complement: this.client.complement,
+        neighborhood: this.client.neighborhood,
+        state: [this.client.state, [Validators.required]],
+        city: [this.client.city, [Validators.required]],
+        phoneNumberOne: [this.client.phoneNumberOne, [Validators.required]],
+        phoneNumberTwo: this.client.phoneNumberTwo,
+        email: [this.client.email, [Validators.email]],
+        contract: [this.client.contract]
+      })
 
     if(this.client.id != null) {
       this.formClient.get('type').disable();
       this.formClient.get('document').disable();
-      this.formClient.patchValue({
-        contract: this.client.contract.id
-      })
     }
 
     if(this.client.type == 2) {

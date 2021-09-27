@@ -31,12 +31,19 @@
   <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
     <nz-list-item *ngFor="let data of tickets">
       <ng-container>
-        <nz-list-item-meta
-          nzAvatar="./assets/icon/ticket.svg"
-          nzDescription="{{ data.client.fullname }} "
-        >
+        <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
           <nz-list-item-meta-title>
-            <a (click)="showModalViewTicket(data)">{{ data.subject }}</a>
+            <a (click)="showModalViewTicket(data)" id="itemTitle">{{
+              data.subject
+            }}</a>
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-title>
+            <span id="itemSubTitle">{{ data.client.fullname }}</span>
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-title>
+            <span id="itemSubTitle"
+              >Responsável: <strong>{{ data.user.fullname }}</strong></span
+            >
           </nz-list-item-meta-title>
         </nz-list-item-meta>
         <span id="tag"
@@ -46,6 +53,7 @@
           data.sector.description
         }}</nz-tag>
         <nz-tag nzColor="default">{{ data.openingDate }}</nz-tag>
+        <nz-tag nzColor="default" *ngIf="data.status == 3">{{ data.closingDate }}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
         <nz-tag nzColor="processing" *ngIf="data.status == 2"
           >Processando</nz-tag
