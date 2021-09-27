@@ -12,17 +12,15 @@
       <ng-container>
         <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
           <nz-list-item-meta-title>
-            <a (click)="showModalViewTicket(data)" id="itemTitle">{{
+            <a (click)="showModalViewTicket(data)" id="itemTitle" class="uppercase">{{
               data.subject
             }}</a>
           </nz-list-item-meta-title>
-          <nz-list-item-meta-title>
+          <nz-list-item-meta-title id="client">
             <span id="itemSubTitle">{{ data.client.fullname }}</span>
           </nz-list-item-meta-title>
           <nz-list-item-meta-title>
-            <span id="itemSubTitle"
-              >Responsável: <strong>{{ data.user.fullname }}</strong></span
-            >
+            <span id="itemSubTitle">Responsável: <strong>{{ data.user.fullname }}</strong></span>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
 

@@ -11,7 +11,7 @@ body {
     background: #f2f3ff;
 }
 
-input[type="text"] {
+/* input[type="text"] {
   text-transform: uppercase;
 }
 
@@ -25,6 +25,10 @@ textarea {
 
 textarea::placeholder {
   text-transform: none;
+} */
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 :root {
