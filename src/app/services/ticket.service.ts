@@ -18,7 +18,7 @@ export class TicketService {
   ) {}
 
   findAll(page: string, size: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}?`, {
+    return this.http.get<Ticket[]>(`${this.API}/ordained?`, {
         params: { page: page, size: size },
         observe: 'response',
       })
