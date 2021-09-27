@@ -18,6 +18,7 @@ export class KeyComponent implements OnInit {
   isEnglish = false;
 
   keyForm: FormGroup;
+  singleKeyForm: FormGroup;
 
   client: Client;
   clients: Client[];
@@ -63,6 +64,12 @@ export class KeyComponent implements OnInit {
       month: [null],
       year: [null]
     });
+
+    this.singleKeyForm = this.formBuilder.group({
+      cnpj: [null],
+      month: [null],
+      year: [null]
+    });
   }
 
   onListClient() {
@@ -83,6 +90,20 @@ export class KeyComponent implements OnInit {
     });
     this.isVisible = true;
     this.keyService.findKey(`${this.client.document}`, `00/${this.keyForm.get('month').value+'/'+this.keyForm.get('year').value}`).subscribe((response)=>{
+      this.key = response['key'];
+      this.onCreateForm();
+    })
+  }
+
+  onGenerateSingleKey() {
+    let cnpj = this.singleKeyForm.get('cnpj').value;
+    let date = new Date();
+    date = this.singleKeyForm.get('year').value;
+    this.singleKeyForm.patchValue({
+      year: date.getFullYear()
+    });
+    this.isVisible = true;
+    this.keyService.findKey(`${cnpj}`, `00/${this.singleKeyForm.get('month').value+'/'+this.singleKeyForm.get('year').value}`).subscribe((response)=>{
       this.key = response['key'];
       this.onCreateForm();
     })

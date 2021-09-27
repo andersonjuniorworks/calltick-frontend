@@ -65,6 +65,10 @@ export class ContractsComponent implements OnInit {
       msgSuccess = 'Contrato atualizado com sucesso!!!';
     }
 
+    this.contractForm.patchValue({
+      price: parseFloat(this.contractForm.get('price').value)
+    })
+
     this.contractService.save(this.contractForm.value).subscribe(
       (success) => {
         this.notification.create('success', 'SUCESSO!', `${msgSuccess}`);

@@ -18,6 +18,7 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { WhatsAppOutline } from '@ant-design/icons-angular/icons';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 registerLocaleData(localePt);
 
 const icons: IconDefinition[] = [
@@ -40,6 +41,7 @@ const maskConfig: Partial<IConfig> = {
     NzDatePickerModule,
     NzResultModule,
     NzModalModule,
+    NzTabsModule,
     PipesModule,
     NgxMaskModule.forRoot(maskConfig),
     NzIconModule.forChild(icons),

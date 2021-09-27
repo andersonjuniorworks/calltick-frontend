@@ -1,81 +1,153 @@
 <div class="content">
-  <form [formGroup]="keyForm" nz-form class="client-form">
-    <div class="row">
-      <div class="form-title">
-        <h2>Chave de Liberação</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <nz-form-item>
-          <nz-form-label nzFor="client">Cliente</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback>
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione um cliente"
-              nzSize="large"
-              formControlName="document"
-            >
-              <nz-option
-                [nzLabel]="cli.fullname + ' - ' + cli.document"
-                [nzValue]="cli"
-                *ngFor="let cli of clients"
-              ></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="month">Mês</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback>
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione o mês"
-              nzSize="large"
-              formControlName="month"
-            >
-              <nz-option
-                [nzLabel]="month.text"
-                [nzValue]="month.value"
-                id="month"
-                *ngFor="let month of months"
-                (nzOnOpenChange)="onChange($event)"
-              ></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-6">
-        <nz-form-item>
-          <nz-form-label nzFor="year">Ano</nz-form-label>
-          <nz-form-control nzCompact>
-            <nz-date-picker
-              nzMode="year"
-              nzSize="large"
-              id="year"
-              [nzPlaceHolder]="'Selecione o ano'"
-              formControlName="year"
-            ></nz-date-picker>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div class="action-form">
-      <button
-        nz-button
-        nzType="primary"
-        nzSize="large"
-        (click)="onGenerateKey()"
-      >
-        Gerar chave
-      </button>
-    </div>
-  </form>
+  <nz-tabset>
+    <nz-tab nzTitle="Liberação por Cliente">
+      <form [formGroup]="keyForm" nz-form class="client-form">
+        <div class="row">
+          <div class="form-title">
+            <h2>Chave de Liberação</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <nz-form-item>
+              <nz-form-label nzFor="client">Cliente</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder="Selecione um cliente"
+                  nzSize="large"
+                  formControlName="document"
+                >
+                  <nz-option
+                    [nzLabel]="cli.fullname + ' - ' + cli.document"
+                    [nzValue]="cli"
+                    *ngFor="let cli of clients"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="month">Mês</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder="Selecione o mês"
+                  nzSize="large"
+                  formControlName="month"
+                >
+                  <nz-option
+                    [nzLabel]="month.text"
+                    [nzValue]="month.value"
+                    id="month"
+                    *ngFor="let month of months"
+                    (nzOnOpenChange)="onChange($event)"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="year">Ano</nz-form-label>
+              <nz-form-control nzCompact>
+                <nz-date-picker
+                  nzMode="year"
+                  nzSize="large"
+                  id="year"
+                  [nzPlaceHolder]="'Selecione o ano'"
+                  formControlName="year"
+                ></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="action-form">
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            (click)="onGenerateKey()"
+          >
+            Gerar chave
+          </button>
+        </div>
+      </form>
+    </nz-tab>
+    <nz-tab nzTitle="Liberação Avulsa">
+      <form [formGroup]="singleKeyForm" nz-form class="client-form">
+        <div class="row">
+          <div class="form-title">
+            <h2>Chave de Liberação Avulsa</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <nz-form-item>
+              <nz-form-label nzFor="client">CNPJ</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                  <input type="text" nz-input formControlName="cnpj" mask="00.000.000/0000-00" nzSize="large" placeholder="Digite o CNPJ do cliente">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="month">Mês</nz-form-label>
+              <nz-form-control nzCompact nzHasFeedback>
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder="Selecione o mês"
+                  nzSize="large"
+                  formControlName="month"
+                >
+                  <nz-option
+                    [nzLabel]="month.text"
+                    [nzValue]="month.value"
+                    id="month"
+                    *ngFor="let month of months"
+                    (nzOnOpenChange)="onChange($event)"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-6">
+            <nz-form-item>
+              <nz-form-label nzFor="year">Ano</nz-form-label>
+              <nz-form-control nzCompact>
+                <nz-date-picker
+                  nzMode="year"
+                  nzSize="large"
+                  id="year"
+                  [nzPlaceHolder]="'Selecione o ano'"
+                  formControlName="year"
+                ></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="action-form">
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            (click)="onGenerateSingleKey()"
+          >
+            Gerar chave
+          </button>
+        </div>
+      </form>
+    </nz-tab>
+  </nz-tabset>
+
 </div>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Chave de Liberação">
