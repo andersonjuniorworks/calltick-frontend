@@ -24,7 +24,7 @@
               formControlName="client"
             >
               <nz-option
-                [nzLabel]="client.fullname + ' - ' + client.document"
+                [nzLabel]="client.nickname + ' - ' + client.document"
                 [nzValue]="client.id"
                 *ngFor="let client of clients"
                 required
