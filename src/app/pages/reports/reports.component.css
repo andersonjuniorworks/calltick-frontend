@@ -1,0 +1,20 @@
+[nz-menu] {
+  width: 240px;
+}
+
+.content {
+  width: calc(100% - 80px);
+  height: 100%;
+  min-height: 500px;
+  margin: 40px;
+  padding: 20px;
+  background: #fff;
+}
+
+nz-tabset {
+  height: 100%;
+}
+
+.btn-custom {
+  min-width: 120px;
+}

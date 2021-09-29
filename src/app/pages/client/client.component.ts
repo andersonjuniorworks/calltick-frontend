@@ -65,11 +65,12 @@ export class ClientComponent implements OnInit {
       .subscribe((response) => {
         this.clients = response.body;
         this.loading = false;
-        if (this.clients.length > 0) {
+        if(this.clients.length > 0) {
           this.clientService.findCount().subscribe((count) => {
             this.total = count;
-            this.totalPages = this.size / count;
-            this.totalPages = Math.ceil(this.totalPages + 1) * 10;
+            this.totalPages = this.total / this.size;
+            this.totalPages = Math.ceil(this.totalPages) * 10;
+            //this.totalPages = this.totalPages / 2;
           });
         }
       });
