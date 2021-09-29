@@ -39,12 +39,14 @@ export class ReportsComponent implements OnInit {
   }
 
   onGenerateReportClient() {
-    if(this.reportForm.get('selectCity').value == null && this.reportForm.get('selectContract').value == null) {
+    if(this.reportForm.get('selectCity').value == 'Todos' && this.reportForm.get('selectContract').value == 'Todos') {
       this.reportClientService.reportAll();
-    } else if(this.reportForm.get('selectCity').value != null && this.reportForm.get('selectContract').value == null) {
+    } else if(this.reportForm.get('selectCity').value != 'Todos' && this.reportForm.get('selectContract').value == 'Todos') {
       this.onGenerateReportClientByCity();
-    } else if(this.reportForm.get('selectCity').value == null && this.reportForm.get('selectContract').value != null) {
+    } else if(this.reportForm.get('selectCity').value == 'Todos' && this.reportForm.get('selectContract').value != 'Todos') {
       this.onGenerateReportClientByContract();
+    } else {
+      this.onGenerateReportClientByCityAndContract();
     }
   }
 
@@ -54,6 +56,10 @@ export class ReportsComponent implements OnInit {
 
   onGenerateReportClientByContract() {
     this.reportClientService.reportByContract(this.reportForm.get('selectContract').value);
+  }
+
+  onGenerateReportClientByCityAndContract() {
+    this.reportClientService.reportByCityAndContract(this.reportForm.get('selectCity').value, this.reportForm.get('selectContract').value);
   }
 
 }

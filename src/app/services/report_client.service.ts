@@ -49,7 +49,6 @@ export class ReportClientService {
     );
   }
 
-
   public reportByContract(contract: Contract) {
 
     var mediaType = 'application/pdf';
@@ -60,6 +59,24 @@ export class ReportClientService {
       (response) => {
         var blob = new Blob([response], { type: mediaType });
         saveAs(blob, 'clientes-'+contract.description+'-'+formatDate+'.pdf');
+      },
+      (e) => {
+        throwError(e);
+      }
+    );
+  }
+
+
+  public reportByCityAndContract(city: string, contract: Contract) {
+
+    var mediaType = 'application/pdf';
+    let today = new Date();
+    let formatDate = (today.getDate() +'.'+ ((today.getMonth() + 1)) +'.'+ today.getFullYear());
+
+    return this.http.get(`${this.API}filter?city=${city}&contract=${contract.id}`, { responseType: 'blob' }).subscribe(
+      (response) => {
+        var blob = new Blob([response], { type: mediaType });
+        saveAs(blob, 'clientes-'+city+'-'+contract.description+'-'+formatDate+'.pdf');
       },
       (e) => {
         throwError(e);

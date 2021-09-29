@@ -10,7 +10,7 @@
             <nz-input-group>
               <nz-form-label for="city" nz-label>Cidade</nz-form-label>
               <nz-select id="city" formControlName="selectCity">
-                <nz-option [nzValue]="null" [nzLabel]="'Todos'"></nz-option>
+                <nz-option [nzValue]="'Todos'" [nzLabel]="'Todos'"></nz-option>
                 <nz-option nzValue="Crateús" nzLabel="Crateús"></nz-option>
                 <nz-option nzValue="Novo Oriente" nzLabel="Novo Oriente"></nz-option>
                 <nz-option nzValue="Nova Russas" nzLabel="Nova Russas"></nz-option>
@@ -21,7 +21,7 @@
             <nz-input-group>
               <nz-form-label for="contract" nz-label>Contrato</nz-form-label>
               <nz-select id="contract" formControlName="selectContract">
-                <nz-option [nzValue]="null" [nzLabel]="'Todos'"></nz-option>
+                <nz-option [nzValue]="'Todos'" [nzLabel]="'Todos'"></nz-option>
                 <nz-option [nzValue]="option" [nzLabel]="option.description" *ngFor="let option of contracts"></nz-option>
               </nz-select>
             </nz-input-group>
