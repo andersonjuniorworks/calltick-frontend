@@ -38,7 +38,7 @@ export class FormClientComponent implements OnInit {
     private clientService: ClientService,
     private cnpjService: CnpjService,
     private notification: NzNotificationService,
-    private contractService: ContractService
+    private contractService: ContractService,
   ) { }
 
   ngOnInit() {
@@ -182,16 +182,17 @@ export class FormClientComponent implements OnInit {
 
   onPopulateClient(data) {
       this.formClient.patchValue({
-        fullname: data.razao_social,
-        nickname: data.nome_fantasia,
-        zipcode: data.cep,
-        address: data.logradouro,
-        homeNumber: data.numero,
-        neighborhood: data.bairro,
-        complement: data.complemento,
-        state: data.uf,
-        city: data.municipio,
-        phoneNumberOne: data.ddd_telefone_1
+        fullname: data["RAZAO SOCIAL"],
+        nickname: data["NOME FANTASIA"],
+        zipcode: data["CEP"],
+        address: data["LOGRADOURO"],
+        homeNumber: data["NUMERO"],
+        neighborhood: data["BAIRRO"],
+        complement: data["COMPLEMENTO"],
+        state: data["UF"],
+        city: data["MUNICIPIO"],
+        phoneNumberOne: data["DDD"] + data["TELEFONE"],
+        email: data["EMAIL"]
       });
   }
 

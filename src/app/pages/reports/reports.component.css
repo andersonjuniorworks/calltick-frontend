@@ -18,3 +18,46 @@ nz-tabset {
 .btn-custom {
   min-width: 120px;
 }
+
+nz-radio-group {
+  width: 100%;
+}
+
+nz-radio-group label {
+  min-width: 120px;
+  text-align: center;
+}
+
+nz-select {
+  min-width: 120px;
+}
+
+nz-form-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+nz-input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+nz-select {
+  width: 100%;
+}
+
+.content-city {
+  margin: 15px 0;
+  padding: 20px;
+  border: 1px solid #DBDEFF;
+  border-radius: 5px;
+}
+
+.content-city button {
+  margin: 10px 0 0 0;
+}

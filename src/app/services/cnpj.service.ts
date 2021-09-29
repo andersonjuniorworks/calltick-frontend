@@ -13,7 +13,7 @@ constructor(
 ) { }
 
   findByCnpj(cnpj: string) {
-    return this.http.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`).pipe(take(1));
+    return this.http.get(`https://api-publica.speedio.com.br/buscarcnpj?cnpj=${cnpj}`).pipe(take(1));
   }
 
 }

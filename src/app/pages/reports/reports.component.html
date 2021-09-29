@@ -1,13 +1,41 @@
 <div class="content">
   <nz-tabset nzTabPosition="left">
     <nz-tab nzTitle="Clientes">
-      <button nz-button nzType="primary" class="btn-custom" nzLoading>
-        <i nz-icon nzType="poweroff"></i>
-        Gerar
-      </button>
-    </nz-tab>
-    <nz-tab nzTitle="Chamados">
+      <h2>Relatório de Clientes</h2>
 
+      <div class="row">
+        <div class="col-4">
+          <div class="content-city">
+            <form [formGroup]="reportForm">
+            <nz-input-group>
+              <nz-form-label for="city" nz-label>Cidade</nz-form-label>
+              <nz-select id="city" formControlName="selectCity">
+                <nz-option [nzValue]="null" [nzLabel]="'Todos'"></nz-option>
+                <nz-option nzValue="Crateús" nzLabel="Crateús"></nz-option>
+                <nz-option nzValue="Novo Oriente" nzLabel="Novo Oriente"></nz-option>
+                <nz-option nzValue="Nova Russas" nzLabel="Nova Russas"></nz-option>
+                <nz-option nzValue="Tamboril" nzLabel="Tamboril"></nz-option>
+                <nz-option nzValue="Independência" nzLabel="Independência"></nz-option>
+              </nz-select>
+            </nz-input-group>
+            <nz-input-group>
+              <nz-form-label for="contract" nz-label>Contrato</nz-form-label>
+              <nz-select id="contract" formControlName="selectContract">
+                <nz-option [nzValue]="null" [nzLabel]="'Todos'"></nz-option>
+                <nz-option [nzValue]="option" [nzLabel]="option.description" *ngFor="let option of contracts"></nz-option>
+              </nz-select>
+            </nz-input-group>
+            <button nz-button nzType="primary" (click)="onGenerateReportClient()">
+              <i nz-icon nzType="printer"></i>
+              Imprimir
+            </button>
+          </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-contract"></div>
     </nz-tab>
+    <nz-tab nzTitle="Chamados"> </nz-tab>
   </nz-tabset>
 </div>
