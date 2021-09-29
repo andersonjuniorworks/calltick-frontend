@@ -1,3 +1,4 @@
+import { CnpjService } from './../../../services/cnpj.service';
 import { Contract } from './../../../models/contract.model';
 import { ContractService } from './../../../services/contract.service';
 import { SectorService } from './../../../services/sector.service';
@@ -35,6 +36,7 @@ export class FormClientComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private clientService: ClientService,
+    private cnpjService: CnpjService,
     private notification: NzNotificationService,
     private contractService: ContractService
   ) { }
@@ -151,6 +153,46 @@ export class FormClientComponent implements OnInit {
     this.contractService.findAll().subscribe((response) => {
       this.contracts = response.body;
     })
+  }
+
+  onSearchCnpj() {
+    let value = this.formClient.get("type").value;
+    let cnpj = this.formClient.get("document").value;
+    if (value == 2) {
+      if (cnpj != "") {
+        var validateCnpj =
+          /^([0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}|[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2})$/;
+        if (validateCnpj.test(cnpj)) {
+          //this.onCreateForm();
+          this.cnpjService
+            .findByCnpj(cnpj)
+            .subscribe((data) => {this.onPopulateClient(data)},
+            (error) => {
+              let err = error;
+              this.notification.create(
+                'error',
+                `ERRO ${err.error.status}`,
+                `${err.error.message}`
+              );
+            });
+        }
+      }
+    }
+  }
+
+  onPopulateClient(data) {
+      this.formClient.patchValue({
+        fullname: data.razao_social,
+        nickname: data.nome_fantasia,
+        zipcode: data.cep,
+        address: data.logradouro,
+        homeNumber: data.numero,
+        neighborhood: data.bairro,
+        complement: data.complemento,
+        state: data.uf,
+        city: data.municipio,
+        phoneNumberOne: data.ddd_telefone_1
+      });
   }
 
 }

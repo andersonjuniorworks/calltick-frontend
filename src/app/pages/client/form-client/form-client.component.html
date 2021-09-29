@@ -26,8 +26,9 @@
       <div class="col-3">
         <nz-form-item>
           <nz-form-label nzFor="document">{{ labelDoc }}*</nz-form-label>
-          <nz-form-control nzCompact nzHasFeedback [nzErrorTip]="docValidation">
-            <input
+          <nz-form-control nzCompact [nzErrorTip]="docValidation">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="large">
+              <input
               type="text"
               formControlName="document"
               nz-input
@@ -36,10 +37,13 @@
               minlength="11"
               maxlength="18"
               required
-              nzSize="large"
               mask="000.000.000-00||00.000.000/0000-00"
             />
+            </nz-input-group>
           </nz-form-control>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch (click)="onSearchCnpj()" [disabled]="formClient.get('type').value == 1 || formClient.get('type').value == null"><i nz-icon nzType="search"></i></button>
+          </ng-template>
         </nz-form-item>
       </div>
       <div class="col-3" *ngIf="formClient.get('type').value == 2">
@@ -202,7 +206,7 @@
               required
               nzSize="large"
             >
-              <nz-option nzLabel="Ceará" nzValue="Ceará"></nz-option>
+              <nz-option nzLabel="Ceará" nzValue="CE"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -211,42 +215,14 @@
         <nz-form-item>
           <nz-form-label nzFor="state">Cidade*</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="'Cidade é obrigatória'">
-            <nz-select
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="Selecione"
-              formControlName="city"
-              id="city"
-              required
-              nzSize="large"
-            >
-              <nz-option nzLabel="Ararendá" nzValue="Ararendá"></nz-option>
-              <nz-option nzLabel="Crateús" nzValue="Crateús"></nz-option>
-              <nz-option nzLabel="Caucaia" nzValue="Caucaia"></nz-option>
-              <nz-option
-              nzLabel="Fortaleza"
-              nzValue="Fortaleza"
-            ></nz-option>
-            <nz-option
-            nzLabel="Iguatu"
-            nzValue="Iguatu"
-          ></nz-option>
-              <nz-option
-                nzLabel="Independência"
-                nzValue="Independência"
-              ></nz-option>
-              <nz-option nzLabel="Ipaporanga" nzValue="Ipaporanga"></nz-option>
-              <nz-option
-                nzLabel="Novo Oriente"
-                nzValue="Novo Oriente"
-              ></nz-option>
-              <nz-option nzLabel="Poranga" nzValue="Poranga"></nz-option>
-              <nz-option
-                nzLabel="Quiterianópolis"
-                nzValue="Quiterianópolis"
-              ></nz-option>
-              <nz-option nzLabel="Tamboril" nzValue="Tamboril"></nz-option>
-            </nz-select>
+            <input
+            type="text"
+            formControlName="city"
+            nz-input
+            id="city"
+            placeholder="Ex: Crateús"
+            nzSize="large"
+          />
           </nz-form-control>
         </nz-form-item>
       </div>
