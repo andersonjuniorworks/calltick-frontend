@@ -77,7 +77,7 @@ export class TicketService {
   }
 
   public notification() {
-    return this.http.get(`http://187.19.165.178:5050/notify`).pipe(take(1));
+    return this.http.get(`http://187.19.165.178:3030/notify`).pipe(take(1));
   }
 
   public finish(ticket) {

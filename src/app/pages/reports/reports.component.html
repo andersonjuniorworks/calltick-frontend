@@ -9,7 +9,7 @@
             <form [formGroup]="reportForm">
             <nz-input-group>
               <nz-form-label for="city" nz-label>Cidade</nz-form-label>
-              <nz-select id="city" formControlName="selectCity">
+              <nz-select id="city" formControlName="selectCity" nzPlaceHolder="Selecione...">
                 <nz-option [nzValue]="'Todos'" [nzLabel]="'Todos'"></nz-option>
                 <nz-option nzValue="Crateús" nzLabel="Crateús"></nz-option>
                 <nz-option nzValue="Novo Oriente" nzLabel="Novo Oriente"></nz-option>
@@ -20,13 +20,13 @@
             </nz-input-group>
             <nz-input-group>
               <nz-form-label for="contract" nz-label>Contrato</nz-form-label>
-              <nz-select id="contract" formControlName="selectContract">
+              <nz-select id="contract" formControlName="selectContract" nzPlaceHolder="Selecione...">
                 <nz-option [nzValue]="'Todos'" [nzLabel]="'Todos'"></nz-option>
                 <nz-option [nzValue]="option" [nzLabel]="option.description" *ngFor="let option of contracts"></nz-option>
               </nz-select>
             </nz-input-group>
-            <button nz-button nzType="primary" (click)="onGenerateReportClient()">
-              <i nz-icon nzType="printer"></i>
+            <button nz-button nzType="primary" (click)="onGenerateReportClient()" [nzLoading]="isLoading" [disabled]="!reportForm.valid">
+              <i nz-icon nzType="printer" nzTheme="fill"></i>
               Imprimir
             </button>
           </form>
