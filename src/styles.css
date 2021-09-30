@@ -11,22 +11,6 @@ body {
     background: #f2f3ff;
 }
 
-/* input[type="text"] {
-  text-transform: uppercase;
-}
-
-input[type="text"]::placeholder {
-  text-transform: none;
-}
-
-textarea {
-  text-transform: uppercase;
-}
-
-textarea::placeholder {
-  text-transform: none;
-} */
-
 .uppercase {
   text-transform: uppercase;
 }
