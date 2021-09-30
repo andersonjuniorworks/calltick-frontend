@@ -5,6 +5,24 @@
 
   <div class="table-header">
     <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+    <button
+      class="filter-button"
+      nz-popover
+      nzPopoverTitle="Filtro"
+      [(nzPopoverVisible)]="visible"
+      (nzPopoverVisibleChange)="change($event)"
+      nzPopoverTrigger="click"
+      [nzPopoverContent]="contentTemplate"
+      nzPopoverPlacement="bottom"
+    >
+      <i nz-icon nzType="filter" nzTheme="fill"></i>
+    </button>
+    <ng-template #contentTemplate>
+      <div class="content-filter">
+        <nz-range-picker [nzFormat]="'dd/MM/yyyy'" nzSize="large" [formControl]="periodControl"></nz-range-picker>
+        <button nz-button nzType="primary" (click)="onListByPeriod()">Filtrar</button>
+      </div>
+    </ng-template>
   </div>
 
   <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
@@ -12,26 +30,29 @@
       <ng-container>
         <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
           <nz-list-item-meta-title>
-            <a (click)="showModalViewTicket(data)" id="itemTitle" class="uppercase">{{
-              data.subject
-            }}</a>
+            <a
+              (click)="showModalViewTicket(data)"
+              id="itemTitle"
+              class="uppercase"
+              >{{ data.subject }}</a
+            >
           </nz-list-item-meta-title>
           <nz-list-item-meta-title id="client">
             <span id="itemSubTitle">{{ data.client.nickname }}</span>
           </nz-list-item-meta-title>
           <nz-list-item-meta-title>
-            <span id="itemSubTitle">Responsável: <strong>{{ data.user.fullname }}</strong></span>
+            <span id="itemSubTitle"
+              >Responsável: <strong>{{ data.user.fullname }}</strong></span
+            >
           </nz-list-item-meta-title>
         </nz-list-item-meta>
-
-        <!--     <span id="tag"
-          >Responsável: <strong>{{ data.user.fullname }}</strong></span
-        > -->
         <nz-tag nzColor="default" id="tagSec">{{
           data.sector.description
         }}</nz-tag>
         <nz-tag nzColor="default">{{ data.openingDate }}</nz-tag>
-        <nz-tag nzColor="default" *ngIf="data.status == 3">{{ data.closingDate }}</nz-tag>
+        <nz-tag nzColor="default" *ngIf="data.status == 3">{{
+          data.closingDate
+        }}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
         <nz-tag nzColor="processing" *ngIf="data.status == 2"
           >Processando</nz-tag
@@ -71,19 +92,7 @@
               <i nz-icon nzType="sync"></i>
             </button>
           </nz-list-item-action>
-          <!--        <nz-list-item-action>
-            <button
-              nz-button
-              nzType="default"
-              nzShape="circle"
-              nzTooltipTitle="Visualizar"
-              nzTooltipPlacement="top"
-              nz-tooltip
-              (click)="showModalViewTicket(data)"
-            >
-              <i nz-icon nzType="eye"></i>
-            </button>
-          </nz-list-item-action> -->
+
           <nz-list-item-action>
             <button
               nz-button

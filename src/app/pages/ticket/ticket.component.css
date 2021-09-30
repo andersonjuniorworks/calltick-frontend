@@ -83,3 +83,42 @@ nz-form-control {
 #itemSubTitle {
   font-weight: 400;
 }
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-button {
+  width: 45px;
+  height: 45px;
+  border-radius: 0px;
+  border: none;
+  transition: .25s ease-in;
+  background: var(--secondary);
+  color: #fff;
+  font-size: 20px;
+}
+
+.filter-button:hover {
+  cursor: pointer;
+  background: var(--terciary);
+  color: #fff;
+}
+
+.content-filter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-filter button {
+  width: 100%;
+}
+
+nz-range-picker {
+  width: 100%;
+}

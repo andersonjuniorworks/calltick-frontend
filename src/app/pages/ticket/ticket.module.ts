@@ -20,10 +20,14 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { IconDefinition } from '@ant-design/icons-angular';
-import { SyncOutline } from '@ant-design/icons-angular/icons';
+import { FilterFill, FilterOutline, SyncOutline } from '@ant-design/icons-angular/icons';
+
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 const icons: IconDefinition[] = [
-  SyncOutline
+  SyncOutline,
+  FilterOutline,
+  FilterFill
 ];
 
 @NgModule({
@@ -43,6 +47,7 @@ const icons: IconDefinition[] = [
     NzInputModule,
     NzFormModule,
     NzSelectModule,
+    NzPopoverModule,
     PipesModule,
     NzIconModule.forChild(icons),
   ],

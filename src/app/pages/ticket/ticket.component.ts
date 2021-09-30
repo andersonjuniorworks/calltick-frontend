@@ -49,6 +49,10 @@ export class TicketComponent implements OnInit {
   users: User[];
   userId: number;
 
+  visible: boolean = false;
+
+  periodControl = new FormControl();
+
   //technicalReporter = new FormControl();
 
   constructor(
@@ -87,6 +91,21 @@ export class TicketComponent implements OnInit {
           this.totalPages = this.totalPages / 2;
         });
       });
+  }
+
+  onListByPeriod() {
+
+    let date: any[];
+
+    date = this.periodControl.value
+
+    let startDate = date[0];
+    let endDate = date[1];
+
+    this.ticketService.findByPeriod(`${startDate.toLocaleDateString()}`,`${endDate.toLocaleDateString()}`,'0','50').subscribe((response) => {
+      this.tickets = response.body;
+    });
+
   }
 
   onVerifyProfile() {
@@ -211,6 +230,18 @@ export class TicketComponent implements OnInit {
 
   onCloseTransferModal() {
     this.isVisibleTransferModal = false;
+  }
+
+  onFilter() {
+    console.log(this.periodControl.value)
+  }
+
+  clickMe(): void {
+    this.visible = false;
+  }
+
+  change(value: boolean): void {
+    console.log(value);
   }
 
 }

@@ -57,6 +57,18 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }
 
+  findByPeriod(startDate: string, endDate: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/period?`, {
+        params: { startDate: startDate, endDate: endDate, page: page, size: size },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+        ),
+      );
+  }
+
   findCount() {
     return this.http.get<number>(`${this.API}/count`).pipe(take(1));
   }
