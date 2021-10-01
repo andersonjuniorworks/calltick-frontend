@@ -7,22 +7,10 @@
     <button class="btn btn-secondary" routerLink="add">Adicionar</button>
     <button
       class="filter-button"
-      nz-popover
-      nzPopoverTitle="Filtro"
-      [(nzPopoverVisible)]="visible"
-      (nzPopoverVisibleChange)="change($event)"
-      nzPopoverTrigger="click"
-      [nzPopoverContent]="contentTemplate"
-      nzPopoverPlacement="bottom"
+      (click)="open()"
     >
       <i nz-icon nzType="filter" nzTheme="fill"></i>
     </button>
-    <ng-template #contentTemplate>
-      <div class="content-filter">
-        <nz-range-picker [nzFormat]="'dd/MM/yyyy'" nzSize="large" [formControl]="periodControl"></nz-range-picker>
-        <button nz-button nzType="primary" (click)="onListByPeriod()">Filtrar</button>
-      </div>
-    </ng-template>
   </div>
 
   <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
@@ -339,3 +327,51 @@
     </button>
   </div>
 </nz-modal>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="drawerVisible"
+  [nzPlacement]="'right'"
+  [nzFooter]="footerTpl"
+  nzTitle="Filtro de Chamados"
+  (nzOnClose)="close()"
+  [nzWidth]="450"
+>
+  <ng-container>
+    <form nz-form *nzDrawerContent>
+      <div class="row">
+        <div class="col-12">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" [formControl]="clientControl">
+            <nz-option [nzLabel]="option.nickname" [nzValue]="option" *ngFor="let option of clients"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" [formControl]="userControl">
+            <nz-option [nzLabel]="option.fullname" [nzValue]="option" *ngFor="let option of users"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" [formControl]="sectorControl">
+            <nz-option [nzLabel]="option.description" [nzValue]="option" *ngFor="let option of sectors"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+  <!--     <div class="row">
+        <div class="col-12">
+          <nz-range-picker [nzFormat]="'dd/MM/yyyy'" nzSize="large" [formControl]="periodControl"></nz-range-picker>
+        </div>
+      </div> -->
+    </form>
+  </ng-container>
+</nz-drawer>
+
+<ng-template #footerTpl>
+  <div style="float: right">
+    <button nz-button style="margin-right: 8px;" (click)="close()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="onFilter()">Filtrar</button>
+  </div>
+</ng-template>

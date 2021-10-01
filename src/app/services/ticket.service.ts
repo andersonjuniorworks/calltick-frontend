@@ -53,6 +53,30 @@ export class TicketService {
       );
   }
 
+  findAllByClient(client: string, status: string, active: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/client?`, {
+        params: { client: client, status: status, active: active, page: page, size: size },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+        ),
+      );
+  }
+
+  findAllBySector(sector: string, status: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/sector?`, {
+        params: { sector: sector, status: status, page: page, size: size },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+        ),
+      );
+  }
+
   findById(id) {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }

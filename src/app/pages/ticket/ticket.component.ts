@@ -1,6 +1,14 @@
+import { Sector } from './../../models/sector.model';
+import { Client } from './../../models/client.model';
+import { SectorService } from './../../services/sector.service';
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/user.model';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
@@ -8,6 +16,8 @@ import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
+import { ClientService } from 'src/app/services/client.service';
 
 @Component({
   selector: 'app-ticket',
@@ -15,6 +25,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./ticket.component.css'],
 })
 export class TicketComponent implements OnInit {
+  drawerVisible = false;
 
   initLoading = false; // bug
   loadingMore = true;
@@ -49,9 +60,16 @@ export class TicketComponent implements OnInit {
   users: User[];
   userId: number;
 
+  clients: Client[];
+
+  sectors: Sector[];
+
   visible: boolean = false;
 
   periodControl = new FormControl();
+  userControl = new FormControl();
+  clientControl = new FormControl();
+  sectorControl = new FormControl();
 
   //technicalReporter = new FormControl();
 
@@ -60,6 +78,8 @@ export class TicketComponent implements OnInit {
     private msg: NzMessageService,
     private storage: StorageService,
     private userService: UserService,
+    private clientService: ClientService,
+    private sectorService: SectorService,
     private router: Router,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
@@ -71,12 +91,14 @@ export class TicketComponent implements OnInit {
     this.onVerifyProfile();
     this.onList();
     this.onListUser();
+    this.onListClient();
+    this.onListSector();
   }
 
   onCreateFinishForm() {
     this.finishForm = this.formBuilder.group({
-      technicalReporter: [null, [Validators.required]]
-    })
+      technicalReporter: [null, [Validators.required]],
+    });
   }
 
   onList() {
@@ -94,17 +116,66 @@ export class TicketComponent implements OnInit {
   }
 
   onListByPeriod() {
-
     let date: any[];
-
-    date = this.periodControl.value
-
+    date = this.periodControl.value;
     let startDate = date[0];
     let endDate = date[1];
+    console.log(
+      `${startDate.toLocaleDateString()} 00:00`,
+      `${endDate.toLocaleDateString()} 00:00`
+    );
+    this.ticketService
+      .findByPeriod(
+        `${startDate.toLocaleDateString()} 00:00`,
+        `${endDate.toLocaleDateString()} 00:00`,
+        '0',
+        '50'
+      )
+      .subscribe((response) => {
+        this.tickets = response.body;
+      });
+  }
 
-    this.ticketService.findByPeriod(`${startDate.toLocaleDateString()}`,`${endDate.toLocaleDateString()}`,'0','50').subscribe((response) => {
-      this.tickets = response.body;
-    });
+  onListByUser() {
+
+    let user: User;
+    user = this.userControl.value;
+
+    if(user) {
+      this.ticketService
+      .findAllByUser(`${user.id}`, `1`, `0`, `0`, `10000`)
+      .subscribe((response) => {
+        this.tickets = response.body;
+      });
+    }
+
+  }
+
+  onListByClient() {
+    let client: Client;
+    client = this.clientControl.value;
+
+    if(client) {
+      this.ticketService
+      .findAllByClient(`${client.id}`, `1`, `0`, `0`, `10000`)
+      .subscribe((response) => {
+        this.tickets = response.body;
+      });
+    }
+
+  }
+
+  onListBySector() {
+    let sector: Sector;
+    sector = this.sectorControl.value;
+
+    if(sector) {
+      this.ticketService
+      .findAllBySector(`${sector.id}`, `1`, `0`, `10000`)
+      .subscribe((response) => {
+        this.tickets = response.body;
+      });
+    }
 
   }
 
@@ -115,7 +186,8 @@ export class TicketComponent implements OnInit {
 
   onFinishTicket(ticket) {
     this.ticket = ticket;
-    this.ticket.technicalReport = this.finishForm.get('technicalReporter').value;
+    this.ticket.technicalReport =
+      this.finishForm.get('technicalReporter').value;
     this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
     this.ticketService.finish(this.ticket).subscribe(
       (success) => {
@@ -205,6 +277,20 @@ export class TicketComponent implements OnInit {
     });
   }
 
+  onListClient() {
+    this.clientService.findCount().subscribe((count) => {
+      this.clientService.findAll('0', `${count}`).subscribe((response) => {
+        this.clients = response.body;
+      });
+    });
+  }
+
+  onListSector() {
+    this.sectorService.findAll().subscribe((response) => {
+      this.sectors = response.body;
+    });
+  }
+
   onConfirmTransfer() {
     this.ticket.user = this.newResponsible.value;
     this.ticketService.transfer(this.ticket).subscribe(
@@ -233,7 +319,15 @@ export class TicketComponent implements OnInit {
   }
 
   onFilter() {
-    console.log(this.periodControl.value)
+    if (this.userControl.value != null && this.clientControl.value == null && this.sectorControl.value == null) {
+      this.onListByUser();
+    } else if(this.userControl.value == null && this.clientControl.value != null && this.sectorControl.value == null) {
+      this.onListByClient();
+    } else if(this.sectorControl.value != null && this.clientControl.value == null && this.userControl.value == null) {
+      this.onListBySector();
+    } else {
+      this.onList();
+    }
   }
 
   clickMe(): void {
@@ -244,4 +338,11 @@ export class TicketComponent implements OnInit {
     console.log(value);
   }
 
+  open(): void {
+    this.drawerVisible = true;
+  }
+
+  close(): void {
+    this.drawerVisible = false;
+  }
 }

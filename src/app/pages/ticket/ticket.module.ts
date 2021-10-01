@@ -24,6 +24,8 @@ import { FilterFill, FilterOutline, SyncOutline } from '@ant-design/icons-angula
 
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+
 const icons: IconDefinition[] = [
   SyncOutline,
   FilterOutline,
@@ -48,6 +50,7 @@ const icons: IconDefinition[] = [
     NzFormModule,
     NzSelectModule,
     NzPopoverModule,
+    NzDrawerModule,
     PipesModule,
     NzIconModule.forChild(icons),
   ],
