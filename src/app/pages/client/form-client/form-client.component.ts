@@ -136,12 +136,11 @@ export class FormClientComponent implements OnInit {
             this.onCreateForm();
           }
         },
-        (error) => {
-          let err = error;
+        (err) => {
           this.notification.create(
             'error',
-            `ERRO ${err.error.status}`,
-            `${err.error.message}`
+            `ERRO ${err.status}`,
+            `${err.error.errors[0].message}`
           );
         }
       );
