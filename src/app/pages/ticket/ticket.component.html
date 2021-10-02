@@ -1,28 +1,21 @@
 <div class="content">
-  <div class="row">
-    <h2>Gerenciamento de Chamados</h2>
-  </div>
+    <div class="row">
+        <h2>Gerenciamento de Chamados</h2>
+    </div>
 
-  <div class="table-header">
-    <button class="btn btn-secondary" routerLink="add">Adicionar</button>
-    <button
-      class="filter-button"
-      (click)="open()"
-    >
+    <div class="table-header">
+        <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+        <button class="filter-button" (click)="open()">
       <i nz-icon nzType="filter" nzTheme="fill"></i>
     </button>
-  </div>
+    </div>
 
-  <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
-    <nz-list-item *ngFor="let data of tickets">
-      <ng-container>
-        <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
-          <nz-list-item-meta-title>
-            <a
-              (click)="showModalViewTicket(data)"
-              id="itemTitle"
-              class="uppercase"
-              >{{ data.subject }}</a
+    <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
+        <nz-list-item *ngFor="let data of tickets">
+            <ng-container>
+                <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
+                    <nz-list-item-meta-title>
+                        <a (click)="showModalViewTicket(data)" id="itemTitle" class="uppercase">{{ data.subject }}</a
             >
           </nz-list-item-meta-title>
           <nz-list-item-meta-title id="client">
@@ -338,24 +331,24 @@
   [nzWidth]="450"
 >
   <ng-container>
-    <form nz-form *nzDrawerContent>
+    <form nz-form *nzDrawerContent [formGroup]="filterForm">
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" [formControl]="clientControl">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="clientFilter" (ngModelChange)="changeSelectFilter()">
             <nz-option [nzLabel]="option.nickname" [nzValue]="option" *ngFor="let option of clients"></nz-option>
           </nz-select>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" [formControl]="userControl">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" formControlName="userFilter" (ngModelChange)="changeSelectFilter()">
             <nz-option [nzLabel]="option.fullname" [nzValue]="option" *ngFor="let option of users"></nz-option>
           </nz-select>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" [formControl]="sectorControl">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" [formControl]="sectorControl" formControlName="sectorFilter" (ngModelChange)="changeSelectFilter()">
             <nz-option [nzLabel]="option.description" [nzValue]="option" *ngFor="let option of sectors"></nz-option>
           </nz-select>
         </div>
@@ -371,7 +364,7 @@
 
 <ng-template #footerTpl>
   <div style="float: right">
-    <button nz-button style="margin-right: 8px;" (click)="close()">Cancelar</button>
+    <button nz-button style="margin-right: 8px;" (click)="clearFilterFields()">Limpar</button>
     <button nz-button nzType="primary" (click)="onFilter()">Filtrar</button>
   </div>
 </ng-template>

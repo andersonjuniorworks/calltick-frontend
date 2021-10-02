@@ -66,12 +66,12 @@ export class TicketComponent implements OnInit {
 
   visible: boolean = false;
 
+  filterForm: FormGroup;
+
   periodControl = new FormControl();
   userControl = new FormControl();
   clientControl = new FormControl();
   sectorControl = new FormControl();
-
-  //technicalReporter = new FormControl();
 
   constructor(
     private ticketService: TicketService,
@@ -88,11 +88,20 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     this.onCreateFinishForm();
+    this.onCreateFilterForm();
     this.onVerifyProfile();
     this.onList();
     this.onListUser();
     this.onListClient();
     this.onListSector();
+  }
+
+  onCreateFilterForm() {
+    this.filterForm = this.formBuilder.group({
+      userFilter: null,
+      clientFilter: null,
+      sectorFilter: null
+    })
   }
 
   onCreateFinishForm() {
@@ -139,7 +148,7 @@ export class TicketComponent implements OnInit {
   onListByUser() {
 
     let user: User;
-    user = this.userControl.value;
+    user = this.filterForm.get('userFilter').value;
 
     if(user) {
       this.ticketService
@@ -152,8 +161,9 @@ export class TicketComponent implements OnInit {
   }
 
   onListByClient() {
+
     let client: Client;
-    client = this.clientControl.value;
+    client = this.filterForm.get('clientFilter').value;
 
     if(client) {
       this.ticketService
@@ -166,8 +176,9 @@ export class TicketComponent implements OnInit {
   }
 
   onListBySector() {
+
     let sector: Sector;
-    sector = this.sectorControl.value;
+    sector = this.filterForm.get('sectorFilter').value;
 
     if(sector) {
       this.ticketService
@@ -319,23 +330,39 @@ export class TicketComponent implements OnInit {
   }
 
   onFilter() {
-    if (this.userControl.value != null && this.clientControl.value == null && this.sectorControl.value == null) {
+
+    let user = this.filterForm.get('userFilter').value;
+    let client = this.filterForm.get('clientFilter').value;
+    let sector = this.filterForm.get('sectorFilter').value;
+
+    if (user != null && client == null && sector == null) {
       this.onListByUser();
-    } else if(this.userControl.value == null && this.clientControl.value != null && this.sectorControl.value == null) {
+    } else if(user == null && client != null && sector == null) {
       this.onListByClient();
-    } else if(this.sectorControl.value != null && this.clientControl.value == null && this.userControl.value == null) {
+    } else if(sector != null && client == null && user == null) {
       this.onListBySector();
     } else {
       this.onList();
     }
+
   }
 
-  clickMe(): void {
-    this.visible = false;
-  }
-
-  change(value: boolean): void {
-    console.log(value);
+  changeSelectFilter() {
+    if(this.filterForm.get('clientFilter').value != null) {
+      this.filterForm.get('userFilter').disable();
+      this.filterForm.get('sectorFilter').disable();
+    } else if(this.filterForm.get('userFilter').value != null) {
+      this.filterForm.get('clientFilter').disable();
+      this.filterForm.get('sectorFilter').disable();
+    } else if(this.filterForm.get('sectorFilter').value != null) {
+      this.filterForm.get('clientFilter').disable();
+      this.filterForm.get('userFilter').disable();
+    } else {
+      this.filterForm.get('clientFilter').enable();
+      this.filterForm.get('userFilter').enable();
+      this.filterForm.get('sectorFilter').enable();
+      this.onList();
+    }
   }
 
   open(): void {
@@ -345,4 +372,14 @@ export class TicketComponent implements OnInit {
   close(): void {
     this.drawerVisible = false;
   }
+
+  clearFilterFields(): void {
+    this.filterForm.patchValue({
+      userFilter: null,
+      clientFilter: null,
+      sectorFilter: null
+    });
+    this.onList();
+  }
+
 }
