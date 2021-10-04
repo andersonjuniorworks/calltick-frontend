@@ -1,3 +1,4 @@
+import { Status } from './../../models/status.model';
 import { Sector } from './../../models/sector.model';
 import { Client } from './../../models/client.model';
 import { SectorService } from './../../services/sector.service';
@@ -42,6 +43,12 @@ export class TicketComponent implements OnInit {
   ticket: Ticket;
   tickets: Ticket[];
 
+  status: Status[] = [
+    {id: 1, description: 'Aberto'},
+    {id: 3, description: 'Finalizado'},
+    {id: 4, description: 'Cancelado'}
+  ]
+
   isVisible = false;
   isOkLoading = false;
 
@@ -73,6 +80,8 @@ export class TicketComponent implements OnInit {
   clientControl = new FormControl();
   sectorControl = new FormControl();
 
+  totalCount: string[];
+
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
@@ -98,6 +107,7 @@ export class TicketComponent implements OnInit {
 
   onCreateFilterForm() {
     this.filterForm = this.formBuilder.group({
+      statusFilter: null,
       userFilter: null,
       clientFilter: null,
       sectorFilter: null
@@ -146,48 +156,39 @@ export class TicketComponent implements OnInit {
   }
 
   onListByUser() {
-
     let user: User;
     user = this.filterForm.get('userFilter').value;
-
     if(user) {
       this.ticketService
-      .findAllByUser(`${user.id}`, `1`, `0`, `0`, `10000`)
+      .findAllByUser(`${user.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `0`, `10000`)
       .subscribe((response) => {
         this.tickets = response.body;
       });
     }
-
   }
 
   onListByClient() {
-
     let client: Client;
     client = this.filterForm.get('clientFilter').value;
-
     if(client) {
       this.ticketService
-      .findAllByClient(`${client.id}`, `1`, `0`, `0`, `10000`)
+      .findAllByClient(`${client.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `0`, `10000`)
       .subscribe((response) => {
         this.tickets = response.body;
       });
     }
-
   }
 
   onListBySector() {
-
     let sector: Sector;
     sector = this.filterForm.get('sectorFilter').value;
-
     if(sector) {
       this.ticketService
-      .findAllBySector(`${sector.id}`, `1`, `0`, `10000`)
+      .findAllBySector(`${sector.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `10000`)
       .subscribe((response) => {
         this.tickets = response.body;
       });
     }
-
   }
 
   onVerifyProfile() {
@@ -335,6 +336,8 @@ export class TicketComponent implements OnInit {
     let client = this.filterForm.get('clientFilter').value;
     let sector = this.filterForm.get('sectorFilter').value;
 
+    console.log(this.totalCount)
+
     if (user != null && client == null && sector == null) {
       this.onListByUser();
     } else if(user == null && client != null && sector == null) {
@@ -375,6 +378,7 @@ export class TicketComponent implements OnInit {
 
   clearFilterFields(): void {
     this.filterForm.patchValue({
+      statusFilter: null,
       userFilter: null,
       clientFilter: null,
       sectorFilter: null

@@ -1,20 +1,44 @@
+import { Sector } from './../../models/sector.model';
+import { SectorService } from './../../services/sector.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from './../../services/user.service';
 import { StorageService } from './../../services/storage.service';
 import { User } from './../../models/user.model';
-import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormBuilder,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
 import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
 import { ClientService } from './../../services/client.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
+
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
+  public type: any;
+  public data: any;
+  public options: any;
+
+  @ViewChild('chartTicketByUser', { static: true })
+  chartTicketByUser: ElementRef;
+
+  @ViewChild('chartTicketBySector', { static: true })
+  chartTicketBySector: ElementRef;
 
   clientCount: number = 0;
   ticketCount: number = 0;
@@ -50,6 +74,7 @@ export class HomeComponent implements OnInit {
   newResponsible = new FormControl();
 
   users: User[];
+  sectors: Sector[];
 
   technicalReporter = new FormControl();
 
@@ -62,11 +87,12 @@ export class HomeComponent implements OnInit {
     private ticketService: TicketService,
     private userService: UserService,
     private storage: StorageService,
+    private sectorService: SectorService,
     private notification: NzNotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.onCreateFinishForm();
@@ -78,46 +104,152 @@ export class HomeComponent implements OnInit {
     this.onTicketCountByUser();
   }
 
+  ngAfterViewInit() {
+    this.chartTicketUser();
+    this.chartTicketSector();
+  }
+
+  chartTicketUser() {
+    var billingChart = new Chart(this.chartTicketByUser.nativeElement, {
+      type: 'bar',
+      labels: ['Anderson Júnior', 'Neto Araújo', 'Lucas Pereira'],
+      data: {
+        labels: ['Anderson Júnior', 'Neto Araújo', 'Lucas Pereira'],
+        datasets: [
+          {
+            label: 'Nº de Chamados',
+            data: [14, 17, 8],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
+  chartTicketSector() {
+    let labels: any[] = [];
+    let ticketBySector: any[] = [];
+
+    this.sectorService.findAll().subscribe((response) => {
+      this.sectors = response.body;
+
+      for (let i = 0; i < this.sectors.length; i++) {
+        labels.push([this.sectors[i].description]);
+        this.ticketService
+          .findAllBySector(`${this.sectors[i].id}`, `3`, `0`, `10000`)
+          .subscribe((responseSector) => {
+            ticketBySector.push([responseSector.body.length]);
+          });
+      }
+    });
+
+    console.log(labels)
+    console.log(ticketBySector)
+
+    var chartTicketBySector = new Chart(
+      this.chartTicketBySector.nativeElement,
+      {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              data: [...ticketBySector],
+              fill: false,
+              backgroundColor: [
+                '#ffb74d',
+                '#c8e6c9',
+                '#81d4fa',
+                '#7b1fa2',
+              ],
+            },
+          ],
+          labels: [...labels],
+        },
+        options: {
+          display: false,
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      }
+    );
+
+  }
+
   onCreateFinishForm() {
     this.finishForm = this.formBuilder.group({
-      technicalReporter: [null, [Validators.required]]
-    })
+      technicalReporter: [null, [Validators.required]],
+    });
   }
 
   onClientCount() {
     this.clientService.findCount().subscribe((response) => {
       this.clientCount = response;
-    })
+    });
   }
 
   onTicketCount() {
     this.ticketService.findCount().subscribe((response) => {
       this.ticketCount = response;
-    })
+    });
   }
 
   onTicketFinishCount() {
-    this.ticketService.findAllParam(`3`,`0`,`0`,`10000`).subscribe((response) => {
-      this.ticketFinishCount = response.body.length;
-    })
+    this.ticketService
+      .findAllParam(`3`, `0`, `0`, `10000`)
+      .subscribe((response) => {
+        this.ticketFinishCount = response.body.length;
+      });
   }
 
   onTicketOpenedCount() {
-    this.ticketService.findAllParam(`1`,`0`,`0`,`10000`).subscribe((response) => {
-      this.ticketOpenedCount = response.body.length;
-    })
+    this.ticketService
+      .findAllParam(`1`, `0`, `0`, `10000`)
+      .subscribe((response) => {
+        this.ticketOpenedCount = response.body.length;
+      });
   }
 
   onTicketCountByUser() {
-    this.ticketService.countByUser(`${this.userProfile}`,`1`).subscribe((response) => {
-      this.total = response.body;
-      this.ticketService.findAllByUser(`${this.userProfile}`, `1`, `0`, `${this.page - 1}`, `${this.size}`).subscribe((response2) => {
-        this.tickets = response2.body;
-        this.totalPages = this.total / this.size;
-        this.totalPages = Math.ceil(this.totalPages) * 10;
-        this.totalPages = this.totalPages / 2;
-      })
-    })
+    this.ticketService
+      .countByUser(`${this.userProfile}`, `1`)
+      .subscribe((response) => {
+        this.total = response.body;
+        this.ticketService
+          .findAllByUser(
+            `${this.userProfile}`,
+            `1`,
+            `0`,
+            `${this.page - 1}`,
+            `${this.size}`
+          )
+          .subscribe((response2) => {
+            this.tickets = response2.body;
+            this.totalPages = this.total / this.size;
+            this.totalPages = Math.ceil(this.totalPages) * 10;
+            this.totalPages = this.totalPages / 2;
+          });
+      });
   }
 
   onVerifyUser() {
@@ -131,7 +263,8 @@ export class HomeComponent implements OnInit {
 
   onFinishTicket(ticket) {
     this.ticket = ticket;
-    this.ticket.technicalReport = this.finishForm.get('technicalReporter').value;
+    this.ticket.technicalReport =
+      this.finishForm.get('technicalReporter').value;
     this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
     this.ticketService.finish(this.ticket).subscribe(
       (success) => {
@@ -242,5 +375,4 @@ export class HomeComponent implements OnInit {
   onCloseTransferModal() {
     this.isVisibleTransferModal = false;
   }
-
 }

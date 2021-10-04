@@ -334,6 +334,13 @@
     <form nz-form *nzDrawerContent [formGroup]="filterForm">
       <div class="row">
         <div class="col-12">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um status" nzSize="large" formControlName="statusFilter">
+            <nz-option [nzLabel]="option.description" [nzValue]="option.id" *ngFor="let option of status"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="clientFilter" (ngModelChange)="changeSelectFilter()">
             <nz-option [nzLabel]="option.nickname" [nzValue]="option" *ngFor="let option of clients"></nz-option>
           </nz-select>
@@ -348,7 +355,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" [formControl]="sectorControl" formControlName="sectorFilter" (ngModelChange)="changeSelectFilter()">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" formControlName="sectorFilter" (ngModelChange)="changeSelectFilter()">
             <nz-option [nzLabel]="option.description" [nzValue]="option" *ngFor="let option of sectors"></nz-option>
           </nz-select>
         </div>

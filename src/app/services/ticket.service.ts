@@ -3,7 +3,7 @@ import { tap, take } from 'rxjs/operators';
 import { environment } from './../../environments/environment.prod';
 import { Ticket } from './../models/ticket.model';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-total-count'),
         ),
       );
   }
@@ -36,7 +36,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-total-count'),
         ),
       );
   }
@@ -48,7 +48,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-ticket-count'),
         ),
       );
   }
@@ -60,7 +60,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-total-count'),
         ),
       );
   }
@@ -72,7 +72,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-total-count'),
         ),
       );
   }
@@ -88,7 +88,7 @@ export class TicketService {
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount'),
+          response.headers.getAll('x-total-count'),
         ),
       );
   }
@@ -104,6 +104,20 @@ export class TicketService {
     })
   }
 
+  countByClient(client: string, status: string) {
+    return this.http.get<number>(`${this.API}/countByClient?`, {
+      params: { client: client, status: status },
+      observe: 'response',
+    })
+  }
+
+  countBySector(sector: string, status: string) {
+    return this.http.get<number>(`${this.API}/countBySector?`, {
+      params: { sector: sector, status: status },
+      observe: 'response',
+    })
+  }
+
   private insert(ticket) {
     return this.http.post(`${this.API}/insert`, ticket).pipe(take(1));
   }
@@ -113,7 +127,7 @@ export class TicketService {
   }
 
   public notification() {
-    return this.http.get(`http://187.19.165.178:3030/notify`).pipe(take(1));
+    return this.http.get(`http://187.19.165.178:5050/notify`).pipe(take(1));
   }
 
   public finish(ticket) {
@@ -131,5 +145,12 @@ export class TicketService {
       return this.insert(ticket);
     }
   }
+
+/*   httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-ticket-count': 'application/json',
+    }),
+  }; */
 
 }

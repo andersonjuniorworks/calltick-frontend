@@ -24,7 +24,15 @@
 </div>
 
 <div class="content">
-  <div class="row">
+  <div class="charts">
+    <div class="chart-middle">
+      <canvas #chartTicketByUser id="chartTicketByUser"></canvas>
+    </div>
+    <div class="chart-middle">
+      <canvas #chartTicketBySector id="chartTicketBySector"></canvas>
+    </div>
+  </div>
+  <!--   <div class="row">
     <h2>Meus Chamados</h2>
   </div>
 
@@ -124,7 +132,7 @@
       (nzPageIndexChange)="paginate($event)"
       [nzDisabled]="paginationDisable"
     ></nz-pagination>
-  </div>
+  </div> -->
 </div>
 
 <nz-modal

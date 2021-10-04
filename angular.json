@@ -27,7 +27,8 @@
                             "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
                             "src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -88,7 +89,8 @@
                             "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
                             "src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                        ]
                     }
                 },
                 "lint": {
