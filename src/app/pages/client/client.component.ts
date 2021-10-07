@@ -103,7 +103,7 @@ export class ClientComponent implements OnInit {
   }
 
   reset(): void {
-    this.searchValue = '';
+    this.searchValueDocument = '';
     this.searchValueFullname = '';
     this.searchValueNickname = '';
     this.searchValueCity = '';
@@ -111,6 +111,7 @@ export class ClientComponent implements OnInit {
   }
 
   searchByDoc(): void {
+    console.log(this.searchValueDocument)
     this.visibleDoc = false;
     this.clientService
       .findByDocument(this.searchValueDocument)
@@ -123,7 +124,7 @@ export class ClientComponent implements OnInit {
   searchByName(): void {
     this.visibleName = false;
     this.clientService
-      .findByName(this.searchValueFullname)
+      .findByFullname(this.searchValueFullname)
       .subscribe((response) => {
         this.clients = response.body;
         this.total = this.clients.length;

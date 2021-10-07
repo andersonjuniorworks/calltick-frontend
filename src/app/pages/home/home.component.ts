@@ -1,3 +1,4 @@
+import { ChartService } from './../../services/chart.service';
 import { Sector } from './../../models/sector.model';
 import { SectorService } from './../../services/sector.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,9 +31,9 @@ import { Chart } from 'chart.js';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  public type: any;
+  /*  public type: any;
   public data: any;
-  public options: any;
+  public options: any; */
 
   @ViewChild('chartTicketByUser', { static: true })
   chartTicketByUser: ElementRef;
@@ -82,12 +83,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   finishForm: FormGroup;
 
+  labels: any[] = [];
+  dataByUser: any[] = [];
+  dataBySector: any[] = [];
+
   constructor(
     private clientService: ClientService,
     private ticketService: TicketService,
     private userService: UserService,
     private storage: StorageService,
     private sectorService: SectorService,
+    private chartService: ChartService,
     private notification: NzNotificationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -110,90 +116,104 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   chartTicketUser() {
-    var billingChart = new Chart(this.chartTicketByUser.nativeElement, {
-      type: 'bar',
-      labels: ['Anderson Júnior', 'Neto Araújo', 'Lucas Pereira'],
-      data: {
-        labels: ['Anderson Júnior', 'Neto Araújo', 'Lucas Pereira'],
-        datasets: [
-          {
-            label: 'Nº de Chamados',
-            data: [14, 17, 8],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
+    this.chartService.ticketByUser().subscribe((response) => {
+      this.dataByUser = response.body;
+      var billingChart = new Chart(this.chartTicketByUser.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(this.dataByUser),
+          datasets: [
             {
-              ticks: {
-                beginAtZero: true,
-              },
+              label: [],
+              data: Object.values(this.dataByUser),
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+              ],
+              borderWidth: 1
             },
           ],
         },
-      },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+          title: {
+            display: true,
+            text: 'Chamados por usuário',
+          },
+          legend: {
+            display: false
+          },
+          subtitle: {
+            display: true,
+            text: 'Chamados referente ao mês de Outubro'
+        }
+        },
+      });
     });
   }
 
   chartTicketSector() {
-    let labels: any[] = [];
-    let ticketBySector: any[] = [];
-
-    this.sectorService.findAll().subscribe((response) => {
-      this.sectors = response.body;
-
-      for (let i = 0; i < this.sectors.length; i++) {
-        labels.push([this.sectors[i].description]);
-        this.ticketService
-          .findAllBySector(`${this.sectors[i].id}`, `3`, `0`, `10000`)
-          .subscribe((responseSector) => {
-            ticketBySector.push([responseSector.body.length]);
-          });
-      }
-    });
-
-    console.log(labels)
-    console.log(ticketBySector)
-
-    var chartTicketBySector = new Chart(
-      this.chartTicketBySector.nativeElement,
-      {
-        type: 'doughnut',
-        data: {
-          datasets: [
-            {
-              data: [...ticketBySector],
-              fill: false,
-              backgroundColor: [
-                '#ffb74d',
-                '#c8e6c9',
-                '#81d4fa',
-                '#7b1fa2',
-              ],
+    this.chartService.ticketBySector().subscribe((response) => {
+      this.dataBySector = response.body;
+      var chartTicketBySector = new Chart(
+        this.chartTicketBySector.nativeElement,
+        {
+          type: 'pie',
+          data: {
+            labels: Object.keys(this.dataBySector),
+            datasets: [
+              {
+                data: Object.values(this.dataBySector),
+                fill: false,
+                backgroundColor: [
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(201, 203, 207, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                ],
+              },
+            ],
+          },
+          options: {
+            display: true,
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: 'Chamados por setor',
             },
-          ],
-          labels: [...labels],
-        },
-        options: {
-          display: false,
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      }
-    );
-
+            legend: {
+              display: true
+            }
+          },
+        }
+      );
+    });
   }
 
   onCreateFinishForm() {
@@ -215,40 +235,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onTicketFinishCount() {
-    this.ticketService
-      .findAllParam(`3`, `0`, `0`, `10000`)
-      .subscribe((response) => {
-        this.ticketFinishCount = response.body.length;
-      });
+    this.ticketService.countByStatus(`3`).subscribe((response) => {
+      this.ticketFinishCount = response.body;
+    });
   }
 
   onTicketOpenedCount() {
-    this.ticketService
-      .findAllParam(`1`, `0`, `0`, `10000`)
-      .subscribe((response) => {
-        this.ticketOpenedCount = response.body.length;
-      });
+    this.ticketService.countByStatus(`1`).subscribe((response) => {
+      this.ticketOpenedCount = response.body;
+    });
   }
 
   onTicketCountByUser() {
     this.ticketService
-      .countByUser(`${this.userProfile}`, `1`)
+      .countByUser(`${this.userProfile}`)
       .subscribe((response) => {
         this.total = response.body;
-        this.ticketService
-          .findAllByUser(
-            `${this.userProfile}`,
-            `1`,
-            `0`,
-            `${this.page - 1}`,
-            `${this.size}`
-          )
-          .subscribe((response2) => {
-            this.tickets = response2.body;
-            this.totalPages = this.total / this.size;
-            this.totalPages = Math.ceil(this.totalPages) * 10;
-            this.totalPages = this.totalPages / 2;
-          });
       });
   }
 

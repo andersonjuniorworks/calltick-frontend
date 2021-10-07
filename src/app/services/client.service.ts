@@ -34,54 +34,54 @@ export class ClientService {
     return this.http.get<number>(`${this.API}/count`).pipe(take(1));
   }
 
-  findByDocument(value: string): Observable<HttpResponse<Client[]>> {
+  findByDocument(document: string): Observable<HttpResponse<Client[]>> {
     return this.http
-      .get<Client[]>(`${this.API}/document?`, {
-        params: { value: value },
+      .get<Client[]>(`${this.API}/filter?`, {
+        params: { document: document },
         observe: 'response',
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount')
+          response.headers.getAll('x-total-count')
         )
       );
   }
 
-  findByName(value: string): Observable<HttpResponse<Client[]>> {
+  findByFullname(fullname: string): Observable<HttpResponse<Client[]>> {
     return this.http
-      .get<Client[]>(`${this.API}/fullname?`, {
-        params: { value: value },
+      .get<Client[]>(`${this.API}/filter?`, {
+        params: { fullname: fullname },
         observe: 'response',
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount')
+          response.headers.getAll('x-total-count')
         )
       );
   }
 
-  findByNickname(value: string): Observable<HttpResponse<Client[]>> {
+  findByNickname(nickname: string): Observable<HttpResponse<Client[]>> {
     return this.http
-      .get<Client[]>(`${this.API}/nickname?`, {
-        params: { value: value },
+      .get<Client[]>(`${this.API}/filter?`, {
+        params: { nickname: nickname },
         observe: 'response',
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount')
+          response.headers.getAll('x-total-count')
         )
       );
   }
 
-  findByCity(value: string): Observable<HttpResponse<Client[]>> {
+  findByCity(city: string): Observable<HttpResponse<Client[]>> {
     return this.http
-      .get<Client[]>(`${this.API}/city?`, {
-        params: { value: value },
+      .get<Client[]>(`${this.API}/filter?`, {
+        params: { city: city },
         observe: 'response',
       })
       .pipe(
         tap((response) =>
-          response.headers.getAll('x-limit, x-offset, x-totalCount')
+          response.headers.getAll('x-total-count')
         )
       );
   }

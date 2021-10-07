@@ -53,6 +53,30 @@ export class TicketService {
       );
   }
 
+  findBySector(sector: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/filter?`, {
+        params: { sector: sector },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-total-count'),
+        ),
+      );
+  }
+
+  findByUser(user: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/filter?`, {
+        params: { user: user },
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.getAll('x-total-count'),
+        ),
+      );
+  }
+
   findAllByClient(client: string, status: string, active: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
     return this.http.get<Ticket[]>(`${this.API}/client?`, {
         params: { client: client, status: status, active: active, page: page, size: size },
@@ -97,23 +121,30 @@ export class TicketService {
     return this.http.get<number>(`${this.API}/count`).pipe(take(1));
   }
 
-  countByUser(user: string, status: string) {
-    return this.http.get<number>(`${this.API}/countByUser?`, {
-      params: { user: user, status: status },
+  countByUser(user: string) {
+    return this.http.get<number>(`${this.API}/countByFilter?`, {
+      params: { user: user },
       observe: 'response',
     })
   }
 
-  countByClient(client: string, status: string) {
-    return this.http.get<number>(`${this.API}/countByClient?`, {
-      params: { client: client, status: status },
+  countByClient(client: string) {
+    return this.http.get<number>(`${this.API}/countByFilter?`, {
+      params: { client: client },
       observe: 'response',
     })
   }
 
-  countBySector(sector: string, status: string) {
-    return this.http.get<number>(`${this.API}/countBySector?`, {
-      params: { sector: sector, status: status },
+  countBySector(sector: string) {
+    return this.http.get<number>(`${this.API}/countByFilter?`, {
+      params: { sector: sector },
+      observe: 'response',
+    })
+  }
+
+  countByStatus(status: string) {
+    return this.http.get<number>(`${this.API}/countByFilter?`, {
+      params: { status: status },
       observe: 'response',
     })
   }
