@@ -105,9 +105,9 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }
 
-  findByPeriod(startDate: string, endDate: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/period?`, {
-        params: { startDate: startDate, endDate: endDate, page: page, size: size },
+  findByPeriod(startDate: string, endDate: string): Observable<HttpResponse<Ticket[]>> {
+    return this.http.get<Ticket[]>(`${this.API}/filter?`, {
+        params: { startDate: startDate, endDate: endDate },
         observe: 'response',
       })
       .pipe(

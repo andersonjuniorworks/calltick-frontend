@@ -19,6 +19,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { ClientService } from 'src/app/services/client.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ticket',
@@ -135,20 +136,15 @@ export class TicketComponent implements OnInit {
   }
 
   onListByPeriod() {
-    let date: any[];
-    date = this.periodControl.value;
+
+    let date: any[] = this.periodControl.value;
     let startDate = date[0];
     let endDate = date[1];
-    console.log(
-      `${startDate.toLocaleDateString()} 00:00`,
-      `${endDate.toLocaleDateString()} 00:00`
-    );
+
     this.ticketService
       .findByPeriod(
-        `${startDate.toLocaleDateString()} 00:00`,
-        `${endDate.toLocaleDateString()} 00:00`,
-        '0',
-        '50'
+        `${moment(startDate).format('yyyy-MM-DD')}`,
+        `${moment(endDate).format('yyyy-MM-DD')}`,
       )
       .subscribe((response) => {
         this.tickets = response.body;
