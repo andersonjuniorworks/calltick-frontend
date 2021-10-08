@@ -341,22 +341,22 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="clientFilter" (ngModelChange)="changeSelectFilter()">
-            <nz-option [nzLabel]="option.nickname" [nzValue]="option" *ngFor="let option of clients"></nz-option>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um cliente" nzSize="large" formControlName="clientFilter">
+            <nz-option [nzLabel]="option.nickname" [nzValue]="option.id" *ngFor="let option of clients"></nz-option>
           </nz-select>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" formControlName="userFilter" (ngModelChange)="changeSelectFilter()">
-            <nz-option [nzLabel]="option.fullname" [nzValue]="option" *ngFor="let option of users"></nz-option>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um responsável" nzSize="large" formControlName="userFilter">
+            <nz-option [nzLabel]="option.fullname" [nzValue]="option.id" *ngFor="let option of users"></nz-option>
           </nz-select>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" formControlName="sectorFilter" (ngModelChange)="changeSelectFilter()">
-            <nz-option [nzLabel]="option.description" [nzValue]="option" *ngFor="let option of sectors"></nz-option>
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selecione um setor" nzSize="large" formControlName="sectorFilter">
+            <nz-option [nzLabel]="option.description" [nzValue]="option.id" *ngFor="let option of sectors"></nz-option>
           </nz-select>
         </div>
       </div>
@@ -372,6 +372,6 @@
 <ng-template #footerTpl>
   <div style="float: right">
     <button nz-button style="margin-right: 8px;" (click)="clearFilterFields()">Limpar</button>
-    <button nz-button nzType="primary" (click)="onListByPeriod()">Filtrar</button>
+    <button nz-button nzType="primary" (click)="onListByFilter()" [disabled]="!filterForm.valid">Filtrar</button>
   </div>
 </ng-template>

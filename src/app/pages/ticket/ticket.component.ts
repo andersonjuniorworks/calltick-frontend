@@ -108,7 +108,7 @@ export class TicketComponent implements OnInit {
 
   onCreateFilterForm() {
     this.filterForm = this.formBuilder.group({
-      statusFilter: null,
+      statusFilter: [null, Validators.required],
       userFilter: null,
       clientFilter: null,
       sectorFilter: null
@@ -135,56 +135,30 @@ export class TicketComponent implements OnInit {
       });
   }
 
-  onListByPeriod() {
+  onListByFilter() {
+
+    let user = this.filterForm.get('userFilter').value;
+    let client = this.filterForm.get('clientFilter').value;
+    let sector = this.filterForm.get('sectorFilter').value;
+    let status = this.filterForm.get('statusFilter').value;
 
     let date: any[] = this.periodControl.value;
-    let startDate = date[0];
-    let endDate = date[1];
 
-    this.ticketService
-      .findByPeriod(
-        `${moment(startDate).format('yyyy-MM-DD')}`,
-        `${moment(endDate).format('yyyy-MM-DD')}`,
-      )
-      .subscribe((response) => {
-        this.tickets = response.body;
-      });
-  }
+    let startDate = null;
+    let endDate = null;
 
-  onListByUser() {
-    let user: User;
-    user = this.filterForm.get('userFilter').value;
-    if(user) {
-      this.ticketService
-      .findAllByUser(`${user.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `0`, `10000`)
-      .subscribe((response) => {
-        this.tickets = response.body;
-      });
+    if(date != null) {
+      startDate = date[0];
+      endDate = date[1];
+      startDate = moment(startDate).format('yyyy-MM-DD');
+      endDate = moment(endDate).format('yyyy-MM-DD');
     }
-  }
 
-  onListByClient() {
-    let client: Client;
-    client = this.filterForm.get('clientFilter').value;
-    if(client) {
-      this.ticketService
-      .findAllByClient(`${client.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `0`, `10000`)
-      .subscribe((response) => {
-        this.tickets = response.body;
-      });
-    }
-  }
+    this.ticketService.findByFilter(`${status}`, `${client}`, `${user}`, `${sector}`, `${startDate}`, `${endDate}`)
+    .subscribe((response) => {
+      this.tickets = response.body
+    });
 
-  onListBySector() {
-    let sector: Sector;
-    sector = this.filterForm.get('sectorFilter').value;
-    if(sector) {
-      this.ticketService
-      .findAllBySector(`${sector.id}`, `${this.filterForm.get('statusFilter').value}`, `0`, `10000`)
-      .subscribe((response) => {
-        this.tickets = response.body;
-      });
-    }
   }
 
   onVerifyProfile() {
@@ -324,44 +298,6 @@ export class TicketComponent implements OnInit {
 
   onCloseTransferModal() {
     this.isVisibleTransferModal = false;
-  }
-
-  onFilter() {
-
-    let user = this.filterForm.get('userFilter').value;
-    let client = this.filterForm.get('clientFilter').value;
-    let sector = this.filterForm.get('sectorFilter').value;
-
-    console.log(this.totalCount)
-
-    if (user != null && client == null && sector == null) {
-      this.onListByUser();
-    } else if(user == null && client != null && sector == null) {
-      this.onListByClient();
-    } else if(sector != null && client == null && user == null) {
-      this.onListBySector();
-    } else {
-      this.onList();
-    }
-
-  }
-
-  changeSelectFilter() {
-    if(this.filterForm.get('clientFilter').value != null) {
-      this.filterForm.get('userFilter').disable();
-      this.filterForm.get('sectorFilter').disable();
-    } else if(this.filterForm.get('userFilter').value != null) {
-      this.filterForm.get('clientFilter').disable();
-      this.filterForm.get('sectorFilter').disable();
-    } else if(this.filterForm.get('sectorFilter').value != null) {
-      this.filterForm.get('clientFilter').disable();
-      this.filterForm.get('userFilter').disable();
-    } else {
-      this.filterForm.get('clientFilter').enable();
-      this.filterForm.get('userFilter').enable();
-      this.filterForm.get('sectorFilter').enable();
-      this.onList();
-    }
   }
 
   open(): void {

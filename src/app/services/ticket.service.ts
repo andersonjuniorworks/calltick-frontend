@@ -41,73 +41,40 @@ export class TicketService {
       );
   }
 
-  findAllByUser(user: string, status: string, active: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/user?`, {
-        params: { user: user, status: status, active: active, page: page, size: size },
-        observe: 'response',
-      })
-      .pipe(
-        tap((response) =>
-          response.headers.getAll('x-ticket-count'),
-        ),
-      );
-  }
-
-  findBySector(sector: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/filter?`, {
-        params: { sector: sector },
-        observe: 'response',
-      })
-      .pipe(
-        tap((response) =>
-          response.headers.getAll('x-total-count'),
-        ),
-      );
-  }
-
-  findByUser(user: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/filter?`, {
-        params: { user: user },
-        observe: 'response',
-      })
-      .pipe(
-        tap((response) =>
-          response.headers.getAll('x-total-count'),
-        ),
-      );
-  }
-
-  findAllByClient(client: string, status: string, active: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/client?`, {
-        params: { client: client, status: status, active: active, page: page, size: size },
-        observe: 'response',
-      })
-      .pipe(
-        tap((response) =>
-          response.headers.getAll('x-total-count'),
-        ),
-      );
-  }
-
-  findAllBySector(sector: string, status: string, page: string, size: string): Observable<HttpResponse<Ticket[]>> {
-    return this.http.get<Ticket[]>(`${this.API}/sector?`, {
-        params: { sector: sector, status: status, page: page, size: size },
-        observe: 'response',
-      })
-      .pipe(
-        tap((response) =>
-          response.headers.getAll('x-total-count'),
-        ),
-      );
-  }
-
   findById(id) {
     return this.http.get<Ticket>(`${this.API}/${id}`).pipe(take(1));
   }
 
-  findByPeriod(startDate: string, endDate: string): Observable<HttpResponse<Ticket[]>> {
+  findByFilter(status: string, client: string, user: string, sector: string, startDate: string, endDate: string): Observable<HttpResponse<Ticket[]>> {
+
+    const params: any = {
+      status,
+    };
+
+    if(client != null && client != 'null') {
+      params.client = client;
+    }
+
+    if(user != null && user != 'null') {
+      params.user = user;
+    }
+
+    if(sector != null && sector != 'null') {
+      params.sector = sector;
+    }
+
+    if(startDate != null && startDate != 'null') {
+      params.startDate = startDate;
+    }
+
+    if(endDate != null && endDate != 'null') {
+      params.endDate = endDate;
+    }
+
+    console.log(params)
+
     return this.http.get<Ticket[]>(`${this.API}/filter?`, {
-        params: { startDate: startDate, endDate: endDate },
+        params,
         observe: 'response',
       })
       .pipe(
@@ -177,11 +144,11 @@ export class TicketService {
     }
   }
 
-/*   httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'x-ticket-count': 'application/json',
     }),
-  }; */
+  };
 
 }
