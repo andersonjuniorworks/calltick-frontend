@@ -36,4 +36,28 @@ export class ChartService {
       );
   }
 
+  ticketByStatus(): Observable<HttpResponse<any[]>> {
+    return this.http
+      .get<any[]>(`${this.API}/ticketByStatus`, {
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.get('x-total-count')
+        )
+      );
+  }
+
+  clientByContract(): Observable<HttpResponse<any[]>> {
+    return this.http
+      .get<any[]>(`${this.API}/clientByContract`, {
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) =>
+          response.headers.get('x-total-count')
+        )
+      );
+  }
+
 }

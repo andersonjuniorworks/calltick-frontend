@@ -41,6 +41,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('chartTicketBySector', { static: true })
   chartTicketBySector: ElementRef;
 
+  @ViewChild('chartTicketByStatus', { static: true })
+  chartTicketByStatus: ElementRef;
+
+  @ViewChild('chartClientByContract', { static: true })
+  chartClientByContract: ElementRef;
+
   clientCount: number = 0;
   ticketCount: number = 0;
   ticketFinishCount: number = 0;
@@ -86,6 +92,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   labels: any[] = [];
   dataByUser: any[] = [];
   dataBySector: any[] = [];
+  dataByContract: any[] = [];
+  dataByStatus: any[] = [];
 
   constructor(
     private clientService: ClientService,
@@ -113,6 +121,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.chartTicketUser();
     this.chartTicketSector();
+    this.chartClientContract();
+    this.chartTicketStatus();
   }
 
   chartTicketUser() {
@@ -127,13 +137,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
               label: [],
               data: Object.values(this.dataByUser),
               backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)'
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(255, 159, 64, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(201, 203, 207, 0.8)'
               ],
               borderColor: [
                 'rgb(255, 99, 132)',
@@ -180,7 +190,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       var chartTicketBySector = new Chart(
         this.chartTicketBySector.nativeElement,
         {
-          type: 'pie',
+          type: 'doughnut',
           data: {
             labels: Object.keys(this.dataBySector),
             datasets: [
@@ -188,13 +198,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 data: Object.values(this.dataBySector),
                 fill: false,
                 backgroundColor: [
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(201, 203, 207, 0.2)',
-                  'rgba(255, 205, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(201, 203, 207, 0.8)',
+                  'rgba(255, 205, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
                 ],
               },
             ],
@@ -209,6 +219,88 @@ export class HomeComponent implements OnInit, AfterViewInit {
             },
             legend: {
               display: true
+            }
+          },
+        }
+      );
+    });
+  }
+
+  chartTicketStatus() {
+    this.chartService.ticketByStatus().subscribe((response) => {
+      this.dataByStatus = response.body;
+      var chartTicketByStatus = new Chart(
+        this.chartTicketByStatus.nativeElement,
+        {
+          type: 'doughnut',
+          data: {
+            labels: Object.keys(this.dataByStatus),
+            datasets: [
+              {
+                data: Object.values(this.dataByStatus),
+                fill: false,
+                backgroundColor: [
+                  '#80CBC4',
+                  '#FFD54F',
+                  '#E53935',
+                ],
+              },
+            ],
+          },
+          options: {
+            display: true,
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: 'Chamados por Status',
+            },
+            legend: {
+              display: true
+            }
+          },
+        }
+      );
+    });
+  }
+
+  chartClientContract() {
+    this.chartService.clientByContract().subscribe((response) => {
+      this.dataByContract = response.body;
+      var chartClientByContract = new Chart(
+        this.chartClientByContract.nativeElement,
+        {
+          type: 'bar',
+          data: {
+            labels: Object.keys(this.dataByContract),
+            datasets: [
+              {
+                data: Object.values(this.dataByContract),
+                fill: false,
+                backgroundColor: [
+                  '#F06292',
+                  '#6A1B9A',
+                  '#2196F3',
+                  '#4527A0',
+                  '#E0F2F1',
+                  '#FFF59D',
+                  '#FF8A65',
+                  '#FFAB91',
+                  '#FF9800'
+                ],
+              },
+            ],
+          },
+          options: {
+            display: true,
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: 'Clientes por Contrato',
+            },
+            legend: {
+              display: false
             }
           },
         }
@@ -235,7 +327,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onTicketFinishCount() {
-    this.ticketService.countByStatus(`3`).subscribe((response) => {
+    this.ticketService.countByStatus(`2`).subscribe((response) => {
       this.ticketFinishCount = response.body;
     });
   }

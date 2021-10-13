@@ -35,11 +35,10 @@
           data.closingDate
         }}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
-        <nz-tag nzColor="processing" *ngIf="data.status == 2"
-          >Processando</nz-tag
+        <nz-tag nzColor="success" *ngIf="data.status == 2"
+          >Finalizado</nz-tag
         >
-        <nz-tag nzColor="success" *ngIf="data.status == 3">Finalizado</nz-tag>
-        <nz-tag nzColor="error" *ngIf="data.status == 4">Cancelado</nz-tag>
+        <nz-tag nzColor="error" *ngIf="data.status == 3">Cancelado</nz-tag>
         <ul nz-list-item-actions>
           <nz-list-item-action>
             <button
@@ -47,7 +46,7 @@
               nzType="default"
               nzShape="circle"
               [disabled]="
-                data.user.id != userId || data.status == 3 || data.status == 4
+                data.user.id != userId || data.status == 2 || data.status == 3
               "
               nzTooltipTitle="Finalizar"
               nzTooltipPlacement="top"
@@ -63,7 +62,7 @@
               nzType="default"
               nzShape="circle"
               [disabled]="
-                data.user.id != userId || data.status == 3 || data.status == 4
+                data.user.id != userId || data.status == 2 || data.status == 3
               "
               nzTooltipTitle="Transferir"
               nzTooltipPlacement="top"
@@ -140,11 +139,8 @@
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Status'" [nzSpan]="1">
         <nz-tag nzColor="warning" *ngIf="ticket.status == 1">Aberto</nz-tag>
-        <nz-tag nzColor="processing" *ngIf="ticket.status == 2"
-          >Processando</nz-tag
-        >
-        <nz-tag nzColor="success" *ngIf="ticket.status == 3">Finalizado</nz-tag>
-        <nz-tag nzColor="error" *ngIf="ticket.status == 4">Cancelado</nz-tag>
+        <nz-tag nzColor="success" *ngIf="ticket.status == 2">Finalizado</nz-tag>
+        <nz-tag nzColor="error" *ngIf="ticket.status == 3">Cancelado</nz-tag>
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{
         ticket.user.fullname
@@ -231,11 +227,10 @@
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Status'" [nzSpan]="1">
         <nz-tag nzColor="warning" *ngIf="ticket.status == 1">Aberto</nz-tag>
-        <nz-tag nzColor="processing" *ngIf="ticket.status == 2"
-          >Processando</nz-tag
+        <nz-tag nzColor="success" *ngIf="ticket.status == 2"
+          >Finalizado</nz-tag
         >
-        <nz-tag nzColor="success" *ngIf="ticket.status == 3">Finalizado</nz-tag>
-        <nz-tag nzColor="error" *ngIf="ticket.status == 4">Cancelado</nz-tag>
+        <nz-tag nzColor="error" *ngIf="ticket.status == 3">Cancelado</nz-tag>
       </nz-descriptions-item>
       <nz-descriptions-item [nzTitle]="'Responsável'" [nzSpan]="1">{{
         ticket.user.fullname
