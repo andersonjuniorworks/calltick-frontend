@@ -126,3 +126,9 @@ nz-range-picker {
 nz-select {
   width: 100%;
 }
+
+.editor {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #f3f3f3;
+}

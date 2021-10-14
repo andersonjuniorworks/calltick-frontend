@@ -12,6 +12,7 @@ import { Client } from './../../../models/client.model';
 import { ClientService } from './../../../services/client.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-form-ticket',
@@ -19,6 +20,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./form-ticket.component.css'],
 })
 export class FormTicketComponent implements OnInit {
+
   ticketForm: FormGroup;
 
   ticket: Ticket;
@@ -172,4 +174,38 @@ export class FormTicketComponent implements OnInit {
     let audio = new Audio(src);
     audio.play();
   }
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '200px',
+    width: '935px',
+    placeholder: 'Digite a descrição do chamado',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['fontName'],
+      ['fontSize', 'insertVideo', 'insertImage', 'customClasses', 'backgroundColor']
+      ],
+    customClasses: [
+      {
+        name: "Citação",
+        class: "quote",
+      },
+      {
+        name: 'Destacado',
+        class: 'redText'
+      },
+      {
+        name: "Título",
+        class: "titleText",
+        tag: "h1",
+      },
+    ],
+    sanitize: true,
+    toolbarPosition: 'top',
+  };
+
+
 }

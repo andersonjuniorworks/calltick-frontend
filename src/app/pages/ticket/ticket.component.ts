@@ -46,8 +46,8 @@ export class TicketComponent implements OnInit {
 
   status: Status[] = [
     {id: 1, description: 'Aberto'},
-    {id: 3, description: 'Finalizado'},
-    {id: 4, description: 'Cancelado'}
+    {id: 2, description: 'Finalizado'},
+    {id: 3, description: 'Cancelado'}
   ]
 
   isVisible = false;

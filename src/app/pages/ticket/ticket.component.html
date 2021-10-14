@@ -31,7 +31,7 @@
           data.sector.description
         }}</nz-tag>
         <nz-tag nzColor="default">{{ data.openingDate }}</nz-tag>
-        <nz-tag nzColor="default" *ngIf="data.status == 3">{{
+        <nz-tag nzColor="default" *ngIf="data.status == 2">{{
           data.closingDate
         }}</nz-tag>
         <nz-tag nzColor="warning" *ngIf="data.status == 1">Aberto</nz-tag>
@@ -154,9 +154,13 @@
       <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"
         ><strong>{{ ticket.subject }}</strong></nz-descriptions-item
       >
-      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"
-        ><strong>{{ ticket.description }}</strong></nz-descriptions-item
-      >
+    </nz-descriptions>
+    <nz-descriptions nzLayout="vertical">
+      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3">
+          <div class="editor">
+            <div [innerHtml]="ticket.description"></div>
+          </div>
+      </nz-descriptions-item>
     </nz-descriptions>
     <div class="ticket-finish">
       <div class="row">
@@ -244,12 +248,16 @@
       <nz-descriptions-item [nzTitle]="'Assunto'" [nzSpan]="3"
         ><strong>{{ ticket.subject }}</strong></nz-descriptions-item
       >
-      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3"
-        ><strong>{{ ticket.description }}</strong></nz-descriptions-item
-      >
     </nz-descriptions>
-    <nz-divider *ngIf="ticket.status == 3"></nz-divider>
-    <nz-descriptions nzLayout="horizontal" *ngIf="ticket.status == 3">
+    <nz-descriptions nzLayout="vertical">
+      <nz-descriptions-item [nzTitle]="'Descrição'" [nzSpan]="3">
+          <div class="editor">
+            <div [innerHtml]="ticket.description"></div>
+          </div>
+      </nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider *ngIf="ticket.status == 2"></nz-divider>
+    <nz-descriptions nzLayout="horizontal" *ngIf="ticket.status == 2">
       <nz-descriptions-item [nzTitle]="'Relato Técnico'" [nzSpan]="3"
         ><strong>{{ ticket.technicalReport }}</strong></nz-descriptions-item
       >
