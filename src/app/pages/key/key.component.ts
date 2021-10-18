@@ -105,6 +105,7 @@ export class KeyComponent implements OnInit {
     this.isVisible = true;
     this.keyService.findKey(`${cnpj}`, `00/${this.singleKeyForm.get('month').value+'/'+this.singleKeyForm.get('year').value}`).subscribe((response)=>{
       this.key = response['key'];
+      console.log(this.key)
       this.onCreateForm();
     })
   }

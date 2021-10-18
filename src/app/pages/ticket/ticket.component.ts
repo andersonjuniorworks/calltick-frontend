@@ -1,3 +1,4 @@
+import { WebSocketService } from './../../services/websocket.service';
 import { Status } from './../../models/status.model';
 import { Sector } from './../../models/sector.model';
 import { Client } from './../../models/client.model';
@@ -45,10 +46,10 @@ export class TicketComponent implements OnInit {
   tickets: Ticket[];
 
   status: Status[] = [
-    {id: 1, description: 'Aberto'},
-    {id: 2, description: 'Finalizado'},
-    {id: 3, description: 'Cancelado'}
-  ]
+    { id: 1, description: 'Aberto' },
+    { id: 2, description: 'Finalizado' },
+    { id: 3, description: 'Cancelado' },
+  ];
 
   isVisible = false;
   isOkLoading = false;
@@ -83,6 +84,8 @@ export class TicketComponent implements OnInit {
 
   totalCount: string[];
 
+  public notifications = '';
+
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
@@ -94,7 +97,9 @@ export class TicketComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.onCreateFinishForm();
@@ -111,8 +116,8 @@ export class TicketComponent implements OnInit {
       statusFilter: [null, Validators.required],
       userFilter: null,
       clientFilter: null,
-      sectorFilter: null
-    })
+      sectorFilter: null,
+    });
   }
 
   onCreateFinishForm() {
@@ -136,7 +141,6 @@ export class TicketComponent implements OnInit {
   }
 
   onListByFilter() {
-
     let user = this.filterForm.get('userFilter').value;
     let client = this.filterForm.get('clientFilter').value;
     let sector = this.filterForm.get('sectorFilter').value;
@@ -147,18 +151,25 @@ export class TicketComponent implements OnInit {
     let startDate = null;
     let endDate = null;
 
-    if(date != null) {
+    if (date != null) {
       startDate = date[0];
       endDate = date[1];
       startDate = moment(startDate).format('yyyy-MM-DD');
       endDate = moment(endDate).format('yyyy-MM-DD');
     }
 
-    this.ticketService.findByFilter(`${status}`, `${client}`, `${user}`, `${sector}`, `${startDate}`, `${endDate}`)
-    .subscribe((response) => {
-      this.tickets = response.body
-    });
-
+    this.ticketService
+      .findByFilter(
+        `${status}`,
+        `${client}`,
+        `${user}`,
+        `${sector}`,
+        `${startDate}`,
+        `${endDate}`
+      )
+      .subscribe((response) => {
+        this.tickets = response.body;
+      });
   }
 
   onVerifyProfile() {
@@ -313,9 +324,8 @@ export class TicketComponent implements OnInit {
       statusFilter: null,
       userFilter: null,
       clientFilter: null,
-      sectorFilter: null
+      sectorFilter: null,
     });
     this.onList();
   }
-
 }

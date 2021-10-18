@@ -178,7 +178,7 @@ export class FormTicketComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '200px',
+    height: '300px',
     width: '935px',
     placeholder: 'Digite a descrição do chamado',
     translate: 'no',
@@ -186,7 +186,7 @@ export class FormTicketComponent implements OnInit {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['fontName'],
-      ['fontSize', 'insertVideo', 'insertImage', 'customClasses', 'backgroundColor']
+      ['fontSize', 'insertVideo', 'customClasses', 'backgroundColor']
       ],
     customClasses: [
       {
