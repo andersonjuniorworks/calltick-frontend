@@ -76,6 +76,16 @@ body {
     color: #fff;
 }
 
+.btn.btn-secondary:disabled {
+  cursor: not-allowed;
+  background: var(--terciary);
+}
+
+.btn.btn.btn-secondary:hover:disabled {
+  cursor: not-allowed;
+  background: var(--terciary);
+}
+
 .btn.btn-terciary {
     border-radius: 0px;
     background: var(--terciary);

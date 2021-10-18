@@ -4,7 +4,7 @@
     </div>
 
     <div class="table-header">
-        <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+        <button class="btn btn-secondary" routerLink="add" [disabled]="userProfile != 1">Adicionar</button>
         <button class="filter-button" (click)="open()">
       <i nz-icon nzType="filter" nzTheme="fill"></i>
     </button>
