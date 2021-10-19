@@ -196,8 +196,7 @@ export class FormClientComponent implements OnInit {
   }
 
   onRemoveEspecialCharacters() {
-    let value = this.formClient.get("stateRegistration").value;
-    value.replace(new RegExp("!@#$%^&*()-';,./?><+abdd", "g"), "");
+    let value = this.formClient.get("stateRegistration").value.replace(/[^\d]+/g,'');
     this.formClient.patchValue({
       stateRegistration: value,
     });

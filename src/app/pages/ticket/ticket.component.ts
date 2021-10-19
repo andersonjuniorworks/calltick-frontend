@@ -16,7 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
 import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { ClientService } from 'src/app/services/client.service';
@@ -84,7 +84,7 @@ export class TicketComponent implements OnInit {
 
   totalCount: string[];
 
-  public notifications = '';
+  public eventEmit = new EventEmitter<boolean>();
 
   constructor(
     private ticketService: TicketService,
@@ -131,6 +131,9 @@ export class TicketComponent implements OnInit {
       .findAll(`${this.page - 1}`, `${this.size}`)
       .subscribe((response) => {
         this.tickets = response.body;
+
+        this.eventEmit.emit(true);
+
         this.ticketService.findCount().subscribe((count) => {
           this.total = count;
           this.totalPages = this.total / this.size;

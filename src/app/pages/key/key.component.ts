@@ -29,7 +29,7 @@ export class KeyComponent implements OnInit {
 
   isVisible = false;
 
-  teste: string;
+  keyModal = false;
 
   months = [
     {text: 'JANEIRO', value: '01'},
@@ -105,7 +105,7 @@ export class KeyComponent implements OnInit {
     this.isVisible = true;
     this.keyService.findKey(`${cnpj}`, `00/${this.singleKeyForm.get('month').value+'/'+this.singleKeyForm.get('year').value}`).subscribe((response)=>{
       this.key = response['key'];
-      console.log(this.key)
+      this.keyModal = true;
       this.onCreateForm();
     })
   }
@@ -119,8 +119,11 @@ export class KeyComponent implements OnInit {
   }
 
   onSendToWhatsApp() {
+
+    let value = this.key.replace(/(\w{5})(\w{5})(\w{5})(\w{5})/, "$1-$2-$3-$4");
+
     window.open(
-      `https://api.whatsapp.com/send?phone=55${this.client.phoneNumberOne}&text=Caro cliente, sua chave de liberação é: *${this.key}*`,
+      `https://web.whatsapp.com/send?phone=55${this.client.phoneNumberOne}&text=Caro cliente, sua chave de liberação é: *${value}*`,
       "_blank"
     );
   }

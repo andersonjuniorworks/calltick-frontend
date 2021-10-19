@@ -4,7 +4,7 @@ import { environment } from './../../environments/environment.prod';
 import { Ticket } from './../models/ticket.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',

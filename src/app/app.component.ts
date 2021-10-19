@@ -1,3 +1,6 @@
+import { TicketService } from './services/ticket.service';
+import { ListenService } from './services/listen.service';
+import { TicketComponent } from './pages/ticket/ticket.component';
 import { Component } from '@angular/core';
 import { WebSocketService } from './services/websocket.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -8,23 +11,28 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   title = 'calltick-frontend';
 
-  public notifications = "";
+  public notifications = '';
 
   constructor(
     private webSocketService: WebSocketService,
     private notification: NzNotificationService,
   ) {
+
     let stompClient = this.webSocketService.connect();
     stompClient.connect({}, (frame) => {
       stompClient.subscribe('/topic/notification', (notifications) => {
         this.notifications = JSON.parse(notifications.body);
-        this.notification.create('success', 'SUCESSO!', `Um novo chamado foi aberto`);
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `Um novo chamado foi aberto`
+        );
         this.onPlaySound();
       });
     });
+
   }
 
   onPlaySound() {

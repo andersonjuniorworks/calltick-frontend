@@ -161,7 +161,7 @@
     <button nz-button nzType="default" (click)="onHandleCancel()">
       Fechar
     </button>
-    <button nz-button nzType="primary" (click)="onSendToWhatsApp()">
+    <button nz-button nzType="primary" (click)="onSendToWhatsApp()" [disabled]="keyModal">
       <i nz-icon nzType="whats-app" nzTheme="outline"></i>Enviar no Whatsapp
     </button>
   </ng-container>
