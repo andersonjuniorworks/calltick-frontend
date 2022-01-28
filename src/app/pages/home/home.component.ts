@@ -24,6 +24,7 @@ import {
 } from '@angular/core';
 
 import { Chart } from 'chart.js';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -31,10 +32,6 @@ import { Chart } from 'chart.js';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  /*  public type: any;
-  public data: any;
-  public options: any; */
-
   @ViewChild('chartTicketByUser', { static: true })
   chartTicketByUser: ElementRef;
 
@@ -52,15 +49,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ticketFinishCount: number = 0;
   ticketOpenedCount: number = 0;
 
-  initLoading = false; // bug
-  loadingMore = true;
-
   page: number = 1;
   size: number = 5;
   total: number;
   totalPages: number = 0;
-
-  paginationDisable = false;
 
   userProfile: number;
 
@@ -70,30 +62,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isVisible = false;
   isOkLoading = false;
 
-  isVisibleShowTicket = false;
-  isVisibleTransferModal = false;
-
-  docTitle: string;
-  fullnameTitle: string;
-  nicknameTitle: string;
-
-  responsible: string;
-  newResponsible = new FormControl();
-
   users: User[];
   sectors: Sector[];
 
-  technicalReporter = new FormControl();
-
   countTickets: number = 0;
-
-  finishForm: FormGroup;
 
   labels: any[] = [];
   dataByUser: any[] = [];
   dataBySector: any[] = [];
   dataByContract: any[] = [];
   dataByStatus: any[] = [];
+
+  periodControl: any[];
+  rangeProduct: any[];
+  rangeTicketSector: any[];
+  rangeTicketStatus: any[];
 
   constructor(
     private clientService: ClientService,
@@ -109,13 +92,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.onCreateFinishForm();
-    this.onVerifyUser();
     this.onTicketCount();
     this.onTicketOpenedCount();
     this.onTicketFinishCount();
     this.onClientCount();
     this.onTicketCountByUser();
+
+    this.chartTicketUser();
+    this.chartTicketSector();
+    this.chartClientContract();
+    this.chartTicketStatus();
+
   }
 
   ngAfterViewInit() {
@@ -126,66 +113,142 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   chartTicketUser() {
-    this.chartService.ticketByUser().subscribe((response) => {
-      this.dataByUser = response.body;
-      var billingChart = new Chart(this.chartTicketByUser.nativeElement, {
-        type: 'bar',
-        data: {
-          labels: Object.keys(this.dataByUser),
-          datasets: [
-            {
-              label: [],
-              data: Object.values(this.dataByUser),
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.8)',
-                'rgba(255, 159, 64, 0.8)',
-                'rgba(255, 205, 86, 0.8)',
-                'rgba(75, 192, 192, 0.8)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(153, 102, 255, 0.8)',
-                'rgba(201, 203, 207, 0.8)'
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)'
-              ],
-              borderWidth: 1
-            },
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [
+
+    let startDate = null;
+    let endDate = null;
+
+    if (this.rangeProduct != null) {
+      startDate = moment(this.rangeProduct[0]).format('yyyy-MM-DD');
+      endDate = moment(this.rangeProduct[1]).format('yyyy-MM-DD');
+    } else {
+      startDate = moment().startOf('month').format('YYYY-MM-DD');
+      endDate = moment().endOf('month').format('YYYY-MM-DD');
+    }
+
+    this.chartService
+      .ticketByUser(`${startDate}`, `${endDate}`)
+      .subscribe((response) => {
+        this.dataByUser = response.body;
+
+        var billingChart = new Chart(this.chartTicketByUser.nativeElement, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(this.dataByUser),
+            datasets: [
               {
-                ticks: {
-                  beginAtZero: true,
-                },
+                label: [],
+                data: Object.values(this.dataByUser),
+                backgroundColor: [
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                ],
+                borderColor: [
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1,
               },
             ],
           },
-          title: {
+          options: {
             display: true,
-            text: 'Chamados por usuário',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+            title: {
+              display: true,
+              text: 'Chamados por usuário',
+            },
+            legend: {
+              display: false,
+            },
+            subtitle: {
+              display: true,
+              text: 'Chamados referente ao mês de Outubro',
+            },
           },
-          legend: {
-            display: false
-          },
-          subtitle: {
-            display: true,
-            text: 'Chamados referente ao mês de Outubro'
-        }
-        },
+        });
       });
-    });
+
+    console.log('Data Inicial: ', startDate);
+    console.log('Data Final: ', endDate);
+    console.log('Dados: ', Object.values(this.dataByUser));
   }
 
   chartTicketSector() {
-    this.chartService.ticketBySector().subscribe((response) => {
+
+    let startDate = null;
+    let endDate = null;
+
+    if (this.rangeTicketSector != null) {
+      startDate = moment(this.rangeTicketSector[0]).format('yyyy-MM-DD');
+      endDate = moment(this.rangeTicketSector[1]).format('yyyy-MM-DD');
+    } else {
+      startDate = moment().startOf('month').format('YYYY-MM-DD');
+      endDate = moment().endOf('month').format('YYYY-MM-DD');
+    }
+
+    this.chartService.ticketBySector(`${startDate}`, `${endDate}`).subscribe((response) => {
       this.dataBySector = response.body;
       var chartTicketBySector = new Chart(
         this.chartTicketBySector.nativeElement,
@@ -212,14 +275,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
           options: {
             display: true,
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             title: {
               display: true,
               text: 'Chamados por setor',
             },
             legend: {
-              display: true
-            }
+              display: true,
+            },
           },
         }
       );
@@ -227,7 +290,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   chartTicketStatus() {
-    this.chartService.ticketByStatus().subscribe((response) => {
+
+    let startDate = null;
+    let endDate = null;
+
+    if (this.rangeTicketStatus != null) {
+      startDate = moment(this.rangeTicketStatus[0]).format('yyyy-MM-DD');
+      endDate = moment(this.rangeTicketStatus[1]).format('yyyy-MM-DD');
+    } else {
+      startDate = moment().startOf('month').format('YYYY-MM-DD');
+      endDate = moment().endOf('month').format('YYYY-MM-DD');
+    }
+
+    this.chartService.ticketByStatus(`${startDate}`, `${endDate}`).subscribe((response) => {
       this.dataByStatus = response.body;
       var chartTicketByStatus = new Chart(
         this.chartTicketByStatus.nativeElement,
@@ -239,25 +314,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
               {
                 data: Object.values(this.dataByStatus),
                 fill: false,
-                backgroundColor: [
-                  '#80CBC4',
-                  '#FFD54F',
-                  '#E53935',
-                ],
+                backgroundColor: ['#80CBC4', '#FFD54F', '#E53935'],
               },
             ],
           },
           options: {
             display: true,
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             title: {
               display: true,
               text: 'Chamados por Status',
             },
             legend: {
-              display: true
-            }
+              display: true,
+            },
           },
         }
       );
@@ -276,17 +347,66 @@ export class HomeComponent implements OnInit, AfterViewInit {
             datasets: [
               {
                 data: Object.values(this.dataByContract),
-                fill: false,
+                fill: true,
                 backgroundColor: [
-                  '#F06292',
-                  '#6A1B9A',
-                  '#2196F3',
-                  '#4527A0',
-                  '#E0F2F1',
-                  '#FFF59D',
-                  '#FF8A65',
-                  '#FFAB91',
-                  '#FF9800'
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                ],
+                borderColor: [
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(153, 102, 255, 1)',
                 ],
               },
             ],
@@ -294,23 +414,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
           options: {
             display: true,
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             title: {
               display: true,
               text: 'Clientes por Contrato',
             },
             legend: {
-              display: false
-            }
+              display: false,
+            },
           },
         }
       );
-    });
-  }
-
-  onCreateFinishForm() {
-    this.finishForm = this.formBuilder.group({
-      technicalReporter: [null, [Validators.required]],
     });
   }
 
@@ -346,127 +460,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onVerifyUser() {
-    this.userProfile = this.storage.getLocalUser().id;
-  }
-
-  paginate(event) {
-    this.page = event;
-    this.onTicketCountByUser();
-  }
-
-  onFinishTicket(ticket) {
-    this.ticket = ticket;
-    this.ticket.technicalReport =
-      this.finishForm.get('technicalReporter').value;
-    this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
-    this.ticketService.finish(this.ticket).subscribe(
-      (success) => {
-        this.notification.create(
-          'success',
-          'SUCESSO!',
-          `Chamado finalizado com sucesso!!!`
-        );
-        this.onTicketCountByUser();
-      },
-      (error) => {
-        let err = error;
-        this.notification.create(
-          'error',
-          `ERRO ${err.error.status}`,
-          `${err.error.message}`
-        );
-      }
-    );
-    this.handleCancel();
-  }
-
-  onEdit(id) {
-    this.router.navigate(['ticket/edit', id], { relativeTo: this.route });
-  }
-
-  showModal(ticket): void {
-    if (ticket.client.type == 1) {
-      this.docTitle = 'CPF';
-      this.fullnameTitle = 'Nome Completo';
-      this.nicknameTitle = 'Apelido';
-    } else {
-      this.docTitle = 'CNPJ';
-      this.fullnameTitle = 'Razão Social';
-      this.nicknameTitle = 'Nome Fantasia';
+  onChangeDateChartUser(result): void {
+    if (result) {
+      this.rangeProduct = result;
+      this.chartTicketUser();
     }
-    this.ticket = ticket;
-    this.isVisible = true;
   }
 
-  showModalViewTicket(ticket): void {
-    if (ticket.client.type == 1) {
-      this.docTitle = 'CPF';
-      this.fullnameTitle = 'Nome Completo';
-      this.nicknameTitle = 'Apelido';
-    } else {
-      this.docTitle = 'CNPJ';
-      this.fullnameTitle = 'Razão Social';
-      this.nicknameTitle = 'Nome Fantasia';
+  onChangeDateChartSector(result): void {
+    if (result) {
+      this.rangeTicketSector = result;
+      this.chartTicketSector();
     }
-    this.ticket = ticket;
-    this.isVisibleShowTicket = true;
   }
 
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-    }, 3000);
+  onChangeDateChartStatus(result): void {
+    if (result) {
+      this.rangeTicketStatus = result;
+      this.chartTicketStatus();
+    }
   }
 
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  handleCancelViewTicket() {
-    this.isVisibleShowTicket = false;
-  }
-
-  showModalTransfer(data) {
-    this.ticket = data;
-    this.responsible = data.user.fullname;
-    this.isVisibleTransferModal = true;
-  }
-
-  onListUser() {
-    this.userService.findCount().subscribe((count) => {
-      this.userService.findAll('0', `${count}`).subscribe((response) => {
-        this.users = response.body;
-      });
-    });
-  }
-
-  onConfirmTransfer() {
-    this.ticket.user = this.newResponsible.value;
-    this.ticketService.transfer(this.ticket).subscribe(
-      (success) => {
-        this.notification.create(
-          'success',
-          'SUCESSO!',
-          `Chamado transferido com sucesso!!!`
-        );
-        this.onTicketCountByUser();
-      },
-      (error) => {
-        let err = error;
-        this.notification.create(
-          'error',
-          `ERRO ${err.error.status}`,
-          `${err.error.message}`
-        );
-      }
-    );
-    this.isVisibleTransferModal = false;
-  }
-
-  onCloseTransferModal() {
-    this.isVisibleTransferModal = false;
-  }
 }

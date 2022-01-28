@@ -1,11 +1,11 @@
 .card {
-    width: 100%;
-    height: 150px;
+  width: 100%;
+    height: 180px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    border-radius: 5px;
+    border-radius: 10px;
     background: #fff;
     transition: .35s linear;
 }
@@ -46,10 +46,4 @@
   .card .card-body {
     width: calc(100% - 60px);
   }
-}
-
-@media (max-width: 1024px) {
-    .card {
-        width: 100%;
-    }
 }

@@ -1,9 +1,10 @@
+
 .cards {
-  width: calc(100% - 70px);
-  padding: 30px 0px;
+  width: calc(100% - 40px);
+  padding: 20px 0 5px 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+  gap: 10px;
 }
 
 .cards {
@@ -12,118 +13,54 @@
   margin: 0 auto;
 }
 
-.content {
-  width: 100%;
-  height: 100%;
-  padding: 0 40px;
-  margin: 0 0 30px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.content .row {
-  display: flex;
-  align-items: center;
-}
-
-nz-list {
-  width: 100%;
-  height: 450px;
-}
-
-nz-list-item {
-  padding: 20px;
-  background: #fff;
-}
-
-nz-tag {
-  min-width: 100px;
-  text-align: center;
-}
-
-#tag {
-  margin: 0 20px 0 0;
-}
-
-#tagSec {
-  min-width: 150px;
-}
-
-nz-range-picker {
-  margin: 0 8px 12px 0;
-}
-
-.registers {
-  height: 50px;
-  padding: 15px 0 0 0;
-  display: flex;
-  align-items: center;
-}
-
-.registers p {
-  line-height: 100%;
-}
-.block {
-  margin: 0 0 50px 0;
-}
-
-.ticket-finish {
-  width: 100%;
-  max-width: 1024px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background: #fff;
-}
-
-nz-form-item {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-nz-form-control {
-  width: 100%;
-}
-
-nz-empty {
-  width: 100%;
-}
-
-@media (max-width: 1080px) {
-  .cards {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
+.charts {
+  width: calc(100% - 40px);
+  padding: 5px 0 30px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .charts {
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.charts nz-card {
   width: 100%;
-  display: flex;
+  border-radius: 10px;
 }
 
-.chart-full {
+.charts nz-card p {
+  margin: 0;
+}
+
+#chartTicketByUser {
   width: 100%;
-  margin: 5px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  background: #fff;
+  min-height: 450px;
 }
 
-.chart-middle {
-  width: 50%;
-  margin: 5px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  background: #fff;
+#chartTicketBySector {
+  width: 100%;
+  min-height: 450px;
 }
 
-.chart-small {
-  width: 25%;
-  max-height: 450px;
-  margin: 5px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  background: #fff;
+#chartTicketByStatus {
+  width: 100%;
+  min-height: 450px;
 }
 
+#chartClientByContract {
+  width: 100%;
+  min-height: 450px;
+}
+
+@media (max-width: 1279px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+  .charts {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}

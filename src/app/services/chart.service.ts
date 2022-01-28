@@ -12,33 +12,26 @@ export class ChartService {
 
   constructor(private http: HttpClient) {}
 
-  ticketByUser(): Observable<HttpResponse<any[]>> {
+  ticketByUser(startDate, endDate): Observable<HttpResponse<any[]>> {
     return this.http
       .get<any[]>(`${this.API}/ticketByUser`, {
+        params: { startDate: startDate, endDate: endDate },
         observe: 'response',
       })
-      .pipe(
-        tap((response) =>
-          response.headers.get('x-total-count')
-        )
-      );
   }
 
-  ticketBySector(): Observable<HttpResponse<any[]>> {
+  ticketBySector(startDate, endDate): Observable<HttpResponse<any[]>> {
     return this.http
       .get<any[]>(`${this.API}/ticketBySector`, {
+        params: {startDate: startDate, endDate: endDate},
         observe: 'response',
       })
-      .pipe(
-        tap((response) =>
-          response.headers.get('x-total-count')
-        )
-      );
   }
 
-  ticketByStatus(): Observable<HttpResponse<any[]>> {
+  ticketByStatus(startDate, endDate): Observable<HttpResponse<any[]>> {
     return this.http
       .get<any[]>(`${this.API}/ticketByStatus`, {
+        params: {startDate: startDate, endDate: endDate},
         observe: 'response',
       })
       .pipe(

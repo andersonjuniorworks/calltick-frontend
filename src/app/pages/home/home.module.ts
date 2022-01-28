@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PipesModule } from './../../pipes/pipes.module';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -16,14 +16,19 @@ import { CardDashboardComponent } from './../../components/card-dashboard/card-d
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { HomeRoutingModule } from './home-routing.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HomeComponent } from './home.component';
 
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
+import localePt from '@angular/common/locales/pt';
+import { NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
+registerLocaleData(localePt);
 
 import {
   TeamOutline,
@@ -44,6 +49,7 @@ const icons: IconDefinition[] = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     HomeRoutingModule,
     NzStatisticModule,
@@ -61,8 +67,16 @@ const icons: IconDefinition[] = [
     NzFormModule,
     NzSelectModule,
     NzEmptyModule,
+    NzCardModule,
     PipesModule,
     NzIconModule.forChild(icons),
+  ],
+  providers: [
+    { provide: NZ_I18N, useValue: pt_BR },
+    {
+      provide: LOCALE_ID,
+      useValue: "pt-BR"
+    }
   ],
   declarations: [HomeComponent, CardDashboardComponent]
 })
