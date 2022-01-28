@@ -40,7 +40,7 @@ const routes: Routes = [
       },
       {
         path: 'ticket/add',
-        loadChildren: () => import('../ticket/form-ticket/form-ticket.module').then( m => m.FormTicketModule)
+        loadChildren: () => import('../ticket/form-ticket/form-ticket.module').then( m => m.FormTicketModule),
       },
       {
         path: 'ticket/edit/:id',

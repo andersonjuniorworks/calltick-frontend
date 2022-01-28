@@ -4,7 +4,7 @@
     </div>
 
     <div class="table-header">
-        <button class="btn btn-secondary" routerLink="add" [disabled]="userProfile != 1">Adicionar</button>
+        <button class="btn btn-secondary" (click)="onOpenAddTicket()" [disabled]="userProfile != 1">Adicionar</button>
         <button class="filter-button" (click)="open()">
       <i nz-icon nzType="filter" nzTheme="fill"></i>
     </button>
@@ -51,7 +51,7 @@
               nzType="default"
               nzShape="circle"
               [disabled]="
-                data.user.id != userId || data.status == 2 || data.status == 3
+                data.user.id != userId
               "
               nzTooltipTitle="Finalizar"
               nzTooltipPlacement="top"

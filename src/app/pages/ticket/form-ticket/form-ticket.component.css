@@ -47,3 +47,8 @@ nz-form-control {
 .valid-text {
   font-size: 12px;
 }
+
+#status {
+  display: flex;
+  justify-content: space-between;
+}

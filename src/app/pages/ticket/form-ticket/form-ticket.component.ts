@@ -2,7 +2,7 @@ import { StorageService } from './../../../services/storage.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { TicketService } from './../../../services/ticket.service';
 import { Ticket } from './../../../models/ticket.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../../../services/user.service';
 import { User } from './../../../models/user.model';
@@ -10,9 +10,11 @@ import { SectorService } from './../../../services/sector.service';
 import { Sector } from './../../../models/sector.model';
 import { Client } from './../../../models/client.model';
 import { ClientService } from './../../../services/client.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { WebSocketService } from 'src/app/services/websocket.service';
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-form-ticket',
@@ -27,7 +29,8 @@ export class FormTicketComponent implements OnInit {
 
   clients: Client[];
   sectors: Sector[];
-  users: User[];
+  users: any[];
+  usersOnline: any[];
 
   size: number;
 
@@ -42,8 +45,14 @@ export class FormTicketComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
-    private storageService: StorageService
-  ) {}
+    private storageService: StorageService,
+    private router: Router
+  ) {
+
+    const nav = this.router.getCurrentNavigation();
+    this.usersOnline = nav.extras.state.userOn;
+
+  }
 
   ngOnInit() {
     this.ticket = this.route.snapshot.data['ticket'];
@@ -66,7 +75,7 @@ export class FormTicketComponent implements OnInit {
         description: [this.ticket.description, [Validators.required]],
         openBy: [this.ticket.openBy],
         status: [this.ticket.status],
-        openingDate: [this.ticket.openingDate]
+        openingDate: [this.ticket.openingDate],
       });
     } else {
       this.pageTitle = 'Editar Chamado';
@@ -80,11 +89,9 @@ export class FormTicketComponent implements OnInit {
         description: [this.ticket.description, [Validators.required]],
         openBy: [this.ticket.openBy],
         status: [this.ticket.status],
-        openingDate: [this.ticket.openingDate]
+        openingDate: [this.ticket.openingDate],
       });
     }
-
-
   }
 
   onListClient() {
@@ -110,8 +117,13 @@ export class FormTicketComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onListUsersOnline() {
+    this.userService.usersConnected().subscribe((response) => {
+      this.users = Object.values(response)
+    });
+  }
 
+  onSubmit() {
     this.clientService
       .findById(this.ticketForm.get('client').value)
       .subscribe((clientRes) => {
@@ -125,44 +137,43 @@ export class FormTicketComponent implements OnInit {
               sector: sectorRes,
             });
             this.userService
-            .findById(this.ticketForm.get('user').value)
-            .subscribe((userRes) => {
-              this.ticketForm.patchValue({
-                user: userRes,
-              });
-              if (this.ticketForm.valid) {
+              .findById(this.ticketForm.get('user').value)
+              .subscribe((userRes) => {
                 this.ticketForm.patchValue({
-                  openBy: this.storageService.getLocalUser().fullname,
+                  user: userRes,
                 });
+                if (this.ticketForm.valid) {
+                  this.ticketForm.patchValue({
+                    openBy: this.storageService.getLocalUser().fullname,
+                  });
 
-                this.ticketService.save(this.ticketForm.value).subscribe(
-                  (success) => {
-                    if (this.ticket.id) {
-                      this.onBackToLocation();
+                  this.ticketService.save(this.ticketForm.value).subscribe(
+                    (success) => {
+                      if (this.ticket.id) {
+                        this.onBackToLocation();
+                        this.notification.create(
+                          'success',
+                          'SUCESSO!',
+                          `Chamado atualizado com sucesso!!!`
+                        );
+                      } else {
+                        this.onCreateForm();
+                        this.ticketService.notification().subscribe();
+                      }
+                    },
+                    (error) => {
+                      let err = error;
                       this.notification.create(
-                        'success',
-                        'SUCESSO!',
-                        `Chamado atualizado com sucesso!!!`
+                        'error',
+                        `ERRO ${err.error.status}`,
+                        `${err.error.message}`
                       );
-                    } else {
-                      this.onCreateForm();
-                      this.ticketService.notification().subscribe();
                     }
-                  },
-                  (error) => {
-                    let err = error;
-                    this.notification.create(
-                      'error',
-                      `ERRO ${err.error.status}`,
-                      `${err.error.message}`
-                    );
-                  }
-                );
-              }
-            });
+                  );
+                }
+              });
           });
       });
-
   }
 
   onBackToLocation() {
@@ -186,26 +197,24 @@ export class FormTicketComponent implements OnInit {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['fontName'],
-      ['fontSize', 'insertVideo', 'customClasses', 'backgroundColor']
-      ],
+      ['fontSize', 'insertVideo', 'customClasses', 'backgroundColor'],
+    ],
     customClasses: [
       {
-        name: "Citação",
-        class: "quote",
+        name: 'Citação',
+        class: 'quote',
       },
       {
         name: 'Destacado',
-        class: 'redText'
+        class: 'redText',
       },
       {
-        name: "Título",
-        class: "titleText",
-        tag: "h1",
+        name: 'Título',
+        class: 'titleText',
+        tag: 'h1',
       },
     ],
     sanitize: true,
     toolbarPosition: 'top',
   };
-
-
 }

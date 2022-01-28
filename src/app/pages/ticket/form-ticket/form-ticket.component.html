@@ -64,7 +64,7 @@
           <nz-form-label nzFor="subject">Assunto</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="'Campo obrigatório'">
             <input
-            type="text"
+              type="text"
               nz-input
               formControlName="subject"
               id="subject"
@@ -122,10 +122,15 @@
               required
             >
               <nz-option
-                [nzLabel]="user.fullname"
-                [nzValue]="user.id"
-                *ngFor="let user of users"
-              ></nz-option>
+                *ngFor="let item of usersOnline"
+                nzLabel="{{ item.fullname }}"
+                [nzValue]="item.id"
+                nzCustomContent
+              >
+              <span id="status">
+                {{ item.fullname }} <img src="./assets/icon/online.svg" alt="icone status online">
+              </span>
+            </nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -135,7 +140,10 @@
       <div class="col-12">
         <nz-form-item>
           <nz-form-label nzFor="description">Descrição</nz-form-label>
-            <angular-editor formControlName="description" [config]="config"></angular-editor>
+          <angular-editor
+            formControlName="description"
+            [config]="config"
+          ></angular-editor>
         </nz-form-item>
       </div>
     </div>

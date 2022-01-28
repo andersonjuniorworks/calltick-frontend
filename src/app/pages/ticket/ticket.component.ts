@@ -16,11 +16,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
 import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { ClientService } from 'src/app/services/client.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ticket',
@@ -86,6 +87,8 @@ export class TicketComponent implements OnInit {
 
   public eventEmit = new EventEmitter<boolean>();
 
+  usersOnline: any[];
+
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
@@ -97,9 +100,7 @@ export class TicketComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private formBuilder: FormBuilder
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.onCreateFinishForm();
@@ -109,6 +110,17 @@ export class TicketComponent implements OnInit {
     this.onListUser();
     this.onListClient();
     this.onListSector();
+    this.onListUsersOnline();
+  }
+
+  onOpenAddTicket() {
+    this.router.navigate(['add'],  { relativeTo: this.route, state: {userOn: this.usersOnline} });
+  }
+
+  onListUsersOnline() {
+    this.userService.usersConnected().subscribe((response) => {
+      this.usersOnline = Object.values(response)
+    });
   }
 
   onCreateFilterForm() {
@@ -207,7 +219,7 @@ export class TicketComponent implements OnInit {
   }
 
   onEdit(id) {
-    this.router.navigate(['edit', id], { relativeTo: this.route });
+    this.router.navigate(['edit', id], { relativeTo: this.route, state: {userOn: this.usersOnline} });
   }
 
   paginate(event) {

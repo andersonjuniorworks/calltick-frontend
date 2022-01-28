@@ -60,6 +60,22 @@ export class UserService {
     return this.http.get<User>(`${this.API}/login?email=${user.email}&password=${user.password}`).pipe(take(1));
   }
 
+  public connected(user: string) {
+    return this.http.get(`http://localhost:5050/connected`, {
+      params: {user: user}
+    }).pipe(take(1));
+  }
+
+  public disconnected(user: string) {
+    return this.http.get(`http://localhost:5050/disconnect`, {
+      params: {user: user}
+    }).pipe(take(1));
+  }
+
+  public usersConnected() {
+    return this.http.get(`http://localhost:5050/usersConnected`).pipe(take(1));
+  }
+
   private insert(user) {
     return this.http.post(this.API, user).pipe(take(1));
   }
