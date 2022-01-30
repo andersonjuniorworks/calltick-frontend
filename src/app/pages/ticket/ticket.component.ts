@@ -218,7 +218,7 @@ export class TicketComponent implements OnInit {
           'SUCESSO!',
           `Chamado finalizado com sucesso!!!`
         );
-        this.onList();
+        this.ticketService.getTickets().subscribe(() => {});
       },
       (error) => {
         let err = error;
