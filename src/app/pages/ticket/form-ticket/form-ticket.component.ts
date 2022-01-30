@@ -22,7 +22,6 @@ import { importExpr } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./form-ticket.component.css'],
 })
 export class FormTicketComponent implements OnInit {
-
   ticketForm: FormGroup;
 
   ticket: Ticket;
@@ -36,6 +35,8 @@ export class FormTicketComponent implements OnInit {
 
   pageTitle: string;
 
+  tickets: any
+
   constructor(
     private clientService: ClientService,
     private sectorService: SectorService,
@@ -46,12 +47,11 @@ export class FormTicketComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private storageService: StorageService,
-    private router: Router
-  ) {
+    private router: Router,
 
+  ) {
     const nav = this.router.getCurrentNavigation();
     this.usersOnline = nav.extras.state.userOn;
-
   }
 
   ngOnInit() {
@@ -119,7 +119,7 @@ export class FormTicketComponent implements OnInit {
 
   onListUsersOnline() {
     this.userService.usersConnected().subscribe((response) => {
-      this.users = Object.values(response)
+      this.users = Object.values(response);
     });
   }
 
@@ -158,7 +158,10 @@ export class FormTicketComponent implements OnInit {
                         );
                       } else {
                         this.onCreateForm();
-                        this.ticketService.notification().subscribe();
+                        this.ticketService
+                          .notification()
+                          .subscribe((response) => {});
+                        this.ticketService.getTickets().subscribe(() => {});
                       }
                     },
                     (error) => {

@@ -1,4 +1,4 @@
-<div class="content" style="background: './assets/img/background_login.jpg';">
+<!-- <div class="content" style="background: './assets/img/background_login.jpg';">
     <div class="form-login">
         <div class="form-header">
             <h2>Entrar</h2>
@@ -44,4 +44,57 @@
 
 <ng-template #hiddenPass>
     <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+</ng-template>
+ -->
+
+<section>
+  <div class="content-box">
+    <div class="form-box">
+      <div class="title">
+        <h2>Login</h2>
+      </div>
+      <div class="subtitle">
+        <p>Facilite o gerenciamento de seu negócio com uma ferramenta elegante e intuitiva</p>
+      </div>
+      <div class="content">
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <nz-form-item>
+              <nz-form-control nzErrorTip="Preencha o campo de email">
+                  <nz-input-group [nzPrefix]="prefixMail" nzSize="large">
+                      <input type="email" nz-input formControlName="email" placeholder="Digite o email" />
+                  </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-control nzErrorTip="Preencha o campo de senha">
+                  <nz-input-group [nzPrefix]="prefixPass" [nzSuffix]="hiddenPass" nzSize="large">
+                      <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password" placeholder="Digite a senha" />
+                  </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <button nz-button class="form-button" [nzSize]="'large'" [nzType]="'primary'">Entrar</button>
+          <div nz-col [nzSpan]="24" class="form-forgot">
+              <a>Esqueci minha senha</a>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  <div class="image-box">
+    <h2>Calltick</h2>
+    <p>Seu Help Desk simples e intuitivo</p>
+    <img src="./assets/img/background.png" alt="Imagem de login">
+  </div>
+</section>
+
+<ng-template #prefixMail>
+  <i nz-icon nzType="mail"></i>
+</ng-template>
+
+<ng-template #prefixPass>
+  <i nz-icon nzType="lock"></i>
+</ng-template>
+
+<ng-template #hiddenPass>
+  <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
 </ng-template>

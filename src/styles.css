@@ -38,6 +38,7 @@ body {
 .row {
     width: 100%;
     min-height: 75px;
+
     display: flex;
     flex-wrap: wrap;
 }

@@ -117,6 +117,10 @@ export class TicketService {
     return this.http.get(`http://localhost:5050/notify`).pipe(take(1));
   }
 
+  public getTickets() {
+    return this.http.get(`http://localhost:5050/getTickets`).pipe(take(1));
+  }
+
   public finish(ticket) {
     return this.http.put(`${this.API}/finish/${ticket.id}`, ticket).pipe(take(1));
   }

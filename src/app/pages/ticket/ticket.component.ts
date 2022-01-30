@@ -22,6 +22,7 @@ import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { ClientService } from 'src/app/services/client.service';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-ticket',
@@ -89,6 +90,8 @@ export class TicketComponent implements OnInit {
 
   usersOnline: any[];
 
+  stompClient = this.webSocketService.connect();
+
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
@@ -99,8 +102,19 @@ export class TicketComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private webSocketService: WebSocketService
+  ) {
+
+    this.stompClient.connect({}, (frame) => {
+      this.stompClient.disconnect;
+      this.stompClient.subscribe('/topic/tickets', (response) => {
+        //this.tickets = JSON.parse(response.body)
+        this.onList();
+      });
+    });
+
+  }
 
   ngOnInit() {
     this.onCreateFinishForm();

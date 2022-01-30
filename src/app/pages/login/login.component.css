@@ -1,4 +1,4 @@
-.content {
+/* .content {
     position: absolute;
     top: 0;
     left: 0;
@@ -81,4 +81,146 @@ input {
         width: 100%;
         padding: 0 20px;
     }
+} */
+
+section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+section .image-box {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: .25s;
+  background: linear-gradient(141.66deg, #6730ec 0%, #8d5fff 100%);
+}
+
+section .image-box h2 {
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 50px;
+  margin: 0;
+  color: #fff;
+}
+
+section .image-box p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0;
+  color: #fff;
+}
+
+section .image-box img {
+  margin: 30px 0 0 0;
+}
+
+section .content-box {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+
+section .content-box .form-box {
+  width: 50%;
+  height: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section .content-box .form-box .title {
+  width: 100%;
+}
+
+section .content-box .form-box .title h2 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 45px;
+  margin: 0;
+}
+
+section .content-box .form-box .subtitle {
+  width: 100%;
+}
+
+section .content-box .form-box .subtitle p {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0;
+  color: #7e7e7e;
+}
+
+section .content-box .form-box .content {
+  width: 100%;
+  margin: 30px 0 0 0;
+}
+
+section .content-box .form-box .content form nz-input-group, input {
+  padding: 10px 0px 10px 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  background: #f7f8ff;
+}
+
+.form-button {
+  width: 100%;
+  margin: 10px 0 20px 0;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  background: #6730EC;
+}
+
+.form-forgot {
+  width: 100%;
+  text-align: center;
+}
+
+
+.form-forgot a {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #6730ec;
+}
+
+i {
+  margin: 0 10px 0 0;
+  color: #6730ec;
+}
+
+@media (max-width: 1024px) {
+  section .content-box {
+    width: 100%;
+    background: linear-gradient(141.66deg, #6730ec 0%, #8d5fff 100%);
+  }
+  section .content-box .form-box {
+    width: 100%;
+    height: 535px;
+    padding: 30px;
+    border-radius: 15px;
+    background: #fff;
+  }
+  section .image-box {
+    display: none;
+  }
 }
