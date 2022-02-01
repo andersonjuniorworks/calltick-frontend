@@ -30,29 +30,25 @@ export class DashboardComponent implements OnInit {
     private notification: NzNotificationService,
     private userService: UserService
   ) {
-    this.stompClient.connect(
-      {},
-      (frame) => {
-        this.stompClient.disconnect;
-        this.stompClient.subscribe('/topic/notification', (notifications) => {
-          this.notifications = JSON.parse(notifications.body);
-          this.notification.create(
-            'success',
-            'SUCESSO!',
-            `${Object.values(this.notifications)}`
-          );
-          this.onPlaySound();
-        });
-        this.stompClient.subscribe('/topic/connected', (notifications) => {
-          this.notifications = JSON.parse(notifications.body);
-        });
-      }
-    );
 
-    if(this.stompClient.onWebSocketClose || this.stompClient.disconnect) {
-      this.userService.disconnected(`${this.user.id}`).subscribe((response) => {
-        console.log('Desconectado:', this.user);
+    this.stompClient.connect({}, (frame) => {
+      this.stompClient.disconnect;
+      this.stompClient.subscribe('/topic/notification', (notifications) => {
+        this.notifications = JSON.parse(notifications.body);
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `${Object.values(this.notifications)}`
+        );
+        this.onPlaySound();
       });
+      this.stompClient.subscribe('/topic/connected', (notifications) => {
+        this.notifications = JSON.parse(notifications.body);
+      });
+    });
+
+    if (this.stompClient.onWebSocketClose || this.stompClient.disconnect) {
+      this.userService.disconnected(`${this.user.id}`).subscribe(() => {});
     }
 
   }
@@ -68,6 +64,7 @@ export class DashboardComponent implements OnInit {
   onLogout() {
     sessionStorage.removeItem('user');
     this.router.navigateByUrl('/login');
+    this.userService.disconnected(`${this.user.id}`).subscribe();
     this.stompClient.disconnect();
   }
 
@@ -98,4 +95,5 @@ export class DashboardComponent implements OnInit {
     let audio = new Audio(src);
     audio.play();
   }
+
 }

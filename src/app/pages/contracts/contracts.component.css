@@ -48,4 +48,9 @@ nz-form-control {
   font-size: 12px;
 }
 
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+}
 

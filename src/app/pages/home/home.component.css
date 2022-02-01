@@ -56,11 +56,25 @@
   min-height: 450px;
 }
 
+nz-date-picker {
+  margin: 0 0 0 5px;
+}
+
 @media (max-width: 1279px) {
   .cards {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
   .charts {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .charts {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  ::ng-deep .ant-card-head {
+    display: flex;
+    flex-direction: column;
   }
 }

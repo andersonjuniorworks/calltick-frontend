@@ -15,5 +15,6 @@ export interface Ticket {
   openingDate: string;
   sector: Sector;
   status: number;
-  technicalReport: string;
+  technicalReport: string,
+  //comments: []
 }

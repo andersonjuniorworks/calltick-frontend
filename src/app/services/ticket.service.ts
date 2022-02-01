@@ -59,8 +59,6 @@ export class TicketService {
       params.endDate = endDate;
     }
 
-    console.log(params)
-
     return this.http.get<Ticket[]>(`${this.API}/filter?`, {
         params,
         observe: 'response',
@@ -76,9 +74,9 @@ export class TicketService {
     return this.http.get<number>(`${this.API}/count`).pipe(take(1));
   }
 
-  countByUser(user: string) {
-    return this.http.get<number>(`${this.API}/countByFilter?`, {
-      params: { user: user },
+  countByUser(startDate: string, endDate: string) {
+    return this.http.get<number>(`${this.API}/countByUser?`, {
+      params: { startDate: startDate, endDate: endDate },
       observe: 'response',
     })
   }
@@ -98,7 +96,7 @@ export class TicketService {
   }
 
   countByStatus(status: string) {
-    return this.http.get<number>(`${this.API}/countByFilter?`, {
+    return this.http.get<number>(`${this.API}/countByStatus?`, {
       params: { status: status },
       observe: 'response',
     })

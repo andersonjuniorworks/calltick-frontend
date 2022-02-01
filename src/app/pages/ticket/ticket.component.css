@@ -134,3 +134,47 @@ nz-select {
   padding: 10px;
   border: 1px solid #f3f3f3;
 }
+
+#comments {
+  max-height: 200px;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+  nz-list-item {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  nz-list-item-meta {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  ::ng-deep .ant-list-item-meta-content {
+    width: 100%;
+  }
+  nz-tag {
+    width: 100%;
+    margin: 5px 0;
+  }
+  nz-list-item {
+    margin: 0 0 10px 0;
+  }
+  #listItem {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 515px) {
+  .pagination {
+    padding: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+}

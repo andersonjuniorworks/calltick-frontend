@@ -1,5 +1,5 @@
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -25,6 +25,9 @@ import { FilterFill, FilterOutline, SyncOutline } from '@ant-design/icons-angula
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 const icons: IconDefinition[] = [
   SyncOutline,
@@ -36,6 +39,7 @@ const icons: IconDefinition[] = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     TicketRoutingModule,
     NzListModule,
     NzTagModule,
@@ -51,6 +55,9 @@ const icons: IconDefinition[] = [
     NzSelectModule,
     NzPopoverModule,
     NzDrawerModule,
+    NzCommentModule,
+    NzCollapseModule,
+    NzAvatarModule,
     PipesModule,
     NzIconModule.forChild(icons),
   ],

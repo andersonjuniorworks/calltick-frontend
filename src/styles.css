@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 * {
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    background: #f2f3ff;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #f2f3ff;
 }
 
 .uppercase {
@@ -16,65 +16,65 @@ body {
 }
 
 :root {
-    --primary: #6730EC;
-    --secondary: #7984EE;
-    --terciary: #AAB2FF;
-    --warning: #FFCA28;
-    --danger: #DD2C00;
-    --gradient-violet: linear-gradient(-45deg, #7984EE 0%, #6730EC 100%);
+  --primary: #6730ec;
+  --secondary: #7984ee;
+  --terciary: #aab2ff;
+  --warning: #ffca28;
+  --danger: #dd2c00;
+  --gradient-violet: linear-gradient(-45deg, #7984ee 0%, #6730ec 100%);
 }
 
 .container {
-    position: absolute;
-    top: 0;
-    left: 100px;
-    width: calc(100% - 100px);
-    height: 100vh;
-    padding: 85px 0 0 0;
-    transition: .35s linear;
-    overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  left: 100px;
+  width: calc(100% - 100px);
+  height: 100vh;
+  padding: 85px 0 0 0;
+  transition: 0.35s linear;
+  overflow-y: scroll;
 }
 
 .row {
-    width: 100%;
-    min-height: 75px;
+  width: 100%;
+  min-height: 75px;
 
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .btn {
-    width: 100%;
-    max-width: 150px;
-    min-width: 100px;
-    height: 45px;
-    border: none;
-    background: #f3f3f3;
-    transition: .25s ease-in;
+  width: 100%;
+  max-width: 150px;
+  min-width: 100px;
+  height: 45px;
+  border: none;
+  background: #f3f3f3;
+  transition: 0.25s ease-in;
 }
 
 .btn.btn-primary {
-    border-radius: 5px;
-    background: var(--primary);
-    color: #fff;
+  border-radius: 5px;
+  background: var(--primary);
+  color: #fff;
 }
 
 .btn.btn-primary:hover {
-    cursor: pointer;
-    background: var(--secondary);
-    color: #fff;
+  cursor: pointer;
+  background: var(--secondary);
+  color: #fff;
 }
 
 .btn.btn-secondary {
-    border-radius: 5px;
-    background: var(--secondary);
-    color: #fff;
+  border-radius: 5px;
+  background: var(--secondary);
+  color: #fff;
 }
 
 .btn.btn-secondary:hover {
-    cursor: pointer;
-    background: var(--terciary);
-    color: #fff;
+  cursor: pointer;
+  background: var(--terciary);
+  color: #fff;
 }
 
 .btn.btn-secondary:disabled {
@@ -88,173 +88,212 @@ body {
 }
 
 .btn.btn-terciary {
-    border-radius: 0px;
-    background: var(--terciary);
-    color: #fff;
+  border-radius: 0px;
+  background: var(--terciary);
+  color: #fff;
 }
 
 .btn.btn-terciary:hover {
-    cursor: pointer;
-    background: var(--quaternary);
-    color: #fff;
+  cursor: pointer;
+  background: var(--quaternary);
+  color: #fff;
 }
 
 .btn-action {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    border-radius: 50%;
-    border: none;
-    transition: .2s ease-in-out;
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
 }
 
 .btn-action img {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .btn-action:hover {
-    transform: scale(1.1);
-    cursor: pointer;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .btn-action:disabled {
-    transform: scale(1);
-    cursor: pointer;
+  transform: scale(1);
+  cursor: pointer;
 }
 
 .btn-action.primary {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 .btn-action.primary:disabled {
-    background: #e6e6e6;
+  background: #e6e6e6;
 }
 
 .btn-action.warning {
-    background: var(--warning);
+  background: var(--warning);
 }
 
 .btn-action.warning:disabled {
-    background: #e6e6e6;
+  background: #e6e6e6;
 }
 
 .btn-action.danger {
-    background: var(--danger);
+  background: var(--danger);
 }
 
 .btn-action.danger:disabled {
-    background: #e6e6e6;
+  background: #e6e6e6;
 }
 
 .table-header {
-    width: 100%;
-    margin: 0 0 20px 0;
-    padding: 15px;
-    border-radius: 5px;
-    background: var(--primary);
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 15px;
+  border-radius: 5px;
+  background: var(--primary);
 }
 
 .pagination {
-    width: 100%;
-    min-height: 70px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background: #fff;
+  width: 100%;
+  min-height: 70px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #fff;
 }
 
 .pagination button {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .col-1 {
-    width: calc(8.333333333333333% - 10px);
-    margin: 0px 10px 0px 0px;
+  width: calc(8.333333333333333% - 10px);
+  margin: 0px 10px 0px 0px;
 }
 
 .col-2 {
-    width: calc(16.66666666666667% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(16.66666666666667% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-3 {
-    width: calc(25% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(25% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-4 {
-    width: calc(33.33333333333333% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(33.33333333333333% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-5 {
-    width: calc(41.66666666666667% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(41.66666666666667% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-6 {
-    width: calc(50% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(50% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-8 {
-    width: calc(66.66666666666667% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(66.66666666666667% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-9 {
-    width: calc(75.00000000000002% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(75.00000000000002% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 .col-12 {
-    width: calc(100% - 10px);
-    margin: 0px 5px 0px 5px;
+  width: calc(100% - 10px);
+  margin: 0px 5px 0px 5px;
 }
 
 @media (max-width: 1024px) {
-    .container {
-        width: calc(100% - 100px);
-        left: 100px;
-    }
+  .container {
+    width: calc(100% - 100px);
+    left: 100px;
+  }
 }
 
 @media only screen and (max-width: 720px) {
-    .col-1 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-2 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-3 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-4 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-5 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-6 {
-        width: 100%;
-        margin: 0;
-    }
-    .col-12 {
-        width: 100%;
-        margin: 0;
-    }
+  .col-1 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-2 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-3 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-4 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-5 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-6 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-9 {
+    width: 100%;
+    margin: 0;
+  }
+  .col-12 {
+    width: 100%;
+    margin: 0;
+  }
 }
 
 @media (max-width: 450px) {
-    .container {
-        width: 100%;
-        left: 0;
-    }
+  .container {
+    width: 100%;
+    left: 0;
+  }
 }
+
+@media (max-width: 515px) {
+  .pagination {
+    padding: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
+  .container {
+    background: #000;
+    color: white;
+  }
+  .card {
+    background: #333 !important;
+    color: #fff;
+  }
+  .card .card-body h1 {
+    color: #fff;
+  }
+  nz-card {
+    background: #333 !important;
+    border: #000 !important;
+  }
+  .sidebar {
+    background: #333 !important;
+  }
+} */

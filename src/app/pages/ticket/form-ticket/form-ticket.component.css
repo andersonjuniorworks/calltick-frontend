@@ -36,8 +36,12 @@ nz-select {
 }
 
 nz-form-item {
+display: flex;
   flex-direction: column;
-  align-items: flex-start;
+}
+
+nz-form-label {
+  text-align: left;
 }
 
 nz-form-control {
@@ -51,4 +55,16 @@ nz-form-control {
 #status {
   display: flex;
   justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+  .client-form {
+    padding: 20px;
+  }
+  angular-editor {
+    width: 300px;
+  }
 }

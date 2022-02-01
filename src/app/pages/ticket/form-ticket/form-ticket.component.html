@@ -106,7 +106,7 @@
       </div>
       <div class="col-3">
         <nz-form-item>
-          <nz-form-label nzFor="user">Reponsável</nz-form-label>
+          <nz-form-label nzFor="user">Responsável</nz-form-label>
           <nz-form-control
             nzCompact
             nzHasFeedback
@@ -122,13 +122,16 @@
               required
             >
               <nz-option
-                *ngFor="let item of usersOnline"
+                *ngFor="let item of users"
                 nzLabel="{{ item.fullname }}"
                 [nzValue]="item.id"
                 nzCustomContent
               >
-              <span id="status">
+              <span id="status" *ngIf="item.status == 1">
                 {{ item.fullname }} <img src="./assets/icon/online.svg" alt="icone status online">
+              </span>
+              <span id="status" *ngIf="item.status == null">
+                {{ item.fullname }} <img src="./assets/icon/offline.svg" alt="icone status online">
               </span>
             </nz-option>
             </nz-select>

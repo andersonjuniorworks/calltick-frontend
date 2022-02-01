@@ -14,7 +14,6 @@ import {
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
-import { Ticket } from './../../models/ticket.model';
 import { TicketService } from './../../services/ticket.service';
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -23,6 +22,9 @@ import { ClientService } from 'src/app/services/client.service';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { CommentService } from '../../services/comment.service';
+import { NzSafeNullPipe } from 'ng-zorro-antd/pipes';
+import { Ticket } from '../../models/ticket.model';
 
 @Component({
   selector: 'app-ticket',
@@ -66,8 +68,6 @@ export class TicketComponent implements OnInit {
   responsible: string;
   newResponsible = new FormControl();
 
-  finishForm: FormGroup;
-
   users: User[];
   userId: number;
 
@@ -92,6 +92,11 @@ export class TicketComponent implements OnInit {
 
   stompClient = this.webSocketService.connect();
 
+  comments: any[];
+
+  commentForm: FormGroup;
+  finishForm: FormGroup;
+
   constructor(
     private ticketService: TicketService,
     private msg: NzMessageService,
@@ -103,20 +108,19 @@ export class TicketComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private formBuilder: FormBuilder,
-    private webSocketService: WebSocketService
+    private webSocketService: WebSocketService,
+    private commentService: CommentService
   ) {
-
     this.stompClient.connect({}, (frame) => {
       this.stompClient.disconnect;
       this.stompClient.subscribe('/topic/tickets', (response) => {
-        //this.tickets = JSON.parse(response.body)
         this.onList();
       });
     });
-
   }
 
   ngOnInit() {
+    this.onCreateCommentForm();
     this.onCreateFinishForm();
     this.onCreateFilterForm();
     this.onVerifyProfile();
@@ -128,12 +132,21 @@ export class TicketComponent implements OnInit {
   }
 
   onOpenAddTicket() {
-    this.router.navigate(['add'],  { relativeTo: this.route, state: {userOn: this.usersOnline} });
+    this.router.navigate(['add'], {
+      relativeTo: this.route,
+      state: { userOn: this.usersOnline },
+    });
   }
 
   onListUsersOnline() {
     this.userService.usersConnected().subscribe((response) => {
-      this.usersOnline = Object.values(response)
+      this.usersOnline = Object.values(response);
+    });
+  }
+
+  onCreateFinishForm() {
+    this.finishForm = this.formBuilder.group({
+      technicalReporter: [''],
     });
   }
 
@@ -146,9 +159,13 @@ export class TicketComponent implements OnInit {
     });
   }
 
-  onCreateFinishForm() {
-    this.finishForm = this.formBuilder.group({
-      technicalReporter: [null, [Validators.required]],
+  onCreateCommentForm() {
+    this.commentForm = this.formBuilder.group({
+      id: null,
+      content: [null, Validators.required],
+      called: null,
+      user: null,
+      createdAt: new Date(),
     });
   }
 
@@ -207,10 +224,14 @@ export class TicketComponent implements OnInit {
   }
 
   onFinishTicket(ticket) {
+
     this.ticket = ticket;
     this.ticket.technicalReport =
-      this.finishForm.get('technicalReporter').value;
+    this.finishForm.get('technicalReporter').value;
     this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
+
+    this.ticketService.getTickets().subscribe(() => {});
+
     this.ticketService.finish(this.ticket).subscribe(
       (success) => {
         this.notification.create(
@@ -233,7 +254,10 @@ export class TicketComponent implements OnInit {
   }
 
   onEdit(id) {
-    this.router.navigate(['edit', id], { relativeTo: this.route, state: {userOn: this.usersOnline} });
+    this.router.navigate(['edit', id], {
+      relativeTo: this.route,
+      state: { userOn: this.usersOnline },
+    });
   }
 
   paginate(event) {
@@ -256,6 +280,8 @@ export class TicketComponent implements OnInit {
   }
 
   showModalViewTicket(ticket): void {
+    this.onListCommentsByTicket(ticket.id);
+
     if (ticket.client.type == 1) {
       this.docTitle = 'CPF';
       this.fullnameTitle = 'Nome Completo';
@@ -357,4 +383,38 @@ export class TicketComponent implements OnInit {
     });
     this.onList();
   }
+
+  addComment() {
+    this.commentForm.patchValue({
+      id: null,
+      called: this.ticket,
+      user: this.storage.getLocalUser(),
+      createdAt: new Date(),
+    });
+    this.commentService.insert(this.commentForm.value).subscribe(
+      (success) => {
+        this.notification.create(
+          'success',
+          'SUCESSO!',
+          `Comentário adicionado com sucesso!`
+        );
+        this.onListCommentsByTicket(this.ticket.id);
+        this.onCreateCommentForm();
+      },
+      (err) => {
+        this.notification.create(
+          'error',
+          'ERRO!',
+          `Erro ao adicionar comentário!`
+        );
+      }
+    );
+  }
+
+  onListCommentsByTicket(ticket) {
+    this.commentService.findByTicket(ticket).subscribe((response) => {
+      this.comments = response;
+    });
+  }
+
 }

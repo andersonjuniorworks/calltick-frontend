@@ -76,6 +76,10 @@ export class UserService {
     return this.http.get(`http://localhost:5050/usersConnected`).pipe(take(1));
   }
 
+  public getUsersConnected() {
+    return this.http.get(`http://localhost:5050/getUsers`).pipe(take(1));
+  }
+
   private insert(user) {
     return this.http.post(this.API, user).pipe(take(1));
   }

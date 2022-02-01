@@ -96,12 +96,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.onTicketOpenedCount();
     this.onTicketFinishCount();
     this.onClientCount();
-    this.onTicketCountByUser();
-
-    this.chartTicketUser();
-    this.chartTicketSector();
-    this.chartClientContract();
-    this.chartTicketStatus();
+    //this.onTicketCountByUser();
 
   }
 
@@ -452,14 +447,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onTicketCountByUser() {
+/*   onTicketCountByUser() {
     this.ticketService
-      .countByUser(`${this.userProfile}`)
+      .countByUser(`2022-01-01`, `2022-01-31`)
       .subscribe((response) => {
         this.total = response.body;
       });
   }
-
+ */
   onChangeDateChartUser(result): void {
     if (result) {
       this.rangeProduct = result;

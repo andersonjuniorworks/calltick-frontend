@@ -35,3 +35,9 @@
 .block {
   margin: 0 0 50px 0;
 }
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+}

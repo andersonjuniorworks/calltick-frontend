@@ -50,8 +50,7 @@ export class FormTicketComponent implements OnInit {
     private router: Router,
 
   ) {
-    const nav = this.router.getCurrentNavigation();
-    this.usersOnline = nav.extras.state.userOn;
+
   }
 
   ngOnInit() {
@@ -59,8 +58,10 @@ export class FormTicketComponent implements OnInit {
     this.onCreateForm();
     this.onListClient();
     this.onListSector();
+    this.onListUsersOnline();
     this.onListUser();
   }
+
 
   onCreateForm() {
     if (!this.ticket.id) {
@@ -113,13 +114,21 @@ export class FormTicketComponent implements OnInit {
     this.userService.findCount().subscribe((count) => {
       this.userService.findAll('0', `${count}`).subscribe((response) => {
         this.users = response.body;
+
+        for(let object of this.usersOnline) {
+          this.users.find(item => {
+            if(item.id === object.id) {
+              item.status = 1;
+            }
+          })
+        }
       });
     });
   }
 
   onListUsersOnline() {
-    this.userService.usersConnected().subscribe((response) => {
-      this.users = Object.values(response);
+    this.userService.getUsersConnected().subscribe((response) => {
+      this.usersOnline = Object.values(response);
     });
   }
 
@@ -192,8 +201,11 @@ export class FormTicketComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '300px',
-    width: '935px',
+    height: 'auto',
+    minHeight: '300px',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
     placeholder: 'Digite a descrição do chamado',
     translate: 'no',
     defaultParagraphSeparator: 'p',
