@@ -84,14 +84,17 @@ input {
 } */
 
 section {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 section .image-box {
   position: relative;
+  top: 0;
+  right: 0;
   width: 50%;
   height: 100%;
   display: flex;
@@ -123,7 +126,24 @@ section .image-box img {
   margin: 30px 0 0 0;
 }
 
+section .image-box .overlay-top {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  z-index: 100;
+}
+
+section .image-box .overlay-bottom {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  z-index: 100;
+}
+
 section .content-box {
+  position: relative;
+  top: 0;
+  left: 0;
   width: 50%;
   height: 100%;
   display: flex;
@@ -136,7 +156,7 @@ section .content-box {
 section .content-box .form-box {
   width: 50%;
   height: 100%;
-  max-width: 320px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -222,5 +242,17 @@ i {
   }
   section .image-box {
     display: none;
+  }
+  section .content-box .overlay-top {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    z-index: 100;
+  }
+  section .content-box .overlay-bottom {
+    position: absolute;
+    bottom: 0px;
+    right: -25px;
+    z-index: 100;
   }
 }

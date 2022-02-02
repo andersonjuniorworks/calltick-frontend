@@ -61,23 +61,23 @@ export class UserService {
   }
 
   public connected(user: string) {
-    return this.http.get(`http://localhost:5050/connected`, {
+    return this.http.get(`http://187.19.165.178:5050/connected`, {
       params: {user: user}
     }).pipe(take(1));
   }
 
   public disconnected(user: string) {
-    return this.http.get(`http://localhost:5050/disconnect`, {
+    return this.http.get(`http://187.19.165.178:5050/disconnect`, {
       params: {user: user}
     }).pipe(take(1));
   }
 
   public usersConnected() {
-    return this.http.get(`http://localhost:5050/usersConnected`).pipe(take(1));
+    return this.http.get(`http://187.19.165.178:5050/usersConnected`).pipe(take(1));
   }
 
   public getUsersConnected() {
-    return this.http.get(`http://localhost:5050/getUsers`).pipe(take(1));
+    return this.http.get(`http://187.19.165.178:5050/getUsers`).pipe(take(1));
   }
 
   private insert(user) {
