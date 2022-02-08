@@ -62,6 +62,22 @@ const routes: Routes = [
         path: 'reports',
         loadChildren: () => import('../reports/reports.module').then( m => m.ReportsModule)
       },
+      {
+        path: 'knowledge',
+        loadChildren: () => import('../knowledge/knowledge.module').then( m => m.KnowledgeModule)
+      },
+      {
+        path: 'knowledge/add',
+        loadChildren: () => import('../knowledge/knowledge-form/knowledge-form.module').then( m => m.KnowledgeFormModule)
+      },
+      {
+        path: 'knowledge/view/:id',
+        loadChildren: () => import('../knowledge/knowledge-view/knowledge-view.module').then( m => m.KnowledgeViewModule)
+      },
+      {
+        path: 'category',
+        loadChildren: () => import('../category/category.module').then( m => m.CategoryModule)
+      }
     ]
   },
 

@@ -28,6 +28,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 
 import localePt from '@angular/common/locales/pt';
 import { NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
+import { KnowledgeRoutingModule } from '../knowledge/knowledge-routing.module';
 registerLocaleData(localePt);
 
 import {

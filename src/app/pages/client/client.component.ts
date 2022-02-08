@@ -11,6 +11,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
+
   client: Client;
   clients: Client[];
 

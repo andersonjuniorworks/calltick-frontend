@@ -1,10 +1,7 @@
 import { TicketService } from './../services/ticket.service';
 import { Ticket } from './../models/ticket.model';
-import { Client } from '../models/client.model';
-import { ClientService } from '../services/client.service';
 import { Injectable } from "@angular/core";
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,

@@ -1,63 +1,116 @@
 <div class="sidebar" id="menu">
-    <div class="logo" routerLink="home">
-        <img src="./assets/img/logo.svg" alt="">
-    </div>
-    <ul>
-        <li routerLink="home" routerLinkActive="active-route" (click)="onHidden()">
-            <img src="./assets/icon/home.svg" alt="icone home" />
-            <span class="active">Home</span>
-        </li>
-        <li routerLink="client" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3" (click)="onHidden()">
-            <img src="./assets/icon/users.svg" alt="icone de clientes" />
-            <span> Clientes </span>
-        </li>
-        <li routerLink="contract" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3" (click)="onHidden()">
-          <img src="./assets/icon/file_text.svg" alt="icone de setores" />
-          <span>Contratos</span>
-      </li>
-        <li routerLink="sector" routerLinkActive="active-route" *ngIf="user.profile == 1 || user.profile == 3" (click)="onHidden()">
-            <img src="./assets/icon/apps.svg" alt="icone de setores" />
-            <span>Setores</span>
-        </li>
-        <li routerLink="ticket" routerLinkActive="active-route" (click)="onHidden()">
-            <img src="./assets/icon/file_report.svg" alt="icone de chamados" />
-            <span>Chamados</span>
-        </li>
-        <li *ngIf="false" (click)="onHidden()">
-            <img src="./assets/icon/receipt_2.svg" alt="icone de pagamentos" />
-            <span>Pagamentos</span>
-        </li>
-        <li *ngIf="user.profile == 1 || user.profile == 3" routerLink="key" routerLinkActive="active-route" (click)="onHidden()">
-            <img src="./assets/icon/lock_open.svg" alt="icone de liberação" />
-            <span>Liberação</span>
-        </li>
-        <li routerLink="user" routerLinkActive="active-route" *ngIf="user.profile == 1" (click)="onHidden()">
-            <img src="./assets/icon/user.svg" alt="icone de usuários" />
-            <span>Usuários</span>
-        </li>
-        <li routerLink="reports" routerLinkActive="active-route" *ngIf="user.id == 1" (click)="onHidden()">
-          <img src="./assets/icon/reports.svg" alt="icone de usuários" />
-          <span>Relatórios</span>
-      </li>
-        <li (click)="showLogoutConfirm()" (click)="onHidden()">
-            <img src="./assets/icon/exit.svg" alt="icone de sair" />
-            <span>Sair</span>
-        </li>
-    </ul>
+  <div class="logo" routerLink="home">
+    <img src="./assets/img/logo.svg" alt="" />
+  </div>
+  <ul>
+    <li routerLink="home" routerLinkActive="active-route" (click)="onHidden()">
+      <img src="./assets/icon/home.svg" alt="icone home" />
+      <span class="active">Home</span>
+    </li>
+    <li
+      routerLink="client"
+      routerLinkActive="active-route"
+      *ngIf="user.profile == 1 || user.profile == 3"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/users.svg" alt="icone de clientes" />
+      <span> Clientes </span>
+    </li>
+    <li
+      routerLink="contract"
+      routerLinkActive="active-route"
+      *ngIf="user.profile == 1 || user.profile == 3"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/file_text.svg" alt="icone de setores" />
+      <span>Contratos</span>
+    </li>
+    <li
+      routerLink="sector"
+      routerLinkActive="active-route"
+      *ngIf="user.profile == 1 || user.profile == 3"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/apps.svg" alt="icone de setores" />
+      <span>Setores</span>
+    </li>
+    <li
+      routerLink="ticket"
+      routerLinkActive="active-route"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/file_report.svg" alt="icone de chamados" />
+      <span>Chamados</span>
+    </li>
+    <li *ngIf="false" (click)="onHidden()">
+      <img src="./assets/icon/receipt_2.svg" alt="icone de pagamentos" />
+      <span>Pagamentos</span>
+    </li>
+    <li
+      *ngIf="user.profile == 1 || user.profile == 3"
+      routerLink="key"
+      routerLinkActive="active-route"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/lock_open.svg" alt="icone de liberação" />
+      <span>Liberação</span>
+    </li>
+    <li
+      routerLink="category"
+      routerLinkActive="active-route"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/category.svg" alt="icone de tag" />
+      <span>Categorias</span>
+    </li>
+    <li
+      routerLink="knowledge"
+      routerLinkActive="active-route"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/knowledge.svg" alt="icone de livro" />
+      <span>Base Con.</span>
+    </li>
+
+    <li
+      routerLink="user"
+      routerLinkActive="active-route"
+      *ngIf="user.profile == 1"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/user.svg" alt="icone de usuários" />
+      <span>Usuários</span>
+    </li>
+    <li
+      routerLink="reports"
+      routerLinkActive="active-route"
+      *ngIf="user.id == 1"
+      (click)="onHidden()"
+    >
+      <img src="./assets/icon/reports.svg" alt="icone de relatórios" />
+      <span>Relatórios</span>
+    </li>
+    <li (click)="showLogoutConfirm()" (click)="onHidden()">
+      <img src="./assets/icon/exit.svg" alt="icone de sair" />
+      <span>Sair</span>
+    </li>
+  </ul>
 </div>
 
 <div class="container">
-    <div class="navbar">
-        <button class="toggle" id="buttonToggle" (click)="onToogleMenu()">
-          <img src="./assets/icon/menu.svg" alt="">
-        </button>
-        <ul>
-            <li id="userProfile">
-                <span>Bem vindo <strong>{{user.fullname}}</strong></span>
-            </li>
-        </ul>
-    </div>
-    <div class="main">
-        <router-outlet></router-outlet>
-    </div>
+  <div class="navbar">
+    <button class="toggle" id="buttonToggle" (click)="onToogleMenu()">
+      <img src="./assets/icon/menu.svg" alt="" />
+    </button>
+    <ul>
+      <li id="userProfile">
+        <span
+          >Bem vindo <strong>{{ user.fullname }}</strong></span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
 </div>

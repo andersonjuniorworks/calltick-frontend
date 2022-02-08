@@ -1,0 +1,19 @@
+nz-card {
+  margin: 40px;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
+.card-info {
+  display: flex;
+  column-gap: 20px;
+}

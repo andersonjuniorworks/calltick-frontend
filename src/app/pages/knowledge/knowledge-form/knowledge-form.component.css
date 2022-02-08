@@ -1,0 +1,77 @@
+.action-form {
+  width: 100%;
+  min-height: 50px;
+  margin: 15px 0 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.action-form button {
+  min-width: 120px;
+  margin: 0 5px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+nz-card {
+  width: 100%;
+  max-width: 960px;
+}
+
+nz-select {
+  width: 100%;
+}
+
+nz-form-item {
+display: flex;
+  flex-direction: column;
+}
+
+nz-form-label {
+  text-align: left;
+}
+
+nz-form-control {
+  width: 100%;
+}
+
+.valid-text {
+  font-size: 12px;
+}
+
+#status {
+  display: flex;
+  justify-content: space-between;
+}
+
+#teste {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#teste button {
+  height: 40px;
+  margin: 10px 0 0 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px;
+  }
+  .client-form {
+    padding: 20px;
+  }
+  angular-editor {
+    width: 300px;
+  }
+}

@@ -1,0 +1,17 @@
+<nz-card>
+  <div class="card-header">
+    <h2>{{knowledge.title}}</h2>
+    <button nz-button color="primary" (click)="onBack()">Voltar</button>
+  </div>
+  <div class="card-info">
+    <p>
+      <small>Autor: {{knowledge.createdBy.fullname}}</small>
+    </p>
+    <p>
+      <small>Criado em: {{knowledge.createdAt | date: 'dd/MM/yyyy'}} às {{knowledge.createdAt | date: 'hh:MM'}}</small>
+    </p>
+  </div>
+  <div class="card-body">
+    <div [innerHtml]="knowledge.description"></div>
+  </div>
+</nz-card>

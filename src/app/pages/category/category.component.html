@@ -1,0 +1,128 @@
+<div class="content">
+  <div class="row">
+    <h2>Gerenciamento de Categorias</h2>
+  </div>
+  <div class="table-header">
+    <button class="btn btn-secondary" (click)="onAdd()">Adicionar</button>
+  </div>
+  <nz-table
+    #nzTable
+    [nzData]="listOfDisplayData"
+    nzTableLayout="fixed"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzLoading]="loading"
+    [nzPaginationPosition]="'bottom'"
+    [nzNoResult]="'Nenhum resultado encontrado'"
+    [nzScroll]="{ x: '1200px', y: '450px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="85%">
+          Descrição
+        </th>
+        <th nzRight>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of categories">
+        <td>{{ data.description }}</td>
+        <td>
+          <button class="btn-action warning" (click)="onEdit(data.id)">
+            <img src="./assets/icon/edit.svg" alt="icone de edição" />
+          </button>
+          <button class="btn-action danger" (click)="showDeleteConfirm(data)">
+            <img src="./assets/icon/delete.svg" alt="icone de deletar" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cadastrar Categoria"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="categoryForm" nz-form>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="fullname">Nome da Categoria *</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                nzSize="large"
+                id="fullname"
+                placeholder="Digite o nome da categoria"
+                formControlName="description"
+                required
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Voltar</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [disabled]="!categoryForm.valid"
+    >
+      Salvar
+    </button>
+  </div>
+</nz-modal>
+
+<nz-modal
+  [(nzVisible)]="isVisibleEditCategoryModal"
+  nzTitle="Editar Categoria"
+  (nzOnCancel)="closeModalEditCategory()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <div *nzModalContent>
+    <form [formGroup]="categoryForm" nz-form>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label nzFor="fullname">Nome Completo*</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              nzCompact
+            >
+              <input
+                nz-input
+                type="text"
+                nzSize="large"
+                id="fullname"
+                placeholder="Digite o nome da categoria"
+                formControlName="description"
+                required
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModalEditCategory()">Voltar</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [disabled]="!categoryForm.valid"
+    >
+      Salvar
+    </button>
+  </div>
+</nz-modal>
