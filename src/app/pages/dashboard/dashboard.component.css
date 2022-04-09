@@ -124,6 +124,11 @@
   text-align: right;
 }
 
+#userProfile img {
+  width: 45px;
+  margin: 0 10px;
+}
+
 .sidemenu {
   width: 300px;
   height: 100%;

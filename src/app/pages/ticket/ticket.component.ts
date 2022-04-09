@@ -90,8 +90,6 @@ export class TicketComponent implements OnInit {
 
   usersOnline: any[];
 
-  stompClient = this.webSocketService.connect();
-
   comments: any[];
 
   commentForm: FormGroup;
@@ -108,15 +106,9 @@ export class TicketComponent implements OnInit {
     private route: ActivatedRoute,
     private notification: NzNotificationService,
     private formBuilder: FormBuilder,
-    private webSocketService: WebSocketService,
     private commentService: CommentService
   ) {
-    this.stompClient.connect({}, (frame) => {
-      this.stompClient.disconnect;
-      this.stompClient.subscribe('/topic/tickets', (response) => {
-        this.onList();
-      });
-    });
+
   }
 
   ngOnInit() {
@@ -219,8 +211,8 @@ export class TicketComponent implements OnInit {
   }
 
   onVerifyProfile() {
-    this.userProfile = this.storage.getLocalUser().profile;
-    this.userId = this.storage.getLocalUser().id;
+    this.userProfile = this.storage.getUser().profile;
+    this.userId = this.storage.getUser().id;
   }
 
   onFinishTicket(ticket) {
@@ -228,7 +220,7 @@ export class TicketComponent implements OnInit {
     this.ticket = ticket;
     this.ticket.technicalReport =
     this.finishForm.get('technicalReporter').value;
-    this.ticket.closeBy = this.storage.getLocalUser().fullname.toString();
+    this.ticket.closeBy = this.storage.getUser().fullname.toString();
 
     this.ticketService.getTickets().subscribe(() => {});
 
@@ -385,12 +377,23 @@ export class TicketComponent implements OnInit {
   }
 
   addComment() {
+
+    const user: User = {
+      id: this.storage.getUser().id,
+      fullname: this.storage.getUser().fullname,
+      email: this.storage.getUser().email,
+      avatar: null,
+      password: null,
+      profile: null,
+    }
+
     this.commentForm.patchValue({
       id: null,
       called: this.ticket,
-      user: this.storage.getLocalUser(),
+      user: user,
       createdAt: new Date(),
     });
+
     this.commentService.insert(this.commentForm.value).subscribe(
       (success) => {
         this.notification.create(

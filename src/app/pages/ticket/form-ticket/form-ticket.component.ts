@@ -5,16 +5,13 @@ import { Ticket } from './../../../models/ticket.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../../../services/user.service';
-import { User } from './../../../models/user.model';
 import { SectorService } from './../../../services/sector.service';
 import { Sector } from './../../../models/sector.model';
 import { Client } from './../../../models/client.model';
 import { ClientService } from './../../../services/client.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { WebSocketService } from 'src/app/services/websocket.service';
-import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-form-ticket',
@@ -22,12 +19,14 @@ import { importExpr } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./form-ticket.component.css'],
 })
 export class FormTicketComponent implements OnInit {
+
   ticketForm: FormGroup;
 
   ticket: Ticket;
 
   clients: Client[];
   sectors: Sector[];
+
   users: any[];
   usersOnline: any[];
 
@@ -61,7 +60,6 @@ export class FormTicketComponent implements OnInit {
     this.onListUsersOnline();
     this.onListUser();
   }
-
 
   onCreateForm() {
     if (!this.ticket.id) {
@@ -153,7 +151,7 @@ export class FormTicketComponent implements OnInit {
                 });
                 if (this.ticketForm.valid) {
                   this.ticketForm.patchValue({
-                    openBy: this.storageService.getLocalUser().fullname,
+                    openBy: this.storageService.getUser().fullname,
                   });
 
                   this.ticketService.save(this.ticketForm.value).subscribe(
@@ -167,9 +165,6 @@ export class FormTicketComponent implements OnInit {
                         );
                       } else {
                         this.onCreateForm();
-                        this.ticketService
-                          .notification()
-                          .subscribe((response) => {});
                         this.ticketService.getTickets().subscribe(() => {});
                       }
                     },

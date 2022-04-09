@@ -10,7 +10,7 @@
     <li
       routerLink="client"
       routerLinkActive="active-route"
-      *ngIf="user.profile == 1 || user.profile == 3"
+      *ngIf=""
       (click)="onHidden()"
     >
       <img src="./assets/icon/users.svg" alt="icone de clientes" />
@@ -19,7 +19,10 @@
     <li
       routerLink="contract"
       routerLinkActive="active-route"
-      *ngIf="user.profile == 1 || user.profile == 3"
+      *ngIf="
+        user.profile == 1 ||
+        user.profile == 2
+      "
       (click)="onHidden()"
     >
       <img src="./assets/icon/file_text.svg" alt="icone de setores" />
@@ -28,7 +31,10 @@
     <li
       routerLink="sector"
       routerLinkActive="active-route"
-      *ngIf="user.profile == 1 || user.profile == 3"
+      *ngIf="
+        user.profile == 1 ||
+        user.profile == 2
+      "
       (click)="onHidden()"
     >
       <img src="./assets/icon/apps.svg" alt="icone de setores" />
@@ -47,7 +53,10 @@
       <span>Pagamentos</span>
     </li>
     <li
-      *ngIf="user.profile == 1 || user.profile == 3"
+      *ngIf="
+        user.profile == 1 ||
+        user.profile == 2
+      "
       routerLink="key"
       routerLinkActive="active-route"
       (click)="onHidden()"
@@ -105,10 +114,17 @@
     <ul>
       <li id="userProfile">
         <span
-          >Bem vindo <strong>{{ user.fullname }}</strong></span
-        >
+          >Bem vindo <strong>{{ user.fullname }}</strong>
+        </span>
+        <img [src]="user.avatar" alt="avatar do usuário" nz-dropdown [nzDropdownMenu]="menu"/>
       </li>
     </ul>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu nzSelectable>
+        <li nz-menu-item>Meus Dados</li>
+        <li nz-menu-item nzDanger (click)="showLogoutConfirm()">Logout</li>
+      </ul>
+    </nz-dropdown-menu>
   </div>
   <div class="main">
     <router-outlet></router-outlet>

@@ -27,7 +27,7 @@ export class KnowledgeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.storageService.getLocalUser();
+    this.user = this.storageService.getUser();
     this.onListAll();
   }
 

@@ -30,9 +30,9 @@ export class UserComponent implements OnInit {
   isVisibleEditUserModal = false;
 
   profiles = [
-    { value: 1, text: 'Administrador' },
-    { value: 2, text: 'Técnico' },
-    { value: 3, text: 'Atendimento' },
+    { value: 1, text: 'ADMINISTRADOR' },
+    { value: 2, text: 'TÉCNICO' },
+    { value: 3, text: 'ATENDENTE' },
   ];
 
   userForm: FormGroup;
@@ -70,7 +70,7 @@ export class UserComponent implements OnInit {
         ],
       ],
       password: [null, [Validators.required, Validators.minLength(8)]],
-      profile: [null, [Validators.required]],
+      //profile: [null, [Validators.required]],
     });
   }
 
@@ -93,6 +93,7 @@ export class UserComponent implements OnInit {
 
     this.userService.save(this.userForm.value).subscribe(
       (success) => {
+        console.log(this.userForm.value)
         this.notification.create('success', 'SUCESSO!', `${msgSuccess}`);
         this.onList();
         this.closeModalEditUser();

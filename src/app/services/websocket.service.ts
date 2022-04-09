@@ -6,12 +6,12 @@ import { Stomp } from '@stomp/stompjs';
 @Injectable()
 export class WebSocketService {
 
-  private readonly API = `${environment.baseUrl}`;
+  private readonly API = `${environment.startUrl}`;
 
   public connect() {
     let socket = new SockJS(`${this.API}`);
-    let stompClient = Stomp.over(socket);
-    return stompClient;
+    socket.withCredentials = false;
+    return Stomp.over(socket);
   }
 
 }
