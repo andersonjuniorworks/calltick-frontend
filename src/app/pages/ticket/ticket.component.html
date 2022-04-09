@@ -1,31 +1,23 @@
 <div class="content">
-  <div class="row">
-    <h2>Gerenciamento de Chamados</h2>
-  </div>
+    <div class="row">
+        <h2>Gerenciamento de Chamados</h2>
+    </div>
 
-  <div class="table-header">
-    <button
-      class="btn btn-secondary"
-      (click)="onOpenAddTicket()"
-      [disabled]="userProfile != 1"
-    >
+    <div class="table-header">
+        <button class="btn btn-secondary" (click)="onOpenAddTicket()" [disabled]="userProfile.profiles.includes('ADMINISTRADOR')">
       Adicionar
     </button>
-    <button class="filter-button" (click)="open()">
+        <button class="filter-button" (click)="open()">
       <i nz-icon nzType="filter" nzTheme="fill"></i>
     </button>
-  </div>
+    </div>
 
-  <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
-    <nz-list-item *ngFor="let data of tickets">
-      <ng-container>
-        <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
-          <nz-list-item-meta-title>
-            <a
-              (click)="showModalViewTicket(data)"
-              id="itemTitle"
-              class="uppercase"
-              >{{ data.subject }}</a
+    <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
+        <nz-list-item *ngFor="let data of tickets">
+            <ng-container>
+                <nz-list-item-meta nzAvatar="./assets/icon/ticket.svg">
+                    <nz-list-item-meta-title>
+                        <a (click)="showModalViewTicket(data)" id="itemTitle" class="uppercase">{{ data.subject }}</a
             >
           </nz-list-item-meta-title>
           <nz-list-item-meta-title id="client">

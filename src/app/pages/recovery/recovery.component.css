@@ -1,7 +1,7 @@
 section {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     overflow: hidden;
 }
@@ -23,15 +23,15 @@ section .image-box {
 
 section .image-box h2 {
     font-weight: 700;
-    font-size: 45px;
+    font-size: 35px;
     line-height: 50px;
     margin: 0;
     color: #fff;
 }
 
 section .image-box p {
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 20px;
     line-height: 30px;
     margin: 0;
     color: #fff;
@@ -56,21 +56,19 @@ section .image-box .overlay-bottom {
 }
 
 section .content-box {
+    position: relative;
     top: 0;
     left: 0;
     width: 50%;
-    height: 100%;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     background: #fff;
 }
 
 section .content-box .form-box {
-    position: relative;
     width: 50%;
-    height: 100vh;
+    height: 100%;
     max-width: 350px;
     display: flex;
     flex-direction: column;
@@ -123,11 +121,28 @@ input::placeholder {
 .form-button {
     width: 100%;
     margin: 10px 0 20px 0;
+    border: none;
     border-radius: 30px;
     font-weight: 700;
     font-size: 14px;
     line-height: 21px;
     background: #2667DF;
+}
+
+.form-button-outline {
+    width: 100%;
+    margin: 0px 0 20px 0;
+    border: 1px solid #2667DF;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    background: transparent;
+    color: #2667DF;
+}
+
+.form-button:disabled {
+    background: rgb(236, 236, 236);
 }
 
 .form-forgot {
@@ -174,39 +189,4 @@ i {
         right: -25px;
         z-index: 100;
     }
-    section .content-box {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to right, #5433ff, #20bdff, #a5fecb);
-    }
-    section .content-box .form-box {
-        width: 100%;
-        height: 535px;
-        padding: 30px;
-        border-radius: 15px;
-        background: #fff;
-    }
-    section .image-box {
-        display: none;
-    }
-    section .content-box .overlay-top {
-        position: absolute;
-        top: -20px;
-        left: -20px;
-        z-index: 100;
-    }
-    section .content-box .overlay-bottom {
-        position: absolute;
-        bottom: 0px;
-        right: -25px;
-        z-index: 100;
-    }
-}
-
-#man {
-    width: 400px;
-    transform: scaleX(-1);
 }

@@ -2,13 +2,13 @@ import { User } from './../models/user.model';
 import { STORAGE_KEYS } from './../config/storage_keys.config';
 import { LocalUser } from './../models/local_user.model';
 import { Injectable } from '@angular/core';
-import { iif } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  getLocalUser(): User {
+
+  getUser(): User {
     let usr = sessionStorage.getItem(STORAGE_KEYS.user);
     if (usr == null) {
       return null;
@@ -17,11 +17,28 @@ export class StorageService {
     }
   }
 
-  setLocalUser(obj: User) {
+  setUser(obj: User) {
     if (obj == null) {
       sessionStorage.removeItem(STORAGE_KEYS.user);
     } else {
       sessionStorage.setItem(STORAGE_KEYS.user, JSON.stringify(obj));
+    }
+  }
+
+  getLocalUser(): LocalUser {
+    let usr = sessionStorage.getItem(STORAGE_KEYS.localUser);
+    if (usr == null) {
+      return null;
+    } else {
+      return JSON.parse(usr);
+    }
+  }
+
+  setLocalUser(obj: LocalUser) {
+    if (obj == null) {
+      sessionStorage.removeItem(STORAGE_KEYS.localUser);
+    } else {
+      sessionStorage.setItem(STORAGE_KEYS.localUser, JSON.stringify(obj));
     }
   }
 
@@ -37,4 +54,5 @@ export class StorageService {
   setAuthStatus(obj: User) {
     sessionStorage.setItem(STORAGE_KEYS.authenticate, JSON.stringify(obj));
   }
+
 }

@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormTicketComponent } from './form-ticket.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { WebSocketService } from '../../../services/websocket.service';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({

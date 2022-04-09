@@ -18,10 +18,13 @@ export class KnowledgeService {
     return this.http.get<Knowledge>(`${this.API}/${id}`).pipe(take(1));
   }
 
-  findByDescription(description) {
-    return this.http.get<Knowledge[]>(`${this.API}/description?`, {
-      params: {value: description}
-    }).pipe(take(1));
+  findByDescription(description: string): Observable<HttpResponse<Knowledge[]>> {
+    const $todo = this.http
+    .get<Knowledge[]>(`${this.API}/description?`, {
+      params: { value: description },
+      observe: 'response',
+    })
+    return $todo;
   }
 
   findAll(page: string, size: string): Observable<HttpResponse<Knowledge[]>> {

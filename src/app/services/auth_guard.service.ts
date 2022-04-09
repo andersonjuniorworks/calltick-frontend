@@ -13,19 +13,20 @@ export class AuthGuardService implements CanActivateChild {
     private storage: StorageService,
   ) { }
 
-  private isAuthenticated: boolean = false;
+  private isAuthenticated: boolean = true;
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-      this.isAuthenticated = this.storage.getAuthStatus();
+      //this.isAuthenticated = this.storage.getAuthStatus();
 
       if(!this.isAuthenticated) {
         this.router.navigateByUrl('login');
       }
 
     return this.isAuthenticated;
+
   }
 
 }

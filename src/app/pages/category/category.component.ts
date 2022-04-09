@@ -43,7 +43,7 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.storageService.getLocalUser();
+    this.user = this.storageService.getUser();
     this.onCreateForm();
     this.onList();
   }

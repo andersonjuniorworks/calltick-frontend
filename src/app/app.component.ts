@@ -1,9 +1,4 @@
-import { TicketService } from './services/ticket.service';
-import { ListenService } from './services/listen.service';
-import { TicketComponent } from './pages/ticket/ticket.component';
 import { Component, HostListener } from '@angular/core';
-import { WebSocketService } from './services/websocket.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from './services/user.service';
 import { StorageService } from './services/storage.service';
 import { User } from './models/user.model';
@@ -19,19 +14,15 @@ export class AppComponent {
 
   public notifications = '';
 
-  user: User = this.storageService.getLocalUser();;
-  stompClient = this.webSocketService.connect();
+  user: User = this.storageService.getUser();
 
   constructor(
-    private webSocketService: WebSocketService,
     private userService: UserService,
-    private storageService: StorageService) {
-  }
+    private storageService: StorageService) {}
 
   @HostListener('window:beforeunload')
   disconnectHost() {
     this.userService.disconnected(`${this.user.id}`).subscribe();
-    this.stompClient.disconnect();
   }
 
 }
