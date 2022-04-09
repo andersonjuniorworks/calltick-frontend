@@ -4,7 +4,7 @@
     </div>
 
     <div class="table-header">
-        <button class="btn btn-secondary" (click)="onOpenAddTicket()" [disabled]="userProfile.profiles.includes('ADMINISTRADOR')">
+        <button class="btn btn-secondary" (click)="onOpenAddTicket()" [disabled]="!userProfile.profiles.includes('ADMINISTRADOR')">
       Adicionar
     </button>
         <button class="filter-button" (click)="open()">

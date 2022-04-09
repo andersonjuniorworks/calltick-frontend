@@ -19,6 +19,7 @@ import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 import { NgZorroAntdModule } from './shared/nz-zorro.module';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { NzIconCustomModule } from './shared/nz-icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
     BrowserAnimationsModule,
     AppRoutingModule,
     NgZorroAntdModule,
+    NzIconCustomModule
   ],
 
   providers: [

@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background: var(--gradient-violet);
+    background: var(--primary);
 }
 
 .card .card-body {
@@ -43,7 +43,7 @@
 }
 
 @media (max-width: 1180px) {
-  .card .card-body {
-    width: calc(100% - 60px);
-  }
+    .card .card-body {
+        width: calc(100% - 60px);
+    }
 }
