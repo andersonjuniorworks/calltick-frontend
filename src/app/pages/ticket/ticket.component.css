@@ -1,180 +1,184 @@
+.row {
+    margin: 15px 0 0 0;
+}
+
 .demo-loadmore-list {
-  min-height: 350px;
+    min-height: 350px;
 }
 
 .loadmore {
-  text-align: center;
-  margin-top: 12px;
-  height: 32px;
-  line-height: 32px;
+    text-align: center;
+    margin-top: 12px;
+    height: 32px;
+    line-height: 32px;
 }
 
 .content {
-  width: 100%;
-  height: 100%;
-  padding: 40px;
+    width: 100%;
+    height: 100%;
 }
 
 nz-list {
-  width: 100%;
-  max-height: 520px;
-  overflow-y: auto;
-  overflow-x: auto;
+    width: 100%;
+    max-height: 520px;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 nz-list-item {
-  padding: 20px;
-  background: #fff;
+    padding: 20px;
+    background: #fff;
 }
 
 nz-tag {
-  min-width: 100px;
-  text-align: center;
+    min-width: 100px;
+    text-align: center;
 }
 
 #tag {
-  margin: 0 20px 0 0;
+    margin: 0 20px 0 0;
 }
 
 #tagSec {
-  min-width: 150px;
+    min-width: 150px;
 }
 
 nz-range-picker {
-  margin: 0 8px 12px 0;
+    margin: 0 8px 12px 0;
 }
 
 .registers {
-  height: 50px;
-  padding: 15px 0 0 0;
-  display: flex;
-  align-items: center;
+    height: 50px;
+    padding: 15px 0 0 0;
+    display: flex;
+    align-items: center;
 }
 
 .registers p {
-  line-height: 100%;
+    line-height: 100%;
 }
+
 .block {
-  margin: 0 0 50px 0;
+    margin: 0 0 50px 0;
 }
 
 .ticket-finish {
-  width: 100%;
-  max-width: 1024px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background: #fff;
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: #fff;
 }
 
 nz-form-item {
-  flex-direction: column;
-  align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 nz-form-control {
-  width: 100%;
+    width: 100%;
 }
 
 #itemTitle {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 #itemSubTitle {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .filter-button {
-  width: 45px;
-  height: 45px;
-  border-radius: 0px;
-  border: none;
-  transition: .25s ease-in;
-  background: var(--secondary);
-  color: #fff;
-  font-size: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 0px;
+    border: none;
+    transition: .25s ease-in;
+    background: var(--secondary);
+    color: #fff;
+    font-size: 20px;
 }
 
 .filter-button:hover {
-  cursor: pointer;
-  background: var(--terciary);
-  color: #fff;
+    cursor: pointer;
+    background: var(--terciary);
+    color: #fff;
 }
 
 .content-filter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.content-filter button {
-  width: 100%;
-}
-
-nz-range-picker {
-  width: 100%;
-}
-
-nz-select {
-  width: 100%;
-}
-
-.editor {
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  padding: 10px;
-  border: 1px solid #f3f3f3;
-}
-
-#comments {
-  max-height: 200px;
-}
-
-@media (max-width: 1024px) {
-  .content {
-    padding: 20px;
-  }
-  nz-list-item {
-    padding: 0 10px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  nz-list-item-meta {
+}
+
+.content-filter button {
     width: 100%;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-  }
-  ::ng-deep .ant-list-item-meta-content {
+}
+
+nz-range-picker {
     width: 100%;
-  }
-  nz-tag {
+}
+
+nz-select {
     width: 100%;
-    margin: 5px 0;
-  }
-  nz-list-item {
-    margin: 0 0 10px 0;
-  }
-  #listItem {
-    padding: 10px 0;
-  }
+}
+
+.editor {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #f3f3f3;
+}
+
+#comments {
+    max-height: 200px;
+}
+
+@media (max-width: 1024px) {
+    .content {
+        padding: 20px;
+    }
+    nz-list-item {
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    nz-list-item-meta {
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+    }
+     ::ng-deep .ant-list-item-meta-content {
+        width: 100%;
+    }
+    nz-tag {
+        width: 100%;
+        margin: 5px 0;
+    }
+    nz-list-item {
+        margin: 0 0 10px 0;
+    }
+    #listItem {
+        padding: 10px 0;
+    }
 }
 
 @media (max-width: 515px) {
-  .pagination {
-    padding: 0 0 20px 0;
-    display: flex;
-    flex-direction: column;
-  }
+    .pagination {
+        padding: 0 0 20px 0;
+        display: flex;
+        flex-direction: column;
+    }
 }

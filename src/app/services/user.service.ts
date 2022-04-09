@@ -3,7 +3,7 @@ import { tap, take } from 'rxjs/operators';
 import { User } from './../models/user.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -54,42 +54,33 @@ export class UserService {
 
   findByEmail(email) {
     return this.http.get<User>(`${this.API}/email?`, {
-      params: {value: email}
+      params: {value: email},
+      observe: 'response'
     }).pipe(take(1));
   }
 
   login(user: User) {
-    return this.http.get<User>(`${this.API}/login?email=${user.email}&password=${user.password}`).pipe(take(1));
+    return this.http.get<User>(`${environment.startUrl}/login?email=${user.email}&password=${user.password}`).pipe(take(1));
   }
 
   public connected(user: string) {
-/*     return this.http.get(`http://187.19.165.178:5050/connected`, {
-      params: {user: user}
-    }).pipe(take(1)); */
-
         return this.http.get(`${environment.startUrl}/connected`, {
       params: {user: user}
     }).pipe(take(1));
   }
 
   public disconnected(user: string) {
-  /*    return this.http.get(`http://187.19.165.178:5050/disconnect`, {
-      params: {user: user}
-    }).pipe(take(1)); */
-
         return this.http.get(`${environment.startUrl}/disconnect`, {
       params: {user: user}
     }).pipe(take(1));
-    
+
   }
 
   public usersConnected() {
-    //return this.http.get(`http://187.19.165.178:5050/usersConnected`).pipe(take(1));
     return this.http.get(`${environment.startUrl}/usersConnected`).pipe(take(1));
   }
 
   public getUsersConnected() {
-    //return this.http.get(`http://187.19.165.178:5050/getUsers`).pipe(take(1));
     return this.http.get(`${environment.startUrl}/getUsers`).pipe(take(1));
   }
 

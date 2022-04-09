@@ -1,82 +1,59 @@
 <section>
-  <div class="image-box">
-    <div class="overlay-top">
-      <img src="./assets/img/Vector.png" alt="" />
+    <div class="image-box">
+        <div class="overlay-top">
+            <img src="./assets/img/Vector.png" alt="" />
+        </div>
+        <div class="overlay-bottom">
+            <img src="./assets/img/Vector.png" alt="" />
+        </div>
+        <img src="./assets/img/business.png" alt="Imagem de login" width="600px" />
     </div>
-    <div class="overlay-bottom">
-      <img src="./assets/img/Vector.png" alt="" />
-    </div>
-    <img src="./assets/img/business.png" alt="Imagem de login" width="600px" />
-  </div>
 
     <div class="content-box">
-      <div class="overlay-top">
-        <img src="./assets/img/Vector.png" alt="" />
-      </div>
-      <div class="overlay-bottom">
-        <img src="./assets/img/Vector.png" alt="" />
-      </div>
-      <div class="form-box">
-        <div class="title">
-          <h2>Recupere sua Senha</h2>
+        <div class="overlay-top">
+            <img src="./assets/img/Vector.png" alt="" />
         </div>
-        <div class="subtitle">
-          <p>
-            Insira seu email abaixo e uma senha temporária será enviada para seu
-            email
-          </p>
+        <div class="overlay-bottom">
+            <img src="./assets/img/Vector.png" alt="" />
         </div>
-        <div class="content">
-          <form nz-form [formGroup]="recoveryForm">
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Preencha o campo de email">
-                <nz-input-group [nzPrefix]="prefixMail" nzSize="large">
-                  <input
-                    type="email"
-                    nz-input
-                    formControlName="email"
-                    placeholder="Digite o email"
-                  />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <button
-              nz-button
-              class="form-button"
-              [nzSize]="'large'"
-              [nzType]="'primary'"
-              (click)="onRecovery()"
-              [nzLoading]="spinner"
-            >
+        <div class="form-box">
+            <div class="title">
+                <h2>Recupere sua Senha</h2>
+            </div>
+            <div class="subtitle">
+                <p>
+                    Insira seu email abaixo e uma senha temporária será enviada para seu email
+                </p>
+            </div>
+            <div class="content">
+                <form nz-form [formGroup]="recoveryForm">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Preencha o campo de email">
+                            <nz-input-group [nzPrefix]="prefixMail" nzSize="large">
+                                <input type="email" nz-input formControlName="email" placeholder="Digite o email" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <button nz-button class="form-button" [nzSize]="'large'" [nzType]="'primary'" (click)="onRecovery()" [nzLoading]="spinner" [disabled]="!recoveryForm.valid">
               Recuperar
             </button>
-            <button
-              nz-button
-              class="form-button-outline"
-              [nzSize]="'large'"
-              [nzType]="'primary'"
-              (click)="onNavigateToLogin()"
-            >
+                    <button nz-button class="form-button-outline" [nzSize]="'large'" [nzType]="'primary'" (click)="onNavigateToLogin()">
               Voltar
             </button>
-          </form>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 </section>
 
 <ng-template #prefixMail>
-  <i nz-icon nzType="mail"></i>
+    <i nz-icon nzType="mail"></i>
 </ng-template>
 
 <ng-template #prefixPass>
-  <i nz-icon nzType="lock"></i>
+    <i nz-icon nzType="lock"></i>
 </ng-template>
 
 <ng-template #hiddenPass>
-  <i
-    nz-icon
-    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-    (click)="passwordVisible = !passwordVisible"
-  ></i>
+    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
 </ng-template>

@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { WebSocketService } from './services/websocket.service';
 import { UserService } from './services/user.service';
 import { StorageService } from './services/storage.service';
 import { User } from './models/user.model';
@@ -18,7 +17,6 @@ export class AppComponent {
   user: User = this.storageService.getUser();
 
   constructor(
-    private webSocketService: WebSocketService,
     private userService: UserService,
     private storageService: StorageService) {}
 

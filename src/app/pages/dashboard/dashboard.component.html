@@ -1,132 +1,84 @@
-<div class="sidebar" id="menu">
-  <div class="logo" routerLink="home">
-    <img src="./assets/img/logo.svg" alt="" />
-  </div>
-  <ul>
-    <li routerLink="home" routerLinkActive="active-route" (click)="onHidden()">
-      <img src="./assets/icon/home.svg" alt="icone home" />
-      <span class="active">Home</span>
-    </li>
-    <li
-      routerLink="client"
-      routerLinkActive="active-route"
-      *ngIf=""
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/users.svg" alt="icone de clientes" />
-      <span> Clientes </span>
-    </li>
-    <li
-      routerLink="contract"
-      routerLinkActive="active-route"
-      *ngIf="
-        user.profile == 1 ||
-        user.profile == 2
-      "
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/file_text.svg" alt="icone de setores" />
-      <span>Contratos</span>
-    </li>
-    <li
-      routerLink="sector"
-      routerLinkActive="active-route"
-      *ngIf="
-        user.profile == 1 ||
-        user.profile == 2
-      "
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/apps.svg" alt="icone de setores" />
-      <span>Setores</span>
-    </li>
-    <li
-      routerLink="ticket"
-      routerLinkActive="active-route"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/file_report.svg" alt="icone de chamados" />
-      <span>Chamados</span>
-    </li>
-    <li *ngIf="false" (click)="onHidden()">
-      <img src="./assets/icon/receipt_2.svg" alt="icone de pagamentos" />
-      <span>Pagamentos</span>
-    </li>
-    <li
-      *ngIf="
-        user.profile == 1 ||
-        user.profile == 2
-      "
-      routerLink="key"
-      routerLinkActive="active-route"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/lock_open.svg" alt="icone de liberação" />
-      <span>Liberação</span>
-    </li>
-    <li
-      routerLink="category"
-      routerLinkActive="active-route"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/category.svg" alt="icone de tag" />
-      <span>Categorias</span>
-    </li>
-    <li
-      routerLink="knowledge"
-      routerLinkActive="active-route"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/knowledge.svg" alt="icone de livro" />
-      <span>Base Con.</span>
-    </li>
-
-    <li
-      routerLink="user"
-      routerLinkActive="active-route"
-      *ngIf="user.profile == 1"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/user.svg" alt="icone de usuários" />
-      <span>Usuários</span>
-    </li>
-    <li
-      routerLink="reports"
-      routerLinkActive="active-route"
-      *ngIf="user.id == 1"
-      (click)="onHidden()"
-    >
-      <img src="./assets/icon/reports.svg" alt="icone de relatórios" />
-      <span>Relatórios</span>
-    </li>
-    <li (click)="showLogoutConfirm()" (click)="onHidden()">
-      <img src="./assets/icon/exit.svg" alt="icone de sair" />
-      <span>Sair</span>
-    </li>
-  </ul>
-</div>
-
-<div class="container">
-  <div class="navbar">
-    <button class="toggle" id="buttonToggle" (click)="onToogleMenu()">
-      <img src="./assets/icon/menu.svg" alt="" />
-    </button>
-    <ul>
-      <li id="userProfile">
-        <span
-          >Bem vindo <strong>{{ user.fullname }}</strong>
-        </span>
-        <img [src]="user.avatar" alt="avatar do usuário" nz-dropdown [nzDropdownMenu]="menu"/>
-      </li>
-    </ul>
-    <nz-dropdown-menu #menu="nzDropdownMenu">
-      <ul nz-menu nzSelectable>
-        <li nz-menu-item>Meus Dados</li>
-        <li nz-menu-item nzDanger (click)="showLogoutConfirm()">Logout</li>
-      </ul>
-    </nz-dropdown-menu>
-  </div>
-  <div class="main">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="dark" nzMode="inline">
+            <li nz-menu-item routerLink="home" routerLinkActive="active-route">
+                <i nz-icon nzType="home"></i>
+                <span>Ínicio</span>
+            </li>
+            <li nz-menu-item routerLink="client" routerLinkActive="active-route">
+                <i nz-icon nzType="team"></i>
+                <span>Clientes</span>
+            </li>
+            <li nz-menu-item routerLink="contract" routerLinkActive="active-route" *ngIf="
+      user.profiles.includes('ADMINISTRADOR') ||
+      user.profiles.includes('ATENDENTE')
+    ">
+                <i nz-icon nzType="file" nzTheme="outline"></i>
+                <span>Contratos</span>
+            </li>
+            <li nz-menu-item routerLink="sector" routerLinkActive="active-route" *ngIf="
+      user.profiles.includes('ADMINISTRADOR') ||
+      user.profiles.includes('ATENDENTE')
+    ">
+                <i nz-icon nzType="snippets" nzTheme="outline"></i>
+                <span>Setores</span>
+            </li>
+            <li nz-menu-item routerLink="ticket" routerLinkActive="active-route">
+                <i nz-icon nzType="clock-circle"></i>
+                <span>Chamados</span>
+            </li>
+            <li nz-menu-item routerLink="category" routerLinkActive="active-route">
+                <i nz-icon nzType="appstore"></i>
+                <span>Categorias</span>
+            </li>
+            <li nz-menu-item routerLink="knowledge" routerLinkActive="active-route">
+                <i nz-icon nzType="container" nzTheme="outline"></i>
+                <span>Base de Conhec.</span>
+            </li>
+            <li nz-menu-item routerLink="key" routerLinkActive="active-route" *ngIf="
+            user.profiles.includes('ADMINISTRADOR') ||
+            user.profiles.includes('ATENDENTE')
+          ">
+                <i nz-icon nzType="unlock" nzTheme="outline"></i>
+                <span>Liberação</span>
+            </li>
+            <li nz-menu-item routerLink="user" routerLinkActive="active-route">
+                <i nz-icon nzType="download"></i>
+                <span>Downloads</span>
+            </li>
+            <li nz-menu-item routerLink="user" routerLinkActive="active-route" *ngIf="
+      user.profiles.includes('ADMINISTRADOR') || user.profiles.includes('ATENDENTE')">
+                <i nz-icon nzType="user"></i>
+                <span>Usuários</span>
+            </li>
+            <li nz-menu-item (click)="showLogoutConfirm()">
+                <i nz-icon nzType="logout"></i>
+                <span>Sair</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div id="welcome">
+                <i class="trigger" nz-icon [nzType]="false ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+            </div>
+            <div id="user">
+                <p>{{user.fullname}}</p>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>Meus Dados</li>
+                        <li nz-menu-item>Alterar Senha</li>
+                        <li nz-menu-item>Sair</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>
+        </nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer>&copy; Todos os direitos reservados a Upper Soluções</nz-footer>
+    </nz-layout>
+</nz-layout>

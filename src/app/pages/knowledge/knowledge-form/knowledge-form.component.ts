@@ -30,9 +30,14 @@ export class KnowledgeFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.storageService.getUser();
+    this.getUser();
     this.onCreateForm();
     this.onReadCategory();
+  }
+
+  getUser() {
+    this.user = this.storageService.getUser();
+    this.user.profiles = [];
   }
 
   onCreateForm() {

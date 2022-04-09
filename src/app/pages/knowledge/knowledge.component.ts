@@ -42,10 +42,8 @@ export class KnowledgeComponent implements OnInit {
   }
 
   onListByDescription() {
-    console.log(this.searchControl.value)
     this.knowledgeService.findByDescription(this.searchControl.value).subscribe((response) => {
-      this.knowledges = response;
-      console.log(response)
+      this.knowledges = response.body;
       for(let item of this.knowledges) {
         item.description = item.description.replace(/<img .*?>/g, "");
         item.description = item.description.substring(400, 0);

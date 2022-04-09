@@ -34,47 +34,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin() {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-        this.userService.login(this.validateForm.value).subscribe(() => {
-          this.userService
-          .findByEmail(this.validateForm.get('email').value)
-          .subscribe((res) => {
-            this.storage.setUser(res);
-            this.onNavigateToDashboard();
-          });
-        }, (err) => {
-          console.log(err);
-        });
-  }
-
-  /*
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    this.userService.findByEmail(this.validateForm.get('email').value).subscribe((response) => {
-      this.storage.setLocalUser(response);
-      this.userService.login(this.validateForm.value).subscribe(
-        (success) => {
-          this.onNavigateToDashboard();
-          this.storage.setAuthStatus(success);
-        },
-        (error) => {
-          let err = error;
-          this.notification.create(
-            'error',
-            `ERRO!`,
-            `Erro ao tentar logar no sistema!`
-          );
-        }
-      );
-    })
-  } */
+    this.authenticationService.authenticate(this.validateForm.value).subscribe(
+      (response) => {
+        this.authenticationService.successfulLogin(
+          response.headers.get('Authorization')
+        );
+        this.userService
+          .findByEmail(this.validateForm.get('email').value)
+          .subscribe((res) => {
+            this.storage.setUser(res.body);
+            this.onNavigateToDashboard();
+          });
+      },
+      (err) => {
+        this.notification.create('error', 'Erro', `${err.message}`);
+      }
+    );
+  }
 
   onNavigateToDashboard() {
     this.route.navigateByUrl('dashboard');

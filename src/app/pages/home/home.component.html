@@ -1,66 +1,35 @@
-<div class="container-fluid">
-  <div class="cards">
-    <app-card-dashboard
-      image="./assets/icon/file_analytics.svg"
-      title="{{ ticketOpenedCount }}"
-      description="Chamados Abertos"
-    ></app-card-dashboard>
-    <app-card-dashboard
-      image="./assets/icon/file_check.svg"
-      title="{{ ticketFinishCount }}"
-      description="Chamados Finalizados"
-    ></app-card-dashboard>
-    <app-card-dashboard
-      image="./assets/icon/file_report.svg"
-      title="{{ ticketCount }}"
-      description="Total de Chamados"
-    ></app-card-dashboard>
-    <app-card-dashboard
-      image="./assets/icon/users.svg"
-      title="{{ clientCount }}"
-      description="Clientes"
-    ></app-card-dashboard>
-  </div>
-  <div class="charts">
-    <nz-card
-      nzTitle="Quantidade de Chamados por Usuário"
-      [nzExtra]="extraTemplate"
-    >
-      <canvas #chartTicketByUser id="chartTicketByUser"></canvas>
-    </nz-card>
-    <nz-card nzTitle="Quantidade de Chamados por Setor" [nzExtra]="rangeTicketsBySector">
-      <canvas #chartTicketBySector id="chartTicketBySector"></canvas>
-    </nz-card>
-    <nz-card nzTitle="Quantidade de Chamados por Situação" [nzExtra]="rangeTicketsByStatus">
-      <canvas #chartTicketByStatus id="chartTicketByStatus"></canvas>
-    </nz-card>
-    <nz-card nzTitle="Quantidade de Clientes por Contrato">
-      <canvas #chartClientByContract id="chartClientByContract"></canvas>
-    </nz-card>
-
-    <ng-template #extraTemplate>
-      <nz-range-picker
-        [nzFormat]="'dd/MM/yyyy'"
-        [(ngModel)]="periodControl"
-        (ngModelChange)="onChangeDateChartUser($event)"
-      ></nz-range-picker>
-    </ng-template>
-
-    <ng-template #rangeTicketsBySector>
-      <nz-range-picker
-        [nzFormat]="'dd/MM/yyyy'"
-        [(ngModel)]="rangeTicketSector"
-        (ngModelChange)="onChangeDateChartSector($event)"
-      ></nz-range-picker>
-    </ng-template>
-
-    <ng-template #rangeTicketsByStatus>
-      <nz-range-picker
-        [nzFormat]="'dd/MM/yyyy'"
-        [(ngModel)]="rangeTicketStatus"
-        (ngModelChange)="onChangeDateChartStatus($event)"
-      ></nz-range-picker>
-    </ng-template>
-
-  </div>
+<div class="cards">
+    <app-card-dashboard image="./assets/icon/file_analytics.svg" title="{{ ticketOpenedCount }}" description="Chamados Abertos"></app-card-dashboard>
+    <app-card-dashboard image="./assets/icon/file_check.svg" title="{{ ticketFinishCount }}" description="Chamados Finalizados"></app-card-dashboard>
+    <app-card-dashboard image="./assets/icon/file_report.svg" title="{{ ticketCount }}" description="Total de Chamados"></app-card-dashboard>
+    <app-card-dashboard image="./assets/icon/users.svg" title="{{ clientCount }}" description="Clientes"></app-card-dashboard>
 </div>
+<!--<div class="container-fluid">
+
+    <div class="charts">
+        <nz-card nzTitle="Quantidade de Chamados por Usuário" [nzExtra]="extraTemplate">
+            <canvas #chartTicketByUser id="chartTicketByUser"></canvas>
+        </nz-card>
+        <nz-card nzTitle="Quantidade de Chamados por Setor" [nzExtra]="rangeTicketsBySector">
+            <canvas #chartTicketBySector id="chartTicketBySector"></canvas>
+        </nz-card>
+        <nz-card nzTitle="Quantidade de Chamados por Situação" [nzExtra]="rangeTicketsByStatus">
+            <canvas #chartTicketByStatus id="chartTicketByStatus"></canvas>
+        </nz-card>
+        <nz-card nzTitle="Quantidade de Clientes por Contrato">
+            <canvas #chartClientByContract id="chartClientByContract"></canvas>
+        </nz-card>
+    </div>
+</div>
+
+<ng-template #extraTemplate>
+    <nz-range-picker [nzFormat]="'dd/MM/yyyy'" [(ngModel)]="periodControl" (ngModelChange)="onChangeDateChartUser($event)"></nz-range-picker>
+</ng-template>
+
+<ng-template #rangeTicketsBySector>
+    <nz-range-picker [nzFormat]="'dd/MM/yyyy'" [(ngModel)]="rangeTicketSector" (ngModelChange)="onChangeDateChartSector($event)"></nz-range-picker>
+</ng-template>
+
+<ng-template #rangeTicketsByStatus>
+    <nz-range-picker [nzFormat]="'dd/MM/yyyy'" [(ngModel)]="rangeTicketStatus" (ngModelChange)="onChangeDateChartStatus($event)"></nz-range-picker>
+</ng-template>-->

@@ -7,6 +7,7 @@ import { User } from '../models/user.model';
 import { StorageService } from './storage.service';
 import { LocalUser } from '../models/local_user.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Credentials } from '../models/credentials.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -22,6 +23,20 @@ export class AuthenticationService {
     public router: Router
   ) {}
 
+  authenticate(creds: Credentials) {
+    return this.http.post(`${environment.startUrl}/login`, creds, {
+      observe: 'response',
+      responseType: 'text',
+    });
+  }
+
+  successfulLogin(authorizationValue: string) {
+    let localUser: LocalUser = {
+      token: authorizationValue.substring(7),
+    };
+    this.storage.setLocalUser(localUser);
+    this.isAuthenticated = true;
+  }
 
   navigateToLogin(): void {
     this.router.navigate(['']);

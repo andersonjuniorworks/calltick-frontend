@@ -10,30 +10,7 @@ import { NgZorroAntdModule } from '../../shared/nz-zorro.module';
 import { FormsModule } from '@angular/forms';
 
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-
-import {
-  UserOutline,
-  HomeOutline,
-  TeamOutline,
-  SolutionOutline,
-  FileTextOutline,
-  BarsOutline,
-  DollarCircleOutline,
-  MenuFoldOutline,
-  MenuUnfoldOutline
-} from '@ant-design/icons-angular/icons';
-
-const icons: IconDefinition[] = [
-  UserOutline,
-  HomeOutline,
-  TeamOutline,
-  SolutionOutline,
-  FileTextOutline,
-  BarsOutline,
-  DollarCircleOutline,
-  MenuFoldOutline,
-  MenuUnfoldOutline
-];
+import { NzIconCustomModule } from '../../shared/nz-icon.module';
 
 @NgModule({
   imports: [
@@ -41,7 +18,7 @@ const icons: IconDefinition[] = [
     DashboardRoutingModule,
     FormsModule,
     NgZorroAntdModule,
-    NzIconModule.forChild(icons),
+    NzIconCustomModule
   ],
   declarations: [DashboardComponent],
   providers: [{ provide: NZ_I18N, useValue: en_US }, {provide: AuthGuardService}]

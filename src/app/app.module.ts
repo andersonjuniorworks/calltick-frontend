@@ -17,8 +17,9 @@ registerLocaleData(pt);
 
 import { en_US, NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 import { NgZorroAntdModule } from './shared/nz-zorro.module';
-import { WebSocketService } from './services/websocket.service';
 import { AuthenticationService } from './services/authentication.service';
+import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { NzIconCustomModule } from './shared/nz-icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,9 +31,11 @@ import { AuthenticationService } from './services/authentication.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     NgZorroAntdModule,
+    NzIconCustomModule
   ],
 
   providers: [
+    AuthInterceptorProvider,
     AuthenticationService,
     {
       provide: NZ_I18N,
@@ -47,7 +50,6 @@ import { AuthenticationService } from './services/authentication.service';
         }
       }, deps: [LOCALE_ID]
     },
-    {provide: WebSocketService},
     {provide: AuthGuardService},
   ],
   bootstrap: [AppComponent],

@@ -1,38 +1,36 @@
 <div class="content">
-  <div class="table-header" *ngIf="user.profile == 1">
-    <button class="btn btn-secondary" routerLink="add">Adicionar</button>
-  </div>
 
-  <div class="search-area">
-      <nz-form-item>
-        <nz-form-control nzCompact>
-          <nz-input-group nzSearch nzSize="large">
-            <input
-            type="text"
-            nz-input
-            id="document"
-            placeholder="Pesquisar o conteúdo desejado"
-            [formControl]="searchControl"
-            (keyup)="onListByDescription()"
-          />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-  </div>
+    <div class="row">
+        <h2>Base de Conhecimento</h2>
+    </div>
 
-  <div class="content-area">
-    <nz-card [nzTitle]="item.title" *ngFor="let item of knowledges">
-      <div class="card-body">
-        <div [innerHtml]="item.description" id="description"></div>
-      </div>
-      <div class="card-info">
-        <p>Autor: {{item.createdBy.fullname}}</p>
-        <p>Criado em: {{item.createdAt | date: 'dd/MM/yyyy'}} às {{item.createdAt | date: 'HH:MM:SS'}}</p>
-      </div>
-      <div class="card-footer">
-        <button nz-button size="large" (click)="onOpenViewKnowledge(item.id)">Ler mais</button>
-      </div>
-    </nz-card>
-  </div>
+    <div class="table-header" *ngIf="user.profiles.includes('ADMINISTRADOR')">
+        <button class="btn btn-secondary" routerLink="add">Adicionar</button>
+    </div>
+
+    <div class="search-area">
+        <nz-form-item>
+            <nz-form-control nzCompact>
+                <nz-input-group nzSearch nzSize="large">
+                    <input type="text" nz-input id="document" placeholder="Pesquisar o conteúdo desejado" [formControl]="searchControl" (keyup)="onListByDescription()" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div class="content-area">
+        <nz-card [nzTitle]="item.title" *ngFor="let item of knowledges">
+            <div class="card-body">
+                <div [innerHtml]="item.description" id="description"></div>
+            </div>
+            <div class="card-info">
+                <p>Autor: {{item.createdBy.fullname}}</p>
+                <p>Criado em: {{item.createdAt | date: 'dd/MM/yyyy'}} às {{item.createdAt | date: 'HH:MM:SS'}}</p>
+            </div>
+            <div class="card-footer">
+                <button nz-button size="large" (click)="onOpenViewKnowledge(item.id)">Ler mais</button>
+            </div>
+        </nz-card>
+    </div>
 
 </div>

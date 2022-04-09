@@ -1,4 +1,3 @@
-import { WebSocketService } from './../../services/websocket.service';
 import { Status } from './../../models/status.model';
 import { Sector } from './../../models/sector.model';
 import { Client } from './../../models/client.model';
@@ -44,7 +43,7 @@ export class TicketComponent implements OnInit {
 
   paginationDisable = false;
 
-  userProfile: number;
+  userProfile: User;
 
   ticket: Ticket;
   tickets: Ticket[];
@@ -211,7 +210,7 @@ export class TicketComponent implements OnInit {
   }
 
   onVerifyProfile() {
-    this.userProfile = this.storage.getUser().profile;
+    this.userProfile = this.storage.getUser();
     this.userId = this.storage.getUser().id;
   }
 
@@ -384,7 +383,7 @@ export class TicketComponent implements OnInit {
       email: this.storage.getUser().email,
       avatar: null,
       password: null,
-      profile: null,
+      profiles: null,
     }
 
     this.commentForm.patchValue({

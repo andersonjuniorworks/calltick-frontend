@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class RecoveryComponent implements OnInit {
 
   onCreateForm() {
     this.recoveryForm = this.formBuilder.group({
-      email: null
+      email: [null, [Validators.required, Validators.email]]
     });
   }
 

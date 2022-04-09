@@ -1,6 +1,6 @@
 import { User } from './../models/user.model';
 import { tap, take } from 'rxjs/operators';
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { Ticket } from './../models/ticket.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';

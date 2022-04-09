@@ -3,6 +3,6 @@ export interface User {
   fullname: string,
   email: string,
   password: string,
-  profile: number,
+  profiles?: string[],
   avatar: string
 }
